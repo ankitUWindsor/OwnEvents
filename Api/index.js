@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
+const authRouter = require('./routes/auth');
 
 const cors = require('cors')
 
@@ -15,5 +16,7 @@ require('./config/mongodb');
 app.use(cors(corsOptions))
 
 app.use(express.json());
+
+app.use('/api/user', authRouter);
 
 app.listen(3000, () => console.log('server up and running'));
