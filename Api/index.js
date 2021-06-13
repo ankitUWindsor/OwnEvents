@@ -8,7 +8,7 @@ dotenv.config({path: 'env'});
 var corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200
-}
+};
 
 require('./config/mongodb');
 
