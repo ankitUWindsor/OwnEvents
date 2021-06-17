@@ -1,5 +1,5 @@
-import { UserType } from './../../assets/enums';
-import { emailRegex } from './../../assets/constants';
+import { UserType } from './../../../assets/enums';
+import { emailRegex } from './../../../assets/constants';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
