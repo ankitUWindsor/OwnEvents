@@ -1,9 +1,9 @@
-import { userType } from './enums';
+import { UserType } from './enums';
 
 export class User {
   id: string;
   name: string;
   email: string;
   password: string;
-  userType: userType;
+  userType: UserType;
 }
