@@ -1,4 +1,7 @@
+import { emailRegex } from './../../assets/constants';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
-  constructor() { }
+  signupForm: FormGroup;
+  errorMessage: string;
+  constructor(
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.signupForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.pattern(emailRegex)]],
+      name: ['', Validators.required],
+      password: ['', [Validators.required, Validators.maxLength(25)]],
+      reEnterPassword: ['', [Validators.required, Validators.maxLength(25)]],
+      userType: ['', [Validators.required]]
+    });
+  }
+
+  Signup() {
+
   }
 
 }
