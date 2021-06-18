@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/assets/models';
-import { HttpService } from './http.service';
+import { HttpService } from '../http/http.service';
 
 @Injectable({
   providedIn: 'root'
