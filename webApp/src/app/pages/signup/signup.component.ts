@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  Signup() {
+  Signup(): void {
     this.errorMessage = '';
     if (this.signupForm.valid) {
       if (this.signupForm.get('password').value !== this.signupForm.get('reEnterPassword').value) {
