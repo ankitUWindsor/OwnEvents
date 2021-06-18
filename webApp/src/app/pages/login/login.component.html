@@ -18,10 +18,10 @@
           <div [formGroup]="loginForm" class="input-field radio-buttons">
             <input [class.error-input]="submitForm.submitted && !loginForm.get('userType').valid"
              id="organizer" type="radio" name="userType" formControlName="userType" [value]="UserType.Organizer" />
-              <label class="radio-label"> Organizer</label>
+              <label class="radio-label org-fix"> Organizer</label>
             <input [class.error-input]="submitForm.submitted && !loginForm.get('userType').valid"
              id="audience" type="radio" name="userType" formControlName="userType" [value]="UserType.Audience" />
-              <label class="radio-label">Audience</label>
+              <label class="radio-label aud-fix">Audience</label>
         </div>
           <div class="footer">
               <button class="login-button">Login</button>
