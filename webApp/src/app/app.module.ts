@@ -8,13 +8,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { InterestsComponent } from './pages/interests/interests.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    InterestsComponent
   ],
   imports: [
     BrowserModule,
