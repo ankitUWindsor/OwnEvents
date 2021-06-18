@@ -1,0 +1,43 @@
+<main class="container">
+  <div class="login-box">
+      <h1 class="head-text">Own Events</h1>
+
+      <div class="error" *ngIf="errorMessage">
+          <span>{{errorMessage}}</span>
+      </div>
+
+      <form class="form" #submitForm="ngForm" (ngSubmit)="Signup()" novalidate>
+          <div [formGroup]="signupForm" class="input-field">
+              <input class="input" [class.error-input]="submitForm.submitted && !signupForm.get('email').valid"
+               formControlName="email"  type="email" placeholder="Enter Email...">
+          </div>
+          <div [formGroup]="signupForm" class="input-field">
+              <input class="input" [class.error-input]="submitForm.submitted && !signupForm.get('name').valid"
+               formControlName="name" type="text" placeholder="Enter User Name...">
+          </div>
+          <div [formGroup]="signupForm" class="input-field">
+              <input class="input" [class.error-input]="submitForm.submitted && !signupForm.get('password').valid"
+               formControlName="password" type="password" placeholder="Enter Password...">
+          </div>
+          <div [formGroup]="signupForm" class="input-field">
+              <input class="input" [class.error-input]="submitForm.submitted && !signupForm.get('reEnterPassword').valid"
+               formControlName="reEnterPassword" type="password" placeholder="Re-Enter Password...">
+          </div>
+          <div [formGroup]="signupForm" class="input-field">
+              <input [class.error-input]="submitForm.submitted && !signupForm.get('userType').valid"
+               id="organizer" type="radio" name="userType" formControlName="userType" [value]="UserType.Organizer" />
+                <label class="radio-label"> Organizer</label>
+              <input [class.error-input]="submitForm.submitted && !signupForm.get('userType').valid"
+               id="audience" type="radio" name="userType" formControlName="userType" [value]="UserType.Audience" />
+                <label class="radio-label">Audience</label>
+          </div>
+          <div class="footer">
+              <button class="login-button">Sign Up</button>
+              <span class="footer-text">
+                  <span class="account-text">Already have an Account? </span>
+                  <u><b class="link" [routerLink]="['/login']">Login</b></u>
+              </span>
+          </div>
+      </form>
+  </div>
+</main>

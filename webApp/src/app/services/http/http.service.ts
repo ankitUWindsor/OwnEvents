@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpService {
+
+  AUTHORIZATION_KEY = 'auth-token';
+  constructor(private httpClient: HttpClient) { }
+
+  Get(url: string) {
+    return this.httpClient.get(environment.api + url, { headers: this.GetHttpHeaders() });
+  }
+
+  Post(url: string, body: any, header = {}) {
+    return this.httpClient.post(environment.api + url, body, { headers: this.GetHttpHeaders(header) });
+  }
+
+  private GetHttpHeaders(header = {}): HttpHeaders {
+    header['Content-Type'] = 'application/json';
+    header['Access-Control-Allow-Origin'] = '*';
+    if (localStorage.getItem(this.AUTHORIZATION_KEY)) {
+      header['auth-token'] = localStorage.getItem(this.AUTHORIZATION_KEY);
+    }
+    const headers = new HttpHeaders({ ...header });
+
+    return headers;
+  }
+}
