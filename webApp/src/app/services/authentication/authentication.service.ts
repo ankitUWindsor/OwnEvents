@@ -11,12 +11,12 @@ export class AuthenticationService {
   baseUrl = '/user';
   constructor(private httpService: HttpService, private router: Router) { }
 
-  public AuthenticateUser(user: any) {
+  public AuthenticateUser(user: User) {
     return new Promise((resolve, reject) => {
       const header = {
-        'user-token': window.btoa(user.email + ':@#' + user.password + user.userType.type),
+        'user-token': window.btoa(user.email + ':@#' + user.password),
       };
-      this.httpService.Post(this.baseUrl + '/login', null, header).subscribe((response: any) => {
+      this.httpService.Post(this.baseUrl + '/login', {userType: user.userType}, header).subscribe((response: any) => {
         localStorage.setItem(this.httpService.AUTHORIZATION_KEY, response.authToken);
         resolve(response);
       }, (err) => {
