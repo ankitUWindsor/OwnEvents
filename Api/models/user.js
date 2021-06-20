@@ -14,16 +14,23 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    userType:{
-        type: Number,
-        enum: [1, 2],
-        default: 1,
+    gender: {
+        type: String,
+        enum: ["MALE", "FEMALE"],
+    },
+    images: {
+        type: Array,
+        default: []
+    },
+    userType: {
+        type: String,
+        enum: ["ORGANIZERS", "AUDIENCE"],
+        default: "ORGANIZERS",
+    },
+    interestsCategories: {
+        type: [String],
+        enum: ["Online Streaming", "Ourdoor events - Workshops", "Comedy Shows", "Kids", "Performance", "Screening", "Music Shows", "Concerts", "Vaccination", "Talks", "Celebrity Wishes", "Award Shows", "Meetups", "Photography"],
     }
 });
 
-const UserType = {
-    Organizer: 1,
-    Audience: 2
-}
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);
