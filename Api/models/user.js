@@ -14,18 +14,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    gender: {
-        type: String,
-        enum: ["MALE", "FEMALE"],
-    },
-    images: {
-        type: Array,
-        default: []
-    },
     userType: {
-        type: String,
-        enum: ["ORGANIZERS", "AUDIENCE"],
-        default: "ORGANIZERS",
+        type: number,
+        enum: [1, 2],
+        default: 1
     },
     interestsCategories: {
         type: [String],
