@@ -5,15 +5,13 @@
   list-style: none;
   box-sizing: border-box;
 }
-body{
-  font-family: montserrat;
-}
 nav{
   background: black;
   height: 80px;
   width: 100%;
 }
 label.logo{
+  font-family: 'lobster', cursive;
   color: white;
   font-size: 35px;
   line-height: 80px;
@@ -92,7 +90,7 @@ a.active,a:hover{
   }
 }
 section{
-  background: url(https://wintertime.com.sg/wp-content/uploads/2019/07/event-production-company-p2-entertainment-group-1.jpg) no-repeat;
+  background: url('../../../assets/images/background-wallpaper.jpg') no-repeat;
   background-size: cover;
   height: calc(100vh - 80px);
 }
