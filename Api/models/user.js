@@ -14,16 +14,15 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    userType:{
-        type: Number,
+    userType: {
+        type: number,
         enum: [1, 2],
-        default: 1,
+        default: 1
+    },
+    interestsCategories: {
+        type: [String],
+        enum: ["Online Streaming", "Ourdoor events - Workshops", "Comedy Shows", "Kids", "Performance", "Screening", "Music Shows", "Concerts", "Vaccination", "Talks", "Celebrity Wishes", "Award Shows", "Meetups", "Photography"],
     }
 });
 
-const UserType = {
-    Organizer: 1,
-    Audience: 2
-}
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);

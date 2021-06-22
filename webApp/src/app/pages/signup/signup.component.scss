@@ -1,0 +1,130 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  background: url('../../../assets/images/background-wallpaper.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+
+  .login-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.84);
+    border-radius: 15px;
+    padding: 2rem 2rem;
+
+    .head-text {
+      font-family: 'lobster', cursive;
+      font-size: 3.2rem;
+      color: rgba(168, 163, 163, 0.63);
+      padding-bottom: 1.7rem;
+    }
+
+    .error {
+      color: #C70039;
+      font-size: 1.2rem;
+      padding: 1rem 1rem;
+      margin-bottom: 1.7rem;
+      border-color: #C70039;
+      background-color: rgba(238, 43, 43, 0.1);
+      border-width: 1px;
+      border-style: solid;
+      width: 100%;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .org-fix {
+      padding-right: 10%;
+      padding-left: 3%;
+    }
+    
+    .aud-fix {
+      padding-left: 3%;
+    }
+    
+    .form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0rem 6.5rem;
+
+      .input-field {
+        width: 100%;
+        display: flex;
+        font-size: 1.2rem;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 1rem;
+
+        .input {
+          text-align: center;
+          height: 40px;
+          width: 250px;
+          font-size: 1.2rem;
+          background-color: transparent;
+          border-color: rgba(168, 163, 163, 0.63);
+          border-width: 1px;
+          border-radius: 5px;
+          color: rgba(168, 163, 163, 0.63);
+
+          &.error-input {
+            // color: #C70039;
+            border-color: #C70039;
+            border-style: solid;
+            border-radius: 5px;
+            border-width: 1px;
+          }
+        }
+
+        label {
+          color: rgba(168, 163, 163, 0.63);
+        }
+      }
+
+      .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5px;
+
+        .login-button {
+          width: 80px;
+          border-radius: 5px;
+          border-width: 0px;
+          height: 40px;
+          font-size: 1.2rem;
+          background-color: rgba(168, 163, 163, 0.63);
+          cursor: pointer;
+        }
+
+        .footer-text {
+          padding-top: 10px;
+          color: rgba(168, 163, 163, 0.63);
+          .link {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .login-box {
+      overflow: hidden;
+      width: 80vw;
+    }
+
+    .account-text {
+      display: none;
+    }
+  }
+}
