@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.matDialog.open(InterestsComponent, {
-      height: '100vh',
-      width: '100vw',
+      height: '80vh',
+      width: '80vw',
     });
   }
 
