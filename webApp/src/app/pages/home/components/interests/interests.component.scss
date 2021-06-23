@@ -1,0 +1,25 @@
+.container {
+  .header {
+    background-color: rgba(168, 163, 163, 0.63);
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+
+    .heading {
+      font-family: 'lobster', cursive;
+      font-size: 30px;
+    }
+
+    .close-icon {
+      height: 80%;
+      width: 3.2rem;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
