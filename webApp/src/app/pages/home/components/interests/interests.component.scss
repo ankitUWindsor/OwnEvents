@@ -1,5 +1,5 @@
 .container {
-
+  height: 100%;
   .content {
     width: 100%;
     height: inherit;
@@ -7,7 +7,10 @@
     justify-content: center;
     flex-direction: row;
     .to-add-container {
-      height: 80%;
+      padding: 5px 5px;
+      border-style: solid;
+      border-width: 2px;
+      height: 100%;
       width: 50%;
       background-color: white;
       .chip{
@@ -56,7 +59,10 @@
       }
     }
     .added-container {
-      height: 80%;
+      padding: 5px 5px;
+      border-style: solid;
+      border-width: 2px;
+      height: 100%;
       width: 50%;
       background-color: white;
       .chip{
@@ -126,7 +132,7 @@
 
 
   .header {
-    background-color: rgba(233, 10, 10, 0.63);
+    background-color: rgba(168, 163, 163, 0.63);
     height: 8vh;
     display: flex;
     justify-content: space-between;
@@ -141,7 +147,7 @@
     .close-icon {
       height: 80%;
       width: 3.2rem;
-
+      cursor: pointer;
       img {
         height: 100%;
         width: 100%;
