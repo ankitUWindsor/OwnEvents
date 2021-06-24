@@ -1,4 +1,59 @@
 .container {
+
+  .content {
+    width: 100%;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    .to-add-container {
+      height: 80%;
+      width: 50%;
+      background-color: khaki;
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        border: lightcoral;
+        border-radius: 20px;
+        border-width: 2px;
+        width: 30%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        border-style: solid;
+      }
+    }
+    .added-container {
+      height: 80%;
+      width: 50%;
+      background-color: lavenderblush;
+    }
+  }
+
+  @media (max-width: 730px)  {
+    .content {
+      width: 100%;
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .to-add-container {
+        height: 50%;
+        width: 100%;
+        background-color: khaki;
+      }
+      .added-container {
+        height: 50%;
+        width: 100%;
+        background-color: lavenderblush;
+      }
+    }
+  }
+
+
+
   .header {
     background-color: rgba(233, 10, 10, 0.63);
     height: 8vh;
@@ -23,7 +78,7 @@
     }
   }
  // background-color: rgb(30, 177, 142);
- 
+
   height: 95%;
 
   font-family: 'lobster', cursive;
@@ -37,9 +92,9 @@
       background: url('../../../../../assets/images/background-wallpaper.jpg');
       background-attachment: fixed;
       background-size: cover;
-  
+
     }
-    @media (min-width:320px)  { 
+    @media (min-width:320px)  {
       .frame{   height: 280%;}
      }
 @media (min-width:480px)  {  .frame{   height: 300%;} }
@@ -68,7 +123,7 @@
        4px 4px 5px 0px rgba(0,0,0,.1);
       outline: none;
     }
-    
+
     /* Button 1 */
     .btn-1 {
       background: rgb(6,14,131);
@@ -79,13 +134,13 @@
        background: rgb(0,3,255);
     background: linear-gradient(0deg, rgba(0,3,255,1) 0%, rgba(2,126,251,1) 100%);
     }
-    
+
     /* Button 2 */
     .btn-2 {
       background: rgb(96,9,240);
       background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
       border: none;
-      
+
     }
     .btn-2:before {
       height: 0%;
@@ -93,12 +148,12 @@
     }
     .btn-2:hover {
       box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .5),
         inset -4px -4px 6px 0 rgba(255,255,255,.2),
         inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
     }
-    
-    
+
+
     /* Button 3 */
     .btn-3 {
       background: rgb(0,172,238);
@@ -108,7 +163,7 @@
       line-height: 42px;
       padding: 0;
       border: none;
-      
+
     }
     .btn-3 span {
       position: relative;
@@ -169,7 +224,7 @@
     .btn-3 span:hover:after {
       width: 100%;
     }
-    
+
     /* Button 4 */
     .btn-4 {
       background-color: #4dccc6;
@@ -195,7 +250,7 @@
       right: 0;
       top: 0;
        box-shadow:  4px 4px 6px 0 rgba(255,255,255,.9),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.9),
         inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
       transition: all 0.3s ease;
@@ -221,7 +276,7 @@
       left: 0;
       bottom: 0;
       box-shadow:  4px 4px 6px 0 rgba(255,255,255,.9),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.9),
         inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
       transition: all 0.3s ease;
@@ -240,7 +295,7 @@
     .btn-4 span:hover:after {
       width: 100%;
     }
-    
+
     /* Button 5 */
     .btn-5 {
       width: 130px;
@@ -282,8 +337,8 @@
       width:100%;
       transition:800ms ease all;
     }
-    
-    
+
+
     /* Button 6 */
     .btn-6 {
       background: rgb(247,150,192);
@@ -363,7 +418,7 @@
     .btn-6 span:hover:after {
       width: 100%;
     }
-    
+
     /* Button 7 */
     .btn-7 {
     background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
@@ -437,7 +492,7 @@
     .btn-7 span:hover:after {
       width: 100%;
     }
-    
+
     /* Button 8 */
     .btn-8 {
       background-color: #f0ecfc;
@@ -460,7 +515,7 @@
       bottom: 0;
       background: #c797eb;
       /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.5),
         inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
       transition: all 0.3s ease;
@@ -493,7 +548,7 @@
       top: 0;
       background: #c797eb;
       /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.5),
         inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
       transition: all 0.3s ease;
@@ -512,8 +567,8 @@
     .btn-8 span:hover:after {
       width: 100%;
     }
-      
-    
+
+
     /* Button 9 */
     .btn-9 {
       border: none;
@@ -535,7 +590,7 @@
     .btn-9:hover {
       background: transparent;
       box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.5),
         inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
       color: #fff;
@@ -544,11 +599,11 @@
       -webkit-transform: scale(2) rotate(180deg);
       transform: scale(2) rotate(180deg);
       box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.5),
         inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
     }
-    
+
     /* Button 10 */
     .btn-10 {
       background: rgb(22,9,240);
@@ -581,7 +636,7 @@
       -webkit-transform: scale(1);
       transform: scale(1);
     }
-    
+
     /* Button 11 */
     .btn-11 {
       border: none;
@@ -610,20 +665,20 @@
     }
     .btn-11:active{
       box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-                  -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+                  -4px -4px 6px 0 rgba(116, 125, 136, .2),
         inset -4px -4px 6px 0 rgba(255,255,255,.2),
         inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
     }
-    
-    
+
+
     // @-webkit-keyframes shiny-btn1 {
     //     0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
     //     80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
     //     81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
     //     100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
     // }
-    
-    
+
+
     /*Button  12 */
     .btn-12{
       position: relative;
@@ -694,8 +749,8 @@
       -moz-transform: rotateX(-90deg);
       transform: rotateX(-90deg);
     }
-    
-    
+
+
     /* Button 13 */
     .btn-13 {
       background-color: #89d8d3;
@@ -731,8 +786,8 @@
     .btn-13:active {
       top: 2px;
     }
-    
-    
+
+
     /* Button 14 */
     .btn-14 {
       background: rgb(255,151,0);
@@ -766,7 +821,7 @@
     .btn-14:active {
       top: 2px;
     }
-    
+
     /*  Button 15 */
     .btn-15 {
       background: #b621fe;
@@ -798,8 +853,8 @@
     .btn-15:active {
       top: 2px;
     }
-    
-    
+
+
     /* Button 16 */
     .btn-16 {
       border: none;
