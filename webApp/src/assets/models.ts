@@ -1,4 +1,4 @@
-import { UserType } from './enums';
+import { UserType, InterestsCategory } from './enums';
 
 export class User {
   id: string;
@@ -6,6 +6,9 @@ export class User {
   email: string;
   password: string;
   userType: UserType;
+  interests: Array<InterestsCategory>;
 
-  constructor() {}
+  constructor() {
+    this.interests = [];
+   }
 }
