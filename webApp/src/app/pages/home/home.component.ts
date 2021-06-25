@@ -1,6 +1,9 @@
+import { User } from 'src/assets/models';
+import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { InterestsComponent } from './components/interests/interests.component';
+import { UserType } from 'src/assets/enums';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +11,19 @@ import { InterestsComponent } from './components/interests/interests.component';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private matDialog: MatDialog) { }
+  isloading = false;
+  constructor(private matDialog: MatDialog, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.OpenInterestsComponent();
+    this.isloading = true;
+    this.userService.GetUser().then((response: User) => {
+      if (response.userType === UserType.Audience) {
+        this.OpenInterestsComponent();
+      }
+      this.isloading = false;
+    }, (err) => {
+      this.isloading = false;
+    });
   }
 
   OpenInterestsComponent(): void {

@@ -7,6 +7,7 @@ export class User {
   password: string;
   userType: UserType;
   interests: Array<InterestsCategory>;
+  createdDate: string;
 
   constructor() {
     this.interests = [];

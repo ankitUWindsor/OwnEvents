@@ -19,7 +19,7 @@ router.get('/', verifyToken, async (req, res) => {
                 email: user.email,
                 id: user._id,
                 userType: user.userType,
-                interestsCategories: user.interestsCategories,
+                interests: user.interests,
                 createdDate: user.date
             }
         });
@@ -40,13 +40,24 @@ router.post('/update', verifyToken, async (req, res) => {
         }
         const updatedUser = {
             name : req.body.name,
-            interestsCategories: req.body.interestsCategories,
+            interests: req.body.interests,
         }
 
-        User.findByIdAndUpdate(req.user._id, updatedUser).then((result) => {
+        User.findByIdAndUpdate(req.user._id, updatedUser).then( async (result) => {
+            const updatedUser = await User.findOne({
+                _id: req.user._id
+            });
             res.send({
                 success: 200,
-                message: 'User Info Updated'
+                message: 'User Info Updated',
+                result: {
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                    id: updatedUser._id,
+                    userType: updatedUser.userType,
+                    interests: updatedUser.interests,
+                    createdDate: updatedUser.date
+                }
             });
         }) 
         
