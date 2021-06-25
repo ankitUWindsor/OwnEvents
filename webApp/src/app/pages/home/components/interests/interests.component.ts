@@ -1,7 +1,7 @@
-import { InterestsCategory } from './../../../../../assets/enums';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { EventTypes } from 'src/assets/constants';
+import { InterestsCategory } from 'src/assets/enums';
 @Component({
   selector: 'app-interests',
   templateUrl: './interests.component.html',

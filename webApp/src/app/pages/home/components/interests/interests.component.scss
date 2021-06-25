@@ -12,7 +12,7 @@
       border-width: 2px;
       height: 100%;
       width: 50%;
-      background-color: rgb(242, 240, 245);
+      background-color: rgb(55, 55, 56);
       .chip{
         display: inline-flex;
         flex-direction: row;
@@ -64,7 +64,7 @@
       border-width: 2px;
       height: 100%;
       width: 50%;
-      background-color: white;
+      background-color: rgb(55, 55, 56);
       .chip{
         display: inline-flex;
         flex-direction: row;
@@ -119,11 +119,11 @@
       justify-content: center;
       flex-direction: column;
       .to-add-container {
-        height: 50%;
+        height: 100%;
         width: 100%;
       }
       .added-container {
-        height: 50%;
+        height: 100%;
         width: 100%;
       }
     }
@@ -133,7 +133,7 @@
 
   .header {
     background-color: rgba(236, 17, 17, 0.63);
-    height: 8vh;
+    height: 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -147,7 +147,7 @@
     }
 
     .close-icon {
-      height: 80%;
+      height: 35%;
       width: 3.2rem;
       cursor: pointer;
       img {
