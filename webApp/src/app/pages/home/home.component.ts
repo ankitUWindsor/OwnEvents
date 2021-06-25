@@ -12,9 +12,19 @@ export class HomeComponent implements OnInit {
   constructor(private matDialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.OpenInterestsComponent();
+  }
+
+  OpenInterestsComponent(): void {
+    let height = '80vh';
+    let width = '80vw';
+    if (screen.width <= 730) {
+      height = '100vh';
+      width = '100vw';
+    }
     this.matDialog.open(InterestsComponent, {
-      height: '80vh',
-      width: '80vw',
+      height,
+      width,
     });
   }
 

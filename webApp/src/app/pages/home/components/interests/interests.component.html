@@ -9,89 +9,22 @@
     </div>
   </div>
 
-     <!-- <div class="frame ">
-
-      <button class="custom-btn btn-1"><span>Online</span></button>
-      <button class="custom-btn btn-2"><span>Workshops</span></button>
-      <button class="custom-btn btn-3"><span>Comedy Shows</span></button>
-      <button class="custom-btn btn-4"><span>Kids</span></button>
-      <button class="custom-btn btn-5"><span>Performance</span></button>
-      <button class="custom-btn btn-6"><span>Screening</span></button>
-      <button class="custom-btn btn-7"><span>Music Shows</span></button>
-      <button class="custom-btn btn-8"><span>Concerts</span></button>
-      <button class="custom-btn btn-9"><span>Vaccination</span></button>
-      <button class="custom-btn btn-10"><span>Talks</span></button>
-      <button class="custom-btn btn-11"><span>Wishes</span><div class="dot"></div></button>
-      <button class="custom-btn btn-12"><span>Click!</span><span>Award Shows</span></button>
-      <button class="custom-btn btn-13"><span>Meetups</span></button>
-      <button class="custom-btn btn-14"><span>Photography</span></button>
-
-    </div> -->
-
   <div class="content">
-    <div class="to-add-container">
+    <div *ngIf="unselectedTypes.length || getScreenWidth() > 730" class="to-add-container">
       <div class="chip" *ngFor="let item of unselectedTypes; let i=index">
         <div class="chip-content">{{item.text}}</div>
         <div (click)="AddInterest(i)" class="chip-close">
             <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
         </div>
       </div>
-      <!-- <div class="chip">
-        <div class="chip-content">Ourdoor events - Workshops</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-content">Comedy Shows</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-content">Kids</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div> -->
     </div>
-    <div class="added-container">
+    <div *ngIf="selectedTypes.length || getScreenWidth() > 730" class="added-container">
       <div class="chip" *ngFor="let item of selectedTypes; let i=index">
         <div class="chip-content">{{item.text}}</div>
         <div class="chip-close" (click)="RemoveInterest(i)">
             <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
         </div>
       </div>
-      <!-- <div class="chip">
-        <div class="chip-content">Screening</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-content">Music Shows</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-content">Concerts</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-content">Award Shows</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-content">Photography</div>
-        <div class="chip-close">
-            <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
-      </div> -->
     </div>
   </div>
 

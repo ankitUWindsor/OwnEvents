@@ -37,4 +37,8 @@ export class InterestsComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  getScreenWidth(): number{
+    return screen.width;
+  }
+
 }
