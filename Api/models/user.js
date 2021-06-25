@@ -15,13 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     userType: {
-        type: number,
+        type: Number,
         enum: [1, 2],
         default: 1
     },
     interestsCategories: {
-        type: [String],
-        enum: ["Online Streaming", "Ourdoor events - Workshops", "Comedy Shows", "Kids", "Performance", "Screening", "Music Shows", "Concerts", "Vaccination", "Talks", "Celebrity Wishes", "Award Shows", "Meetups", "Photography"],
+        type: [Number],
+        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
     }
 });
 
