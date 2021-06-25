@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from 'src/assets/models';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ import { UserType } from 'src/assets/enums';
 })
 export class HomeComponent implements OnInit {
   isloading = false;
-  constructor(private matDialog: MatDialog, private userService: UserService) { }
+  constructor(private matDialog: MatDialog, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.isloading = true;
@@ -39,4 +40,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  Logout(): void {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
+
+  CheckActiveLink(route: string): boolean {
+    return route === this.router.url.split('/')[this.router.url.split('/').length - 1];
+  }
 }

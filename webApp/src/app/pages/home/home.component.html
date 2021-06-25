@@ -7,12 +7,10 @@
       </label>
       <label class="logo">OwnEvents</label>
       <ul>
-        <li><a class="active" href="#">Home</a></li>
-        <li><a href="#">Create Event</a></li>
-        <li><a href="#">Event Booking</a></li>
-        <li><a href="#">Event Scheduling</a></li>
-        <li><a href="#">Venues</a></li>
-        <li><a href="#">Event Reviews</a></li>
+        <li [routerLink]="['updates']"><a [class.active]="CheckActiveLink('updates')">Home</a></li>
+        <li><a href="#">Bookings</a></li>
+        <li [routerLink]="['profile']"><a [class.active]="CheckActiveLink('profile')">Profile</a></li>
+        <li (click)="Logout()"><a>Logout</a></li>
       </ul>
     </nav>
     <section>

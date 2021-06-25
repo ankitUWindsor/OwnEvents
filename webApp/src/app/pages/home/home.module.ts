@@ -7,10 +7,12 @@ import { HomeRoutingModule } from './home-routing.module';
 import { InterestsComponent } from './components/interests/interests.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './components/profile/profile.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
-    HomeComponent, InterestsComponent
+    HomeComponent, InterestsComponent, ProfileComponent, MainComponent
   ],
   imports: [
     HomeRoutingModule,
