@@ -1,1 +1,22 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="profile">
+      <div class="edit">
+          <img src="../../../../../assets/images/edit.svg">
+      </div>
+      <div class="user-details">
+          <img src="../../../../../assets/images/user.png">
+          <ul class="list">
+            <li class="item"><b>Name:</b> {{userService.user.name}}</li>
+            <li class="item"><b>Email:</b> {{userService.user.email}}</li>
+            <li class="item"><b>Interests:</b> {{GetInterestsList()}}</li>
+          </ul>
+      </div>
+      <div class="content">
+          <div class="row">
+          </div>
+      </div>
+      <div class="footer">
+
+      </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 nav{
+  position: fixed;
   background: black;
   height: 80px;
   width: 100%;
@@ -90,7 +91,8 @@ a.active,a:hover{
   }
 }
 section{
+  background-attachment: fixed;
   background: url('../../../assets/images/background-wallpaper.jpg') no-repeat;
   background-size: cover;
-  height: calc(100vh - 80px);
+  // height: calc(100vh - 80px);
 }
