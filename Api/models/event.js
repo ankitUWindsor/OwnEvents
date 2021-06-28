@@ -27,13 +27,10 @@ const eventSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
-    eventDuration: {
-        type: Number,
-    },
-    StartDateAndTime: {
+    startDateAndTime: {
         type: Date
     },
-    EndDateAndTime: {
+    endDateAndTime: {
         type: Date
     },
     capacity: {
@@ -49,6 +46,10 @@ const eventSchema = new mongoose.Schema({
     createdDate: {
         type: Date,
         default: Date.now,
+    },
+    isDelete: {
+        type: Boolean,
+        default: false
     }
 });
 

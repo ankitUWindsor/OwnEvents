@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/userController');
+const eventRouter = require('./routes/eventController');
 
 const cors = require('cors')
 
@@ -21,5 +22,7 @@ app.use(express.json());
 app.use('/api/user', authRouter);
 
 app.use('/api/userInfo', userRouter);
+
+app.use('/api/event', eventRouter);
 
 app.listen(3000, () => console.log('server up and running'));
