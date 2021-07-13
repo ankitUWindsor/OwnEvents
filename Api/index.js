@@ -25,4 +25,4 @@ app.use('/api/userInfo', userRouter);
 
 app.use('/api/event', eventRouter);
 
-app.listen(3000, () => console.log('server up and running'));
+app.listen(process.env.PORT, () => console.log('server up and running'));
