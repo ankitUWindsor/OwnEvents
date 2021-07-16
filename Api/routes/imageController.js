@@ -21,18 +21,17 @@ dotenv.config();
 
 router.post('/upload', [verifyToken, upload], async (req, res) => {
     try {
-        const blobService = azure.createBlobService(process.env.STORAGE_NAME,process.env.ACCESS_KEY);
+        const blobService = azure.createBlobService(process.env.STORAGE_NAME, process.env.ACCESS_KEY);
 
         const uploadOptions = {
             container: process.env.STORAGE_CONTAINER_NAME,
-            blob: `${uuidv4()}.${req.file.originalname}`, 
-            fileContent: req.file.buffer 
+            blob: `${uuidv4()}.${req.file.originalname}`,
+            fileContent: req.file.buffer
         }
-        
+
         blobService.createBlockBlobFromText(uploadOptions.container,
             uploadOptions.blob,
-            uploadOptions.fileContent, 
-            {
+            uploadOptions.fileContent, {
                 contentType: 'image/jpeg',
                 contentEncoding: 'base64'
             }, (error, result, response) => {

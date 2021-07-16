@@ -26,3 +26,8 @@ export enum InterestsCategory {
   Fashion = 20,
   Art = 21
 }
+
+export enum EventStatus {
+  Active = 1,
+  Cancelled = 2
+}
