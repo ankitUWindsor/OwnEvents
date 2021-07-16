@@ -5,6 +5,7 @@ const authRouter = require('./routes/auth');
 const userRouter = require('./routes/userController');
 const eventRouter = require('./routes/eventController');
 const imageRouter = require('./routes/imageController');
+const bookingRouter = require('./routes/bookingController');
 
 const cors = require('cors')
 
@@ -25,6 +26,8 @@ app.use('/api/user', authRouter);
 app.use('/api/userInfo', userRouter);
 
 app.use('/api/event', eventRouter);
+
+app.use('/api/booking', bookingRouter);
 
 app.use('/api/images', imageRouter);
 
