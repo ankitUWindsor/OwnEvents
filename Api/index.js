@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/userController');
 const eventRouter = require('./routes/eventController');
+const imageRouter = require('./routes/imageController');
 
 const cors = require('cors')
 
@@ -24,5 +25,7 @@ app.use('/api/user', authRouter);
 app.use('/api/userInfo', userRouter);
 
 app.use('/api/event', eventRouter);
+
+app.use('/api/images', imageRouter);
 
 app.listen(process.env.PORT, () => console.log('server up and running'));

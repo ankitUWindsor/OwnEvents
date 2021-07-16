@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // api: 'http://localhost:3000/api'
-  api: 'https://own-events.azurewebsites.net/api'
+  api: 'https://own-events.azurewebsites.net/api',
+  publicStorage: 'https://owneventspublicstorage.blob.core.windows.net/imagecontainer/'
 };
 
 /*
