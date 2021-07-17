@@ -7,7 +7,7 @@ import { HttpService } from '../http/http.service';
 })
 export class UserService {
   user: User;
-  baseUrl = '/userInfo';
+  private baseUrl = '/userInfo';
   constructor(private httpService: HttpService) { }
 
   public GetUser(): Promise<any> {

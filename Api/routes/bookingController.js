@@ -16,6 +16,7 @@ router.post('/create', verifytoken, async (req, res) => {
 
         if (foundAt !== -1) {
             res.status(200).send({
+                success: 409,
                 message: 'Booking Already Exists'
             });
         } else {
@@ -35,8 +36,8 @@ router.post('/create', verifytoken, async (req, res) => {
 
             await booking.save();
 
-            res.status(201).send({
-                success: 201,
+            res.status(200).send({
+                success: 200,
                 result: await GetCompleteBookingInfo(booking),
                 message: 'Booking Complete'
             });
@@ -53,8 +54,8 @@ router.post('/update', verifytoken, async (req, res) => {
             _id: req.body.id
         });
         if (!booking) {
-            res.send({
-                success: 0,
+            res.status(200).send({
+                success: 404,
                 message: 'Booking does not Exist'
             });
         }
@@ -126,7 +127,7 @@ router.get('/list', verifytoken, async (req, res) => {
 router.delete('/cancel', verifytoken, async (req, res) => {
     try {
         const booking = await Booking.findOne({
-            _id: req.body.id
+            _id: req.query.id
         });
         booking.isCanceled = true;
         await booking.save();

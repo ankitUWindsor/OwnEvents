@@ -18,6 +18,10 @@ export class HttpService {
     return this.httpClient.post(environment.api + url, body, { headers: this.GetHttpHeaders(header) });
   }
 
+  Delete(url: string, header = {}) {
+    return this.httpClient.delete(environment.api + url, { headers: this.GetHttpHeaders(header) });
+  }
+
   private GetHttpHeaders(header = {}): HttpHeaders {
     header['Content-Type'] = 'application/json';
     header['Access-Control-Allow-Origin'] = '*';
