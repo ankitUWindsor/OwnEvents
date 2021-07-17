@@ -1,4 +1,4 @@
-import { UserType, InterestsCategory } from './enums';
+import { UserType, InterestsCategory, EventStatus } from './enums';
 
 export class User {
   id: string;
@@ -18,7 +18,7 @@ export class Event {
   interests: Array<InterestsCategory>;
   eventName: string;
   description: string;
-  status: 1;
+  status: EventStatus;
   location: string;
   organizerId: string;
   startDateAndTime: Date;
@@ -32,4 +32,21 @@ export class Event {
     this.images = [];
     this.participantIds = [];
   }
+}
+
+export class Booking {
+  id: string;
+  name: string;
+  organizerId: string;
+  eventId: string;
+  seatCount: number;
+  participantId: string;
+  isCanceled: boolean;
+  event: {
+    startDateAndTime?: Date;
+    endDateAndTime?: Date;
+    capacity?: number;
+    eventName?: string
+  };
+
 }
