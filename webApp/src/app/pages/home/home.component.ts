@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
         this.OpenInterestsComponent();
       }
 
-      this.OpenInterestsComponent();
       this.isloading = false;
     }, (err) => {
       this.isloading = false;
