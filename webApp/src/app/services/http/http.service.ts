@@ -18,6 +18,11 @@ export class HttpService {
     return this.httpClient.post(environment.api + url, body, { headers: this.GetHttpHeaders(header) });
   }
 
+  Put(url: string, body: any, header = {}) {
+    return this.httpClient.put(environment.api + url, body, { headers: this.GetHttpHeaders(header) });
+  }
+
+
   Delete(url: string, header = {}) {
     return this.httpClient.delete(environment.api + url, { headers: this.GetHttpHeaders(header) });
   }

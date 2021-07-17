@@ -8,7 +8,9 @@
       <label class="logo">OwnEvents</label>
       <ul>
         <li [routerLink]="['updates']"><a [class.active]="CheckActiveLink('updates')">Home</a></li>
-        <li><a href="#">Bookings</a></li>
+        <li><a>Events</a></li>
+        <li><a>Bookings</a></li>
+        <li (click)="CreateNewEvent()"><a>Create Event</a></li>
         <li [routerLink]="['profile']"><a [class.active]="CheckActiveLink('profile')">Profile</a></li>
         <li (click)="Logout()"><a>Logout</a></li>
       </ul>

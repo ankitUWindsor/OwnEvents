@@ -1,3 +1,4 @@
+import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { Router } from '@angular/router';
 import { User } from 'src/assets/models';
 import { UserService } from './../../services/user/user.service';
@@ -13,14 +14,24 @@ import { UserType } from 'src/assets/enums';
 })
 export class HomeComponent implements OnInit {
   isloading = false;
+
   constructor(private matDialog: MatDialog, private userService: UserService, private router: Router) { }
 
+  get isOrganizer(): boolean {
+    return this.userService.user.userType === UserType.Organizer;
+  }
+
   ngOnInit(): void {
+    // this.CreateNewEvent();
+
+
     this.isloading = true;
     this.userService.GetUser().then((response: User) => {
       if (response.userType === UserType.Audience) {
         this.OpenInterestsComponent();
       }
+
+      this.OpenInterestsComponent();
       this.isloading = false;
     }, (err) => {
       this.isloading = false;
@@ -35,8 +46,8 @@ export class HomeComponent implements OnInit {
       width = '100vw';
     }
     this.matDialog.open(InterestsComponent, {
-      height,
-      width,
+      height: '100vh',
+      width: '100vw',
     });
   }
 
@@ -48,4 +59,12 @@ export class HomeComponent implements OnInit {
   CheckActiveLink(route: string): boolean {
     return route === this.router.url.split('/')[this.router.url.split('/').length - 1];
   }
+
+  CreateNewEvent(): void {
+    this.matDialog.open(EventEditorComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+  }
+
 }
