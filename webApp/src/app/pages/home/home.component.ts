@@ -14,7 +14,7 @@ import { UserType } from 'src/assets/enums';
 })
 export class HomeComponent implements OnInit {
   isloading = false;
-
+  sideNavCheckBox: boolean;
   constructor(private matDialog: MatDialog, private userService: UserService, private router: Router) { }
 
   get isOrganizer(): boolean {
@@ -22,9 +22,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.CreateNewEvent();
-
-
     this.isloading = true;
     this.userService.GetUser().then((response: User) => {
       if (response.userType === UserType.Audience) {
@@ -64,6 +61,21 @@ export class HomeComponent implements OnInit {
       height: '100vh',
       width: '100vw'
     });
+  }
+
+  SideNavChange(event: boolean): void {
+    let time = 0;
+    if (!event) {
+      time = 350;
+    }
+    setTimeout(() => {
+      this.userService.isNavBarOpen = event;
+    }, time);
+  }
+
+  CloseNavBar(): void {
+    this.sideNavCheckBox = false;
+    this.SideNavChange(this.sideNavCheckBox);
   }
 
 }
