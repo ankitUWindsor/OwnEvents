@@ -12,6 +12,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { CommonModule } from '@angular/common';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

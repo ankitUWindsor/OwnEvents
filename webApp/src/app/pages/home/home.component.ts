@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   }
   UserType = UserType;
   ngOnInit(): void {
+    this.CreateNewEvent();
     this.isloading = true;
     this.userService.GetUser().then((response: User) => {
       this.isloading = false;

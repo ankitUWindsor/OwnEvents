@@ -23,3 +23,5 @@ export const EventTypes = [
   { text: 'Fashion', enumValue: 'Fashion' },
   { text: 'Art', enumValue: 'Art' }
 ];
+
+export const MIN_CAPACITY = 10;

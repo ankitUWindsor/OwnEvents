@@ -25,6 +25,9 @@ $ownEvents-theme: mat-light-theme($ownEvents-primary, $ownEvents-accent, $ownEve
 // that you are using.
 @include angular-material-theme($ownEvents-theme);
 /* You can add global styles to this file, and also import other style files */
+
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
 * {
   margin: 0;
   padding: 0;

@@ -1,3 +1,4 @@
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,9 @@ import { BookingEditorComponent } from './components/booking-editor/booking-edit
     MatDialogModule,
     FormsModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   entryComponents: [InterestsComponent, EventEditorComponent, BookingEditorComponent]
 })

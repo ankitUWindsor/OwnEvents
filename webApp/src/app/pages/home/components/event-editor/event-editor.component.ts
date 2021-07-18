@@ -1,3 +1,4 @@
+import { MIN_CAPACITY } from './../../../../../assets/constants';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -8,19 +9,33 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./event-editor.component.scss']
 })
 export class EventEditorComponent implements OnInit {
-  signupForm: FormGroup;
+  createForm: FormGroup;
+  capacity = 10;
   constructor(
     private dialogRef: MatDialogRef<EventEditorComponent>,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.signupForm = this.formBuilder.group({
+    this.createForm = this.formBuilder.group({
       email: ['', Validators.required],
       name: ['', Validators.required],
       password: ['', [Validators.required, Validators.maxLength(25)]],
       reEnterPassword: ['', [Validators.required, Validators.maxLength(25)]],
       userType: ['', [Validators.required]]
     });
+
+    window.onclick = (event) => {
+      if (!event.target.matches('.dropbtn')) {
+        const dropdowns = document.getElementsByClassName('dropdown-content');
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < dropdowns.length; i++) {
+          const openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
   }
 
   CloseDialog(): void {
@@ -35,5 +50,14 @@ export class EventEditorComponent implements OnInit {
 
   }
 
+  ToggleDropdown(): void {
+    document.getElementById('myDropdown').classList.toggle('show');
+  }
+
+  ChangeCapacity(count: number): void {
+    if (this.capacity + count >= MIN_CAPACITY) {
+      this.capacity += count;
+    }
+  }
 
 }
