@@ -10,10 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MainComponent } from './components/main/main.component';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
+import { BookingEditorComponent } from './components/booking-editor/booking-editor.component';
 
 @NgModule({
   declarations: [
-    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent
+    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent, BookingEditorComponent
   ],
   imports: [
     HomeRoutingModule,
@@ -22,6 +23,6 @@ import { EventEditorComponent } from './components/event-editor/event-editor.com
     CommonModule,
     ReactiveFormsModule
   ],
-  entryComponents: [InterestsComponent, EventEditorComponent]
+  entryComponents: [InterestsComponent, EventEditorComponent, BookingEditorComponent]
 })
 export class HomeModule { }
