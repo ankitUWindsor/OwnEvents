@@ -52,6 +52,7 @@
       height: 90%;
       padding-right: 15px;
       button{
+        border-style: solid;
         display: flex;
         align-items: center;
         border-radius: 5px;
@@ -60,9 +61,9 @@
         font-size: 16px;
       }
       .save{
-        background-color: #D6EAF8;
-        border-color: #2E86C1;
-        color: #2E86C1;
+        background-color: #2e7534;
+        border-color: #2e7534;
+        color: #ffffff;
       }
     }
 
