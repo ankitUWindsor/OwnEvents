@@ -20,6 +20,7 @@ export class UserService {
         resolve(response.result);
       }, (err) => {
         reject(err.message);
+        localStorage.clear();
         this.router.navigate(['login']);
       });
     });
@@ -32,6 +33,7 @@ export class UserService {
         resolve(response.result);
       }, (err) => {
         reject(err.message);
+        localStorage.clear();
         this.router.navigate(['login']);
       });
     });

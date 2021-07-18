@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { Router } from '@angular/router';
 import { User } from 'src/assets/models';
@@ -15,20 +16,28 @@ import { UserType } from 'src/assets/enums';
 export class HomeComponent implements OnInit {
   isloading = false;
   sideNavCheckBox: boolean;
-  constructor(private matDialog: MatDialog, private userService: UserService, private router: Router) { }
+  constructor(
+    private matDialog: MatDialog,
+    private userService: UserService,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   get isOrganizer(): boolean {
     return this.userService.user.userType === UserType.Organizer;
   }
 
+  get userType(): UserType {
+    return this.userService.user.userType;
+  }
+  UserType = UserType;
   ngOnInit(): void {
     this.isloading = true;
     this.userService.GetUser().then((response: User) => {
+      this.isloading = false;
       if (response.userType === UserType.Audience) {
         this.OpenInterestsComponent();
       }
 
-      this.isloading = false;
     }, (err) => {
       this.isloading = false;
     });
@@ -48,8 +57,7 @@ export class HomeComponent implements OnInit {
   }
 
   Logout(): void {
-    localStorage.clear();
-    this.router.navigate(['login']);
+    this.authenticationService.logout();
   }
 
   CheckActiveLink(route: string): boolean {

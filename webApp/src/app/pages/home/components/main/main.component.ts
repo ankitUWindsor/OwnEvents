@@ -1,3 +1,4 @@
+import { UserType } from 'src/assets/enums';
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
 import { EventService } from './../../../../services/event/event.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,7 @@ import { Event } from 'src/assets/models';
 import { UserService } from 'src/app/services/user/user.service';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
+import { EventEditorComponent } from '../event-editor/event-editor.component';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -17,6 +19,12 @@ export class MainComponent implements OnInit {
   get isNavBarOpen(): boolean {
     return this.userService.isNavBarOpen;
   }
+
+  get userType(): UserType {
+    return this.userService.user.userType;
+  }
+  UserType = UserType;
+
   constructor(
     private eventService: EventService,
     private matDialog: MatDialog,
@@ -40,6 +48,13 @@ export class MainComponent implements OnInit {
 
   OpenBookingEditor(): void {
     this.matDialog.open(BookingEditorComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+  }
+
+  OpenEventEditor(): void {
+    this.matDialog.open(EventEditorComponent, {
       height: '100vh',
       width: '100vw'
     });

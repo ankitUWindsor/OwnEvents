@@ -1,6 +1,7 @@
 <div class="main-container">
-  <div class="header" [style.display]="isNavBarOpen ? 'none' : 'flex'" >
-    <button class="interests-btn">My Interests</button>
+  <div class="header" [style.justify-content]="userType === UserType.Audience ? 'space-between' : 'center'"
+    [style.display]="isNavBarOpen ? 'none' : 'flex'">
+    <button *ngIf="userType === UserType.Audience" class="interests-btn">My Interests</button>
     <div class="search-bar">
       <input class="input" type="text" placeholder="Search...">
       <div class="header-image">
@@ -47,7 +48,10 @@
         </div>
         <div class="footer-item time">June'19 12:30pm - June'19 1:30pm</div>
         <div class="footer-item capacity">Capacity- 10/50</div>
-        <div class="footer-item book-btn"><button (click)="OpenBookingEditor()">Book Now</button></div>
+        <div class="footer-item book-btn" *ngIf="userType === UserType.Audience"><button
+            (click)="OpenBookingEditor()">Book Now</button></div>
+        <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer"><button
+            (click)="OpenEventEditor()">Edit</button></div>
       </div>
     </div>
     <div class="image-block">
