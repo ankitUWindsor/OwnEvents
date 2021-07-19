@@ -38,7 +38,9 @@ router.post('/upload', [verifyToken, upload], async (req, res) => {
                 if (error) {
                     res.status(400).send(error);
                 } else {
-                    res.status(201).send(uploadOptions.blob);
+                    res.status(201).send({
+                        result: uploadOptions.blob
+                    });
                 }
             });
 

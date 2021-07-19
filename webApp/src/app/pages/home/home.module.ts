@@ -12,10 +12,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MainComponent } from './components/main/main.component';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { BookingEditorComponent } from './components/booking-editor/booking-editor.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
-    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent, BookingEditorComponent
+    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent, BookingEditorComponent, LoaderComponent
   ],
   imports: [
     HomeRoutingModule,

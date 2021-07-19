@@ -19,7 +19,6 @@ export class AssetService {
         reject(err);
       });
     });
-
   }
 
   GetImageUrl(name: string): string {

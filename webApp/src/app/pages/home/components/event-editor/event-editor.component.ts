@@ -21,6 +21,7 @@ export class EventEditorComponent implements OnInit {
   InterestsCategories = InterestsCategory;
   isLoading: boolean;
   errorMessage: any;
+  isUploading: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<EventEditorComponent>,
@@ -82,9 +83,11 @@ export class EventEditorComponent implements OnInit {
   }
 
   UploadImage(event): void {
+    this.isUploading = true;
     this.assetService.UploadImage(event.target.files[0]).then((response) => {
-      // debugger;
-    });
+      this.event.images.push(response);
+      this.isUploading = false;
+    }, err => this.isUploading = false);
   }
 
   CreateUpdateEvent(): void {
