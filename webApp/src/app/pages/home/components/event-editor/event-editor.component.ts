@@ -20,6 +20,7 @@ export class EventEditorComponent implements OnInit {
   categories = EventTypes;
   InterestsCategories = InterestsCategory;
   isLoading: boolean;
+  errorMessage: any;
 
   constructor(
     private dialogRef: MatDialogRef<EventEditorComponent>,
@@ -108,6 +109,16 @@ export class EventEditorComponent implements OnInit {
 
   RemoveImage(index: number): void {
     this.event.images.splice(index, 1);
+  }
+
+  CheckFormValidation() {
+    if (!this.event.eventName.trim().length || !this.event.description.trim().length) {
+      this.errorMessage = 'fill all fields';
+    } else if (!this.event.interests.length) {
+      this.errorMessage = 'Event Categories Missing';
+    } else if (!this.event.images.length) {
+      this.errorMessage = 'Event Categories Missing';
+    }
   }
 
 

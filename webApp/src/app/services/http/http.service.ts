@@ -35,6 +35,9 @@ export class HttpService {
     if (localStorage.getItem(this.AUTHORIZATION_KEY)) {
       header['auth-token'] = localStorage.getItem(this.AUTHORIZATION_KEY);
     }
+    if (!header['Content-Type'].trim().length) {
+      delete header['Content-Type'];
+    }
     const headers = new HttpHeaders({ ...header });
 
     return headers;
