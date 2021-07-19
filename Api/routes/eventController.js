@@ -56,9 +56,9 @@ router.get('/list', verifytoken, async (req, res) => {
     }
 });
 
-router.put('/update', verifytoken, async (req, res) => {
+router.post('/update', verifytoken, async (req, res) => {
     const event = await Event.findOne({
-        _id: req.body._id
+        _id: req.body.id
     });
     if (!event) {
         res.send({
@@ -79,7 +79,7 @@ router.put('/update', verifytoken, async (req, res) => {
         images: req.body.images
     }
 
-    Event.findByIdAndUpdate(req.body._id, updatedEvent).then((result) => {
+    Event.findByIdAndUpdate(req.body.id, updatedEvent).then((result) => {
         res.send({
             success: 200,
             message: 'Event Info Updated'
@@ -90,7 +90,7 @@ router.put('/update', verifytoken, async (req, res) => {
 router.put('/updateStatus', verifytoken, async (req, res) => {
     let status = req.body.status
     try {
-        Event.findByIdAndUpdate(req.body._id, {
+        Event.findByIdAndUpdate(req.body.id, {
             status
         }).then((result) => {
             res.send({
@@ -107,7 +107,7 @@ router.put('/updateStatus', verifytoken, async (req, res) => {
 })
 
 router.delete('/delete', verifytoken, async (req, res) => {
-    Event.findByIdAndUpdate(req.body._id, {
+    Event.findByIdAndUpdate(req.body.id, {
         isDelete: true
     }).then((result) => {
         res.send({

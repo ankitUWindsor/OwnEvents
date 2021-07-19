@@ -1,12 +1,14 @@
+import { InterestsCategory } from './../../../../../assets/enums';
 import { UserType } from 'src/assets/enums';
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
 import { EventService } from './../../../../services/event/event.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Event } from 'src/assets/models';
 import { UserService } from 'src/app/services/user/user.service';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { EventEditorComponent } from '../event-editor/event-editor.component';
+import { EventTypes } from 'src/assets/constants';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -14,6 +16,7 @@ import { EventEditorComponent } from '../event-editor/event-editor.component';
 })
 export class MainComponent implements OnInit {
   events: Array<Event> = [];
+  eventImageIndexes: Array<number> = [];
   isLoading = true;
 
   get isNavBarOpen(): boolean {
@@ -38,12 +41,17 @@ export class MainComponent implements OnInit {
     this.isLoading = true;
     this.eventService.GetEvents().then((response) => {
       this.events = response;
+      if (this.userService.user.userType === UserType.Organizer) {
+        this.events = this.events.filter((item) => {
+          return item.organizerId === this.userService.user.id;
+        });
+      }
       this.isLoading = false;
     });
   }
 
   GetMomentDate(date: Date): string {
-    return moment(new Date()).format('llll');
+    return moment(new Date(date)).format('lll');
   }
 
   OpenBookingEditor(): void {
@@ -53,11 +61,29 @@ export class MainComponent implements OnInit {
     });
   }
 
-  OpenEventEditor(): void {
-    this.matDialog.open(EventEditorComponent, {
+  OpenEventEditor(event: Event, index: number): void {
+    const dialogReference = this.matDialog.open(EventEditorComponent, {
       height: '100vh',
       width: '100vw'
     });
+    dialogReference.componentInstance.isEditMode = true;
+    dialogReference.componentInstance.event = JSON.parse(JSON.stringify(event));
+
+    dialogReference.afterClosed().subscribe((event: Event) => {
+      if (event) {
+        this.events[index] = event;
+      }
+    });
   }
+
+  GetInterestName(interest): string {
+    const foundAt = EventTypes.findIndex(item => InterestsCategory[interest] === item.enumValue);
+    if (foundAt === -1) {
+      return '';
+    } else {
+      return EventTypes[foundAt].text;
+    }
+  }
+
 
 }

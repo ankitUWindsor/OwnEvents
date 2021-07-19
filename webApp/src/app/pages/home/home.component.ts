@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
   }
   UserType = UserType;
   ngOnInit(): void {
-    this.CreateNewEvent();
     this.isloading = true;
     this.userService.GetUser().then((response: User) => {
       this.isloading = false;
@@ -66,9 +65,14 @@ export class HomeComponent implements OnInit {
   }
 
   CreateNewEvent(): void {
-    this.matDialog.open(EventEditorComponent, {
+    const dialogRef = this.matDialog.open(EventEditorComponent, {
       height: '100vh',
       width: '100vw'
+    });
+    dialogRef.afterClosed().subscribe((response) => {
+      if (response) {
+
+      }
     });
   }
 

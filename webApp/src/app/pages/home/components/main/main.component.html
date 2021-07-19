@@ -10,11 +10,11 @@
     </div>
   </div>
   <div class="container">
-    <div class="image-block">
+    <div class="image-block" *ngFor="let item of events;let i=index">
       <div class="user-block">
         <div class="user-details">
           <!-- <img src="../../../../../assets/user.png"> -->
-          <span>Coldplay concert</span>
+          <span>{{item.eventName}}</span>
         </div>
         <div class="options">
           <div class="line"></div>
@@ -34,30 +34,29 @@
         </div>
       </div>
       <div class=footer>
-        <div class="footer-item desc">This is the description here you can write anything you want.</div>
+        <div class="footer-item desc">{{item.description}}</div>
         <div class="footer-item category">
-          <div class="chip">
-            <div class="chip-content">Concert</div>
+          <div class="chip" *ngFor="let interest of item.interests">
+            <div class="chip-content">{{GetInterestName(interest)}}</div>
           </div>
-          <div class="chip  chip-red">
+          <!-- <div class="chip  chip-red">
             <div class="chip-content">Something</div>
           </div>
           <div class="chip  chip-red">
             <div class="chip-content">Adventure</div>
-          </div>
+          </div> -->
         </div>
-        <div class="footer-item time">June'19 12:30pm - June'19 1:30pm</div>
-        <div class="footer-item capacity">Capacity- 10/50</div>
+        <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} - {{GetMomentDate(item.endDateAndTime)}}</div>
+        <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div>
         <div class="footer-item book-btn" *ngIf="userType === UserType.Audience"><button
             (click)="OpenBookingEditor()">Book Now</button></div>
         <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer"><button
-            (click)="OpenEventEditor()">Edit</button></div>
+            (click)="OpenEventEditor(item,i)">Edit</button></div>
       </div>
     </div>
-    <div class="image-block">
+    <!-- <div class="image-block">
       <div class="user-block">
         <div class="user-details">
-          <!-- <img src="../../../../../assets/user.png"> -->
           <span>Coldplay concert</span>
         </div>
         <div class="options">
@@ -91,6 +90,6 @@
         <div class="footer-item capacity">Capacity- 10/50</div>
         <div class="footer-item book-btn"><button>Book Now</button></div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

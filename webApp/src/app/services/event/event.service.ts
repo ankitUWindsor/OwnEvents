@@ -20,7 +20,7 @@ export class EventService {
 
   UpdateEvent(event: Event): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.httpService.Put(this.baseUrl + '/update', event).subscribe(
+      this.httpService.Post(this.baseUrl + '/update', event).subscribe(
         (response: any) => {
           resolve(response.result);
         }, err => reject(err));

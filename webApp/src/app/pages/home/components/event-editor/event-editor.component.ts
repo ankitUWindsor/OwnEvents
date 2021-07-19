@@ -1,6 +1,7 @@
+import { EventService } from './../../../../services/event/event.service';
 import { AssetService } from './../../../../services/asset.service';
 import { EventTypes, MIN_CAPACITY } from './../../../../../assets/constants';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Event } from 'src/assets/models';
@@ -12,15 +13,18 @@ import { InterestsCategory } from 'src/assets/enums';
   styleUrls: ['./event-editor.component.scss']
 })
 export class EventEditorComponent implements OnInit {
+  @Input() isEditMode = false;
+  @Input() event: Event;
   @ViewChild('imageUploader') imageUploader: any;
   createForm: FormGroup;
-  capacity = 10;
-  event: Event;
   categories = EventTypes;
   InterestsCategories = InterestsCategory;
+  isLoading: boolean;
 
   constructor(
-    private dialogRef: MatDialogRef<EventEditorComponent>, private assetService: AssetService) { }
+    private dialogRef: MatDialogRef<EventEditorComponent>,
+    public assetService: AssetService,
+    private eventService: EventService) { }
 
   ngOnInit(): void {
     window.onclick = (event) => {
@@ -35,19 +39,17 @@ export class EventEditorComponent implements OnInit {
         }
       }
     };
-
-    this.event = new Event();
+    if (!this.isEditMode) {
+      this.event = new Event();
+    }
   }
 
-  CloseDialog(): void {
-    this.dialogRef.close();
+  CloseDialog(isSaved = false): void {
+    this.dialogRef.close(this.event);
   }
 
   getScreenWidth(): number {
     return screen.width;
-  }
-
-  CreateUpdateEvent() {
   }
 
   ToggleDropdown(): void {
@@ -55,8 +57,8 @@ export class EventEditorComponent implements OnInit {
   }
 
   ChangeCapacity(count: number): void {
-    if (this.capacity + count >= MIN_CAPACITY) {
-      this.capacity += count;
+    if (this.event.capacity + count >= MIN_CAPACITY) {
+      this.event.capacity += count;
     }
   }
 
@@ -83,5 +85,30 @@ export class EventEditorComponent implements OnInit {
       // debugger;
     });
   }
+
+  CreateUpdateEvent(): void {
+    this.isLoading = true;
+
+    if (!this.isEditMode) {
+      this.eventService.CreateEvent(this.event).then((response) => {
+        this.CloseDialog(true);
+        this.isLoading = false;
+      }, (err) => {
+        this.isLoading = false;
+      });
+    } else {
+      this.eventService.UpdateEvent(this.event).then((response) => {
+        this.CloseDialog(true);
+        this.isLoading = false;
+      }, (err) => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  RemoveImage(index: number): void {
+    this.event.images.splice(index, 1);
+  }
+
 
 }
