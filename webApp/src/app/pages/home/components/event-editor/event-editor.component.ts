@@ -22,6 +22,7 @@ export class EventEditorComponent implements OnInit {
   isLoading: boolean;
   errorMessage: any;
   isUploading: boolean;
+  isTryingToSubmit: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<EventEditorComponent>,
@@ -43,6 +44,8 @@ export class EventEditorComponent implements OnInit {
     };
     if (!this.isEditMode) {
       this.event = new Event();
+      this.event.eventName = '';
+      this.event.description = '';
     }
   }
 
@@ -91,37 +94,44 @@ export class EventEditorComponent implements OnInit {
   }
 
   CreateUpdateEvent(): void {
-    this.isLoading = true;
+    this.isTryingToSubmit = true;
 
-    if (!this.isEditMode) {
-      this.eventService.CreateEvent(this.event).then((response) => {
-        this.CloseDialog(true);
-        this.isLoading = false;
-      }, (err) => {
-        this.isLoading = false;
-      });
-    } else {
-      this.eventService.UpdateEvent(this.event).then((response) => {
-        this.CloseDialog(true);
-        this.isLoading = false;
-      }, (err) => {
-        this.isLoading = false;
-      });
+    if (this.CheckFormValidation()) {
+      this.isLoading = true;
+      if (!this.isEditMode) {
+        this.eventService.CreateEvent(this.event).then((response) => {
+          this.CloseDialog(true);
+          this.isLoading = false;
+        }, (err) => {
+          this.isLoading = false;
+        });
+      } else {
+        this.eventService.UpdateEvent(this.event).then((response) => {
+          this.CloseDialog(true);
+          this.isLoading = false;
+        }, (err) => {
+          this.isLoading = false;
+        });
+      }
     }
+
   }
 
   RemoveImage(index: number): void {
     this.event.images.splice(index, 1);
   }
 
-  CheckFormValidation() {
-    if (!this.event.eventName.trim().length || !this.event.description.trim().length) {
+  CheckFormValidation(): boolean {
+    this.errorMessage = '';
+    if (!this.event.eventName.trim().length || !this.event.description.trim().length ||
+      !this.event.endDateAndTime || !this.event.startDateAndTime) {
       this.errorMessage = 'fill all fields';
     } else if (!this.event.interests.length) {
       this.errorMessage = 'Event Categories Missing';
     } else if (!this.event.images.length) {
-      this.errorMessage = 'Event Categories Missing';
+      this.errorMessage = 'Event Images Missing';
     }
+    return this.errorMessage.length === 0;
   }
 
 

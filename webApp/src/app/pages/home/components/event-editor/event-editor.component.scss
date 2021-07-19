@@ -38,20 +38,29 @@
 
   .footer {
     background-color: #F2F3F4;
-    height: 8vh;
+    height: 10vh;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    .btn-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 90%;
+      width: 100%;
+    }
 
     .btn {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 90%;
+      height: 60%;
       padding-right: 15px;
 
       button {
@@ -60,7 +69,7 @@
         align-items: center;
         border-radius: 5px;
         padding: 4px;
-        height: 60%;
+        height: 100%;
         font-size: 16px;
       }
 
@@ -69,6 +78,16 @@
         border-color: #2e7534;
         color: #ffffff;
       }
+    }
+
+    .error-message{
+      height: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+      font-size: 16px;
+      color:#BD1C14 ;
     }
 
   }
@@ -219,14 +238,15 @@
       }
 
       .image-upload {
-        .add-button{
+        .add-button {
           padding-left: 10px;
           height: 25px;
           width: inherit;
           margin-top: 10px;
         }
       }
-      .items{
+
+      .items {
         height: 25px;
         width: 25px;
       }
