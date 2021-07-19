@@ -1,59 +1,68 @@
 <div class="main-container">
   <div class="header" [style.justify-content]="userType === UserType.Audience ? 'space-between' : 'center'"
     [style.display]="isNavBarOpen ? 'none' : 'flex'">
-    <button *ngIf="userType === UserType.Audience" class="interests-btn">My Interests</button>
+    <button *ngIf="userType === UserType.Audience" (click)="showMyInterests = !showMyInterests" class="interests-btn">
+      <span *ngIf="showMyInterests">My Interests</span>
+      <span *ngIf="!showMyInterests">All Events</span>
+    </button>
     <div class="search-bar">
-      <input class="input" type="text" placeholder="Search...">
+      <input class="input" type="text" [(ngModel)]="searchText" placeholder="Search...">
       <div class="header-image">
         <img src="../../../../../assets/images/search-icon.png">
       </div>
     </div>
   </div>
   <div class="container">
-    <div class="image-block" *ngFor="let item of events;let i=index">
-      <div class="user-block">
-        <div class="user-details">
-          <!-- <img src="../../../../../assets/user.png"> -->
-          <span>{{item.eventName}}</span>
-        </div>
-        <div class="options">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-      </div>
-      <div class="image-container">
-        <div class="arrow arrow-left">
-          <img src="../../../../../assets/images/arrow.png">
-        </div>
-        <div class="image">
-          <img src="../../../../../assets/images/background-wallpaper.jpg">
-        </div>
-        <div class="arrow arrow-right">
-          <img src="../../../../../assets/images/arrow-right.png">
-        </div>
-      </div>
-      <div class=footer>
-        <div class="footer-item desc">{{item.description}}</div>
-        <div class="footer-item category">
-          <div class="chip" *ngFor="let interest of item.interests">
-            <div class="chip-content">{{GetInterestName(interest)}}</div>
+    <ng-container *ngFor="let item of events;let i=index">
+      <div class="image-block"
+        *ngIf="CheckIfSearchTextExists(item.eventName) && (!showMyInterests || CheckIfInterestMatches(item.interests))">
+        <div class="user-block">
+          <div class="user-details">
+            <!-- <img src="../../../../../assets/user.png"> -->
+            <span>{{item.eventName}}</span>
           </div>
-          <!-- <div class="chip  chip-red">
+          <div class="options">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+        <div class="image-container">
+          <div class="arrow arrow-left" (click)="MoveImage(i,-1)">
+            <img src="../../../../../assets/images/arrow.png">
+          </div>
+          <div class="image">
+            <img *ngIf="item.images.length" [src]="assetService.GetImageUrl(item.images[imageIndexes[i]])">
+            <img *ngIf="!item.images.length" src="" alt="not available">
+          </div>
+          <div class="arrow arrow-right" (click)="MoveImage(i,1)">
+            <img src="../../../../../assets/images/arrow-right.png">
+          </div>
+        </div>
+        <div class=footer>
+          <div class="footer-item desc">{{item.description}}</div>
+          <div class="footer-item category">
+            <div class="chip" *ngFor="let interest of item.interests">
+              <div class="chip-content">{{GetInterestName(interest)}}</div>
+            </div>
+            <!-- <div class="chip  chip-red">
             <div class="chip-content">Something</div>
           </div>
           <div class="chip  chip-red">
             <div class="chip-content">Adventure</div>
           </div> -->
+          </div>
+          <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} -
+            {{GetMomentDate(item.endDateAndTime)}}</div>
+          <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div>
+          <div class="footer-item book-btn" *ngIf="userType === UserType.Audience"><button
+              (click)="OpenBookingEditor()">Book Now</button></div>
+          <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer"><button
+              (click)="OpenEventEditor(item,i)">Edit</button></div>
         </div>
-        <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} - {{GetMomentDate(item.endDateAndTime)}}</div>
-        <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div>
-        <div class="footer-item book-btn" *ngIf="userType === UserType.Audience"><button
-            (click)="OpenBookingEditor()">Book Now</button></div>
-        <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer"><button
-            (click)="OpenEventEditor(item,i)">Edit</button></div>
       </div>
-    </div>
+    </ng-container>
+
     <!-- <div class="image-block">
       <div class="user-block">
         <div class="user-details">

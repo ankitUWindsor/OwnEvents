@@ -26,6 +26,7 @@ export class Event {
   capacity: number;
   images: Array<string>;
   participantIds: Array<string>;
+  createdDate: Date;
 
   constructor() {
     this.interests = [];
@@ -43,6 +44,7 @@ export class Booking {
   seatCount: number;
   participantId: string;
   isCanceled: boolean;
+  createdDate: Date;
   event: {
     startDateAndTime?: Date;
     endDateAndTime?: Date;
