@@ -28,7 +28,9 @@ export class HttpService {
   }
 
   private GetHttpHeaders(header = {}): HttpHeaders {
-    header['Content-Type'] = 'application/json';
+    if (!header['Content-Type']) {
+      header['Content-Type'] = 'application/json';
+    }
     header['Access-Control-Allow-Origin'] = '*';
     if (localStorage.getItem(this.AUTHORIZATION_KEY)) {
       header['auth-token'] = localStorage.getItem(this.AUTHORIZATION_KEY);

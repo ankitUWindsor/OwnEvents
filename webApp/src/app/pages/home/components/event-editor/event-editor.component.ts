@@ -1,7 +1,10 @@
-import { MIN_CAPACITY } from './../../../../../assets/constants';
-import { Component, OnInit } from '@angular/core';
+import { AssetService } from './../../../../services/asset.service';
+import { EventTypes, MIN_CAPACITY } from './../../../../../assets/constants';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Event } from 'src/assets/models';
+import { InterestsCategory } from 'src/assets/enums';
 
 @Component({
   selector: 'app-event-editor',
@@ -9,21 +12,17 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./event-editor.component.scss']
 })
 export class EventEditorComponent implements OnInit {
+  @ViewChild('imageUploader') imageUploader: any;
   createForm: FormGroup;
   capacity = 10;
+  event: Event;
+  categories = EventTypes;
+  InterestsCategories = InterestsCategory;
+
   constructor(
-    private dialogRef: MatDialogRef<EventEditorComponent>,
-    private formBuilder: FormBuilder) { }
+    private dialogRef: MatDialogRef<EventEditorComponent>, private assetService: AssetService) { }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      name: ['', Validators.required],
-      password: ['', [Validators.required, Validators.maxLength(25)]],
-      reEnterPassword: ['', [Validators.required, Validators.maxLength(25)]],
-      userType: ['', [Validators.required]]
-    });
-
     window.onclick = (event) => {
       if (!event.target.matches('.dropbtn')) {
         const dropdowns = document.getElementsByClassName('dropdown-content');
@@ -35,7 +34,9 @@ export class EventEditorComponent implements OnInit {
           }
         }
       }
-    }
+    };
+
+    this.event = new Event();
   }
 
   CloseDialog(): void {
@@ -47,7 +48,6 @@ export class EventEditorComponent implements OnInit {
   }
 
   CreateUpdateEvent() {
-
   }
 
   ToggleDropdown(): void {
@@ -58,6 +58,30 @@ export class EventEditorComponent implements OnInit {
     if (this.capacity + count >= MIN_CAPACITY) {
       this.capacity += count;
     }
+  }
+
+  CheckIfTypeExistsInEvent(item: any): boolean {
+    const currentInterest: any = this.InterestsCategories[item.enumValue];
+    return this.event.interests.includes(currentInterest);
+  }
+
+  AddCategoryToEvent(value: string): void {
+    this.event.interests.push(InterestsCategory[value]);
+  }
+
+  RemoveCategoryFromEvent(index: number): void {
+    this.event.interests.splice(index, 1);
+  }
+
+  GetCategoryName(value: string): string {
+    const index = this.categories.findIndex(item => this.InterestsCategories[item.enumValue] === value);
+    return this.categories[index].text;
+  }
+
+  UploadImage(event): void {
+    this.assetService.UploadImage(event.target.files[0]).then((response) => {
+      // debugger;
+    });
   }
 
 }

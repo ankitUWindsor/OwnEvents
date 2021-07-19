@@ -31,6 +31,7 @@ export class Event {
     this.interests = [];
     this.images = [];
     this.participantIds = [];
+    this.capacity = 50;
   }
 }
 
