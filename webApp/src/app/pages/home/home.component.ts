@@ -1,3 +1,4 @@
+import { EmitterTask } from './../../../assets/enums';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { InterestsComponent } from './components/interests/interests.component';
 import { UserType } from 'src/assets/enums';
+import { GlobalEmitterService } from 'src/app/services/global-emitter/global-emitter.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
     private matDialog: MatDialog,
     private userService: UserService,
     private router: Router,
+    private globalEmitterService: GlobalEmitterService,
     private authenticationService: AuthenticationService) { }
 
   get isOrganizer(): boolean {
@@ -71,7 +74,7 @@ export class HomeComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((response) => {
       if (response) {
-
+        this.globalEmitterService.Emit(EmitterTask.EventCreated);
       }
     });
   }

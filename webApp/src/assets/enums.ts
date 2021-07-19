@@ -31,3 +31,8 @@ export enum EventStatus {
   Active = 1,
   Cancelled = 2
 }
+
+export enum EmitterTask {
+  EventCreated = 1,
+  BookingCreated = 2
+}

@@ -1,4 +1,4 @@
-import { InterestsCategory } from './../../../../../assets/enums';
+import { EmitterTask, InterestsCategory } from './../../../../../assets/enums';
 import { UserType } from 'src/assets/enums';
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
 import { EventService } from './../../../../services/event/event.service';
@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { EventEditorComponent } from '../event-editor/event-editor.component';
 import { EventTypes } from 'src/assets/constants';
+import { GlobalEmitterService } from 'src/app/services/global-emitter/global-emitter.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -31,9 +32,16 @@ export class MainComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private matDialog: MatDialog,
+    private globalEmitterService: GlobalEmitterService,
     private userService: UserService) { }
 
   ngOnInit(): void {
+    this.globalEmitterService.emitter.subscribe((response) => {
+      if (response === EmitterTask.EventCreated) {
+        this.GetEvents();
+      }
+    });
+
     this.GetEvents();
   }
 
