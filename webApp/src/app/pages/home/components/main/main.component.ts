@@ -59,10 +59,10 @@ export class MainComponent implements OnInit {
         this.events = this.events.filter((item) => {
           return item.organizerId === this.userService.user.id;
         });
-        this.events.sort((a, b) => this.CompareMomentDates(a, b));
-
-        this.imageIndexes = new Array(this.events.length).fill(0);
       }
+      this.events.sort((a, b) => this.CompareMomentDates(a, b));
+      this.imageIndexes = new Array(this.events.length).fill(0);
+
       this.isLoading = false;
     });
   }

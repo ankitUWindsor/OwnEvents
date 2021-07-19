@@ -23,6 +23,7 @@ export class EventEditorComponent implements OnInit {
   errorMessage: any;
   isUploading: boolean;
   isTryingToSubmit: boolean;
+  minimumDate = new Date();
 
   constructor(
     private dialogRef: MatDialogRef<EventEditorComponent>,

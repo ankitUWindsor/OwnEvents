@@ -109,6 +109,7 @@ a.active {
 }
 
 section {
+  min-height: 100vh;
   background-attachment: fixed;
   background: url('../../../assets/images/background-wallpaper.jpg') no-repeat;
   background-size: cover;
