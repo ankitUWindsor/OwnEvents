@@ -2,6 +2,8 @@ import { InterestsCategory } from 'src/assets/enums';
 import { UserService } from './../../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { EventTypes } from 'src/assets/constants';
+import { MatDialog } from '@angular/material';
+import { InterestsComponent } from '../interests/interests.component';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +12,7 @@ import { EventTypes } from 'src/assets/constants';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -28,6 +30,13 @@ export class ProfileComponent implements OnInit {
       str = str.slice(0, 17) + '...';
     }
     return str;
+  }
+
+  OpenInterests(): void {
+    this.matDialog.open(InterestsComponent, {
+      height: '100vh',
+      width: '100vw',
+    });
   }
 
 }

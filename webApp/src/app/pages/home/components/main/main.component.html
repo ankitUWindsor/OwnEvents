@@ -17,7 +17,7 @@
   </div>
   <div class="container">
     <ng-container *ngFor="let item of events;let i=index">
-      <div class="image-block"
+      <div class="image-block" [class.disabled]="item.capacity===item.participantIds.length && userType===UserType.Audience"
         *ngIf="CheckIfSearchTextExists(item.eventName) && (!showMyInterests || CheckIfInterestMatches(item.interests))">
         <div class="user-block">
           <div class="user-details">
@@ -45,15 +45,11 @@
         <div class=footer>
           <div class="footer-item desc">{{item.description}}</div>
           <div class="footer-item category">
-            <div class="chip" *ngFor="let interest of item.interests">
-              <div class="chip-content">{{GetInterestName(interest)}}</div>
-            </div>
-            <!-- <div class="chip  chip-red">
-            <div class="chip-content">Something</div>
-          </div>
-          <div class="chip  chip-red">
-            <div class="chip-content">Adventure</div>
-          </div> -->
+            <ng-container  *ngFor="let interest of item.interests">
+              <div class="chip"  [class.chip-red]="!CheckIfInterestMatches([interest]) && userType===UserType.Audience">
+                <div class="chip-content">{{GetInterestName(interest)}}</div>
+              </div>
+            </ng-container>
           </div>
           <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} -
             {{GetMomentDate(item.endDateAndTime)}}</div>

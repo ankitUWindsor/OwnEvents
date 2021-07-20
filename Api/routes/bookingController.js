@@ -27,6 +27,7 @@ router.post('/create', verifytoken, async (req, res) => {
 
             const booking = new Booking({
                 name: req.body.name,
+                email: req.body.email,
                 status: 1,
                 participantId: req.user._id,
                 organizerId: event.organizerId,
@@ -62,6 +63,7 @@ router.post('/update', verifytoken, async (req, res) => {
 
         booking.name = req.body.name;
         booking.status = req.body.status;
+        booking.email = req.body.email;
 
 
         if (req.body.seatCount !== booking.seatCount) {
@@ -157,20 +159,34 @@ async function GetCompleteBookingInfo(booking) {
     const event = await Event.findOne({
         _id: booking.eventId
     });
+    const user = await User.findOne({
+        _id: booking.organizerId
+    });
+
     let toReturnBooking = {
         id: booking._id,
         name: booking.name,
+        email: booking.email,
         status: 1,
         organizerId: booking.organizerId,
         eventId: booking.eventId,
         seatCount: booking.seatCount,
         participantId: booking.participantId,
         isCanceled: booking.isCanceled,
+        createdDate: booking.createdDate,
         event: {
             startDateAndTime: event.startDateAndTime,
             endDateAndTime: event.endDateAndTime,
             capacity: event.capacity,
-            eventName: event.eventName
+            eventName: event.eventName,
+            eventImages: event.images,
+            eventStartDateAndTime: event.startDateAndTime,
+            eventEndDateAndTime: event.endDateAndTime,
+            interests: event.interests
+        },
+        organizer: {
+            name: user.name,
+            email: user.email
         }
     };
     return toReturnBooking;

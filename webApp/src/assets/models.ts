@@ -40,6 +40,7 @@ export class Event {
 export class Booking {
   id: string;
   name: string;
+  email: string;
   organizerId: string;
   eventId: string;
   seatCount: number;
@@ -50,7 +51,15 @@ export class Booking {
     startDateAndTime?: Date;
     endDateAndTime?: Date;
     capacity?: number;
-    eventName?: string
+    eventName?: string;
+    eventImages?: Array<string>;
+    eventStartDateAndTime?: Date;
+    eventEndDateAndTime?: Date;
+    interests?: Array<InterestsCategory>;
+  };
+  organizer: {
+    name?: string;
+    email?: string;
   };
 
 }

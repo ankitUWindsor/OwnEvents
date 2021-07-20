@@ -1,1 +1,74 @@
-<p>bookings works!</p>
+<div class="main-container">
+
+  <app-loader *ngIf="isLoading"></app-loader>
+
+  <div class="header"
+    [style.display]="isNavBarOpen ? 'none' : 'flex'">
+    <div class="search-bar">
+      <input class="input" type="text" [(ngModel)]="searchText" placeholder="Search...">
+      <div class="header-image">
+        <img src="../../../../../assets/images/search-icon.png">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <ng-container *ngFor="let item of bookings;let i=index">
+      <div class="image-block" *ngIf="CheckIfSearchTextExists(item.event.eventName)">
+        <div class="user-block">
+          <div class="user-details">
+            <!-- <img src="../../../../../assets/user.png"> -->
+            <span>{{item.event.eventName}}</span>
+          </div>
+          <!-- <div class="options">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div> -->
+        </div>
+        <div class="image-container">
+          <div class="arrow arrow-left" (click)="MoveImage(i,-1)">
+            <img src="../../../../../assets/images/arrow.png">
+          </div>
+          <div class="image">
+            <img *ngIf="item.event.eventImages.length"
+              [src]="assetService.GetImageUrl(item.event.eventImages[imageIndexes[i]])">
+            <img *ngIf="!item.event.eventImages.length" src="" alt="not available">
+          </div>
+          <div class="arrow arrow-right" (click)="MoveImage(i,1)">
+            <img src="../../../../../assets/images/arrow-right.png">
+          </div>
+        </div>
+        <div class=footer>
+          <div class="footer-item desc">
+            <div class="heading">Booking</div>
+            <div class="items">
+              <div class="values"><span>Name: </span> <span>{{item.name}}</span></div>
+              <div class="values"><span>Email:</span><span>{{item.email}}</span></div>
+            </div>
+          </div>
+          <div class="footer-item desc">
+            <div class="heading">Organizer</div>
+            <div class="items">
+              <div class="values"><span>Name: </span> <span>{{item.organizer.name}}</span></div>
+              <div class="values"><span>Email:</span><span>{{item.organizer.email}}</span></div>
+            </div>
+          </div>
+          <hr>
+          <div class="footer-item category">
+            <ng-container *ngFor="let interest of item.event.interests">
+              <div class="chip" [class.chip-red]="!CheckIfInterestMatches(interest) && userType===UserType.Audience">
+                <div class="chip-content">{{GetInterestName(interest)}}</div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="footer-item time">{{GetMomentDate(item.event.eventStartDateAndTime)}} -
+            {{GetMomentDate(item.event.eventEndDateAndTime)}}</div>
+          <!-- <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div> -->
+          <div class="footer-item cancel-btn">
+            <button (click)="CancelBooking(item)">Cancel Booking</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

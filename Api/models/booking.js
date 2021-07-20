@@ -4,6 +4,9 @@ const bookingSchema = new mongoose.Schema({
     name: {
         type: String,
     },
+    email: {
+        type: String,
+    },
     status: {
         type: Number,
         enum: [1, 2],

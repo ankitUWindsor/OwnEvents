@@ -13,7 +13,7 @@ export class BookingService {
 
   CreateBooking(booking: Booking): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.httpService.Post('/create', booking).subscribe((response: any) => {
+      this.httpService.Post(this.baseUrl + '/create', booking).subscribe((response: any) => {
         if (response.success === 201) {
           resolve(response.result);
         } else {
@@ -25,7 +25,7 @@ export class BookingService {
 
   UpdateBooking(booking: Booking): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.httpService.Post('/update', booking).subscribe((response: any) => {
+      this.httpService.Post(this.baseUrl + '/update', booking).subscribe((response: any) => {
         if (response.success === 200) {
           resolve(response.result);
         } else {
@@ -37,7 +37,7 @@ export class BookingService {
 
   GetAllBookings(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.httpService.Get('/list').subscribe((response: any) => {
+      this.httpService.Get(this.baseUrl + '/list').subscribe((response: any) => {
         resolve(response.result);
       }, err => reject(err.message));
     });
@@ -45,7 +45,7 @@ export class BookingService {
 
   CancelBooking(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.httpService.Delete('/cancel?id=' + id).subscribe((response: any) => {
+      this.httpService.Delete(this.baseUrl + '/cancel?id=' + id).subscribe((response: any) => {
         resolve(response.result);
       }, err => reject(err.message));
     });

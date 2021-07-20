@@ -224,6 +224,13 @@
 
       }
     }
+
+    .disabled {
+      pointer-events: none;
+      button{
+        opacity: 0.5;
+      }
+    }
   }
 }
 

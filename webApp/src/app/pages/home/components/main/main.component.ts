@@ -18,7 +18,6 @@ import { GlobalEmitterService } from 'src/app/services/global-emitter/global-emi
 })
 export class MainComponent implements OnInit {
   events: Array<Event> = [];
-  eventImageIndexes: Array<number> = [];
   isLoading = true;
   showMyInterests: boolean;
 
@@ -60,7 +59,7 @@ export class MainComponent implements OnInit {
           return item.organizerId === this.userService.user.id;
         });
       }
-      this.events.sort((a, b) => this.CompareMomentDates(a, b));
+      this.events.sort((a, b) => this.CompareMomentDates(a.createdDate, b.createdDate));
       this.imageIndexes = new Array(this.events.length).fill(0);
 
       this.isLoading = false;
@@ -69,9 +68,9 @@ export class MainComponent implements OnInit {
 
   CompareMomentDates(firstDate, secondDate): number {
     if (moment(firstDate).isAfter(moment(secondDate))) {
-      return 1;
-    } else {
       return -1;
+    } else {
+      return 1;
     }
   }
 
