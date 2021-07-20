@@ -1,4 +1,7 @@
 <div class="main-container">
+
+  <app-loader *ngIf="isLoading"></app-loader>
+
   <div class="header" [style.justify-content]="userType === UserType.Audience ? 'space-between' : 'center'"
     [style.display]="isNavBarOpen ? 'none' : 'flex'">
     <button *ngIf="userType === UserType.Audience" (click)="showMyInterests = !showMyInterests" class="interests-btn">
@@ -21,11 +24,11 @@
             <!-- <img src="../../../../../assets/user.png"> -->
             <span>{{item.eventName}}</span>
           </div>
-          <div class="options">
+          <!-- <div class="options">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
-          </div>
+          </div> -->
         </div>
         <div class="image-container">
           <div class="arrow arrow-left" (click)="MoveImage(i,-1)">
@@ -59,46 +62,10 @@
               (click)="OpenBookingEditor()">Book Now</button></div>
           <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer"><button
               (click)="OpenEventEditor(item,i)">Edit</button></div>
+          <div class="footer-item cancel-btn" *ngIf="userType === UserType.Organizer"><button
+            (click)="CancelEvent(item)">Delete Event</button></div>
         </div>
       </div>
     </ng-container>
-
-    <!-- <div class="image-block">
-      <div class="user-block">
-        <div class="user-details">
-          <span>Coldplay concert</span>
-        </div>
-        <div class="options">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-      </div>
-      <div class="image-container">
-        <div class="arrow arrow-left">
-          <img src="../../../../../assets/images/arrow.png">
-        </div>
-        <div class="image">
-          <img src="../../../../../assets/images/background-wallpaper.jpg">
-        </div>
-        <div class="arrow arrow-right">
-          <img src="../../../../../assets/images/arrow-right.png">
-        </div>
-      </div>
-      <div class=footer>
-        <div class="footer-item desc">This is the description here you can write anything you want.</div>
-        <div class="footer-item category">
-          <div class="chip chip-red">
-            <div class="chip-content">Concert</div>
-          </div>
-          <div class="chip">
-            <div class="chip-content">Concert</div>
-          </div>
-        </div>
-        <div class="footer-item time">June'19 12:30pm - June'19 1:30pm</div>
-        <div class="footer-item capacity">Capacity- 10/50</div>
-        <div class="footer-item book-btn"><button>Book Now</button></div>
-      </div>
-    </div> -->
   </div>
 </div>

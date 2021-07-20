@@ -136,5 +136,15 @@ export class MainComponent implements OnInit {
     }
   }
 
+  CancelEvent(event: Event, index: number): void {
+    this.isLoading = true;
+    this.eventService.DeleteEvent(event.id).then(() => {
+      this.events.splice(index, 1);
+      this.imageIndexes.splice(index, 1);
+    }).finally(() => {
+      this.isLoading = false;
+    });
+  }
+
 
 }

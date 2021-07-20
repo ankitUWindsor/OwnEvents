@@ -15,6 +15,7 @@ export class User {
 }
 
 export class Event {
+  id: string;
   interests: Array<InterestsCategory>;
   eventName: string;
   description: string;

@@ -9,7 +9,7 @@
       <ul>
         <li (click)="CloseNavBar()" [routerLink]="['updates']"><a [class.active]="CheckActiveLink('updates')">Home</a></li>
         <!-- <li (click)="CloseNavBar()"><a>Events</a></li> -->
-        <li (click)="CloseNavBar()"><a>Bookings</a></li>
+        <li (click)="CloseNavBar()" [routerLink]="['bookings']"><a [class.active]="CheckActiveLink('bookings')">Bookings</a></li>
         <li *ngIf="userType===UserType.Organizer" (click)="CreateNewEvent();CloseNavBar()"><a>Create Event</a></li>
         <li (click)="CloseNavBar()" [routerLink]="['profile']"><a [class.active]="CheckActiveLink('profile')">Profile</a></li>
         <li (click)="Logout();CloseNavBar()"><a>Logout</a></li>

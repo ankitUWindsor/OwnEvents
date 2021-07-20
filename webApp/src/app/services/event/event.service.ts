@@ -36,9 +36,9 @@ export class EventService {
     });
   }
 
-  DeleteEvent(): Promise<any> {
+  DeleteEvent(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.httpService.Delete(this.baseUrl + '/delete').subscribe(
+      this.httpService.Delete(this.baseUrl + '/delete?id=' + id).subscribe(
         (response) => {
           resolve(response);
         }, err => reject(err));

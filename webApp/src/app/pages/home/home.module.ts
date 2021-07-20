@@ -13,10 +13,11 @@ import { MainComponent } from './components/main/main.component';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
 import { BookingEditorComponent } from './components/booking-editor/booking-editor.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { BookingsComponent } from './components/bookings/bookings.component';
 
 @NgModule({
   declarations: [
-    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent, BookingEditorComponent, LoaderComponent
+    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent, BookingEditorComponent, LoaderComponent, BookingsComponent
   ],
   imports: [
     HomeRoutingModule,

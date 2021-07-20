@@ -203,6 +203,25 @@
             width: 95%;
           }
         }
+
+        .cancel-btn {
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+
+          button {
+            cursor: pointer;
+            color: #ffffff;
+            border-width: 0px;
+            border-radius: 4px;
+            background-color: #751c1c;
+            font-size: inherit;
+            height: 30px;
+            width: 95%;
+          }
+        }
+
       }
     }
   }

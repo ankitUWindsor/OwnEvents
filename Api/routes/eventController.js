@@ -107,7 +107,7 @@ router.put('/updateStatus', verifytoken, async (req, res) => {
 })
 
 router.delete('/delete', verifytoken, async (req, res) => {
-    Event.findByIdAndUpdate(req.body.id, {
+    Event.findByIdAndUpdate(req.query.id, {
         isDelete: true
     }).then((result) => {
         res.send({

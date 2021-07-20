@@ -1,3 +1,4 @@
+import { BookingsComponent } from './components/bookings/bookings.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgModule } from '@angular/core';
@@ -10,7 +11,8 @@ const routes: Routes = [{
   children: [
     { path: '', pathMatch: 'full', redirectTo: 'updates' },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-    { path: 'updates', component: MainComponent, canActivate: [AuthGuard] }
+    { path: 'updates', component: MainComponent, canActivate: [AuthGuard] },
+    { path: 'bookings', component: BookingsComponent, canActivate: [AuthGuard] }
   ]
 }];
 
