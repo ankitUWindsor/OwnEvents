@@ -40,6 +40,9 @@ export class BookingsComponent implements OnInit {
     this.isLoading = true;
     this.bookingService.GetAllBookings().then((response) => {
       this.bookings = response;
+      this.bookings = this.bookings.filter((item) => {
+        return !item.isCanceled;
+      });
 
       this.bookings.sort((a, b) => this.CompareMomentDates(a.createdDate, b.createdDate));
       this.imageIndexes = new Array(this.bookings.length).fill(0);
@@ -85,8 +88,14 @@ export class BookingsComponent implements OnInit {
     return moment(new Date(date)).format('lll');
   }
 
-  CancelBooking(item: Booking): void {
-
+  CancelBooking(item: Booking, index: number): void {
+    this.isLoading = true;
+    this.bookingService.CancelBooking(item.id).then((response) => {
+      this.bookings.splice(index, 1);
+      this.imageIndexes.splice(index, 1);
+    }).finally(() => {
+      this.isLoading = false;
+    });
   }
 
   CheckIfInterestMatches(interest: InterestsCategory): boolean {
