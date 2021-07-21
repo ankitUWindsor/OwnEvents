@@ -1,3 +1,4 @@
+import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
 import { AssetService } from './../../../../services/asset.service';
 import { BookingService } from './../../../../services/booking/booking.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import { InterestsCategory, UserType } from 'src/assets/enums';
 import { UserService } from 'src/app/services/user/user.service';
 import { EventTypes } from 'src/assets/constants';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-bookings',
@@ -28,6 +30,7 @@ export class BookingsComponent implements OnInit {
   imageIndexes: Array<number> = [];
 
   constructor(
+    private matDialog: MatDialog,
     public assetService: AssetService,
     private bookingService: BookingService,
     private userService: UserService) { }
@@ -100,6 +103,22 @@ export class BookingsComponent implements OnInit {
 
   CheckIfInterestMatches(interest: InterestsCategory): boolean {
     return this.userService.user.interests.includes(interest);
+  }
+
+  OpenBookingEditor(booking: Booking, index: number): void {
+    const dialogReference = this.matDialog.open(BookingEditorComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    dialogReference.componentInstance.isEditMode = true;
+    dialogReference.componentInstance.eventId = booking.eventId;
+    dialogReference.componentInstance.booking = JSON.parse(JSON.stringify(booking));
+
+    dialogReference.afterClosed().subscribe((event: Booking) => {
+      if (event) {
+        this.bookings[index] = event;
+      }
+    });
   }
 
 }

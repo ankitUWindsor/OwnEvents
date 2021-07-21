@@ -202,6 +202,9 @@
             height: 30px;
             width: 95%;
           }
+          .disabled {
+            background-color: #596d5a;
+          }
         }
 
         .cancel-btn {
@@ -227,9 +230,6 @@
 
     .disabled {
       pointer-events: none;
-      button{
-        opacity: 0.5;
-      }
     }
   }
 }

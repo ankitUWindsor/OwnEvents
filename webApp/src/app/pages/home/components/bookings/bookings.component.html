@@ -64,6 +64,8 @@
           <div class="footer-item time">{{GetMomentDate(item.event.eventStartDateAndTime)}} -
             {{GetMomentDate(item.event.eventEndDateAndTime)}}</div>
           <!-- <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div> -->
+          <div class="footer-item book-btn">
+            <button (click)="OpenBookingEditor(item,i)">Edit</button></div>
           <div class="footer-item cancel-btn">
             <button (click)="CancelBooking(item,i)">Cancel Booking</button>
           </div>

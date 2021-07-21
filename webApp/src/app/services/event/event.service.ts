@@ -36,6 +36,20 @@ export class EventService {
     });
   }
 
+  GetEventById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.httpService.Get(this.baseUrl + '/eventbyid?id=' + id).subscribe(
+        (response: any) => {
+          if (response.success === 200) {
+            resolve(response.result);
+          } else {
+            reject(response.message);
+          }
+        }, err => reject(err));
+    });
+  }
+
+
   DeleteEvent(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.httpService.Delete(this.baseUrl + '/delete?id=' + id).subscribe(

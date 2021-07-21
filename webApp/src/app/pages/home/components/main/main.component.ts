@@ -1,9 +1,10 @@
+import { Router } from '@angular/router';
 import { AssetService } from 'src/app/services/asset.service';
 import { EmitterTask, InterestsCategory } from './../../../../../assets/enums';
 import { UserType } from 'src/assets/enums';
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
 import { EventService } from 'src/app/services/event/event.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Event } from 'src/assets/models';
 import { UserService } from 'src/app/services/user/user.service';
 import * as moment from 'moment';
@@ -11,12 +12,13 @@ import { MatDialog } from '@angular/material';
 import { EventEditorComponent } from '../event-editor/event-editor.component';
 import { EventTypes } from 'src/assets/constants';
 import { GlobalEmitterService } from 'src/app/services/global-emitter/global-emitter.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   events: Array<Event> = [];
   isLoading = true;
   showMyInterests: boolean;
@@ -31,16 +33,22 @@ export class MainComponent implements OnInit {
   UserType = UserType;
   searchText = '';
   imageIndexes: Array<number> = [];
+  CatcherObservable: Subscription;
 
   constructor(
     private eventService: EventService,
     private matDialog: MatDialog,
+    private router: Router,
     public assetService: AssetService,
     private globalEmitterService: GlobalEmitterService,
     private userService: UserService) { }
 
+  ngOnDestroy(): void {
+    this.CatcherObservable.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.globalEmitterService.emitter.subscribe((response) => {
+    this.CatcherObservable = this.globalEmitterService.catcher.subscribe((response) => {
       if (response === EmitterTask.EventCreated) {
         this.GetEvents();
         this.searchText = '';
@@ -78,10 +86,16 @@ export class MainComponent implements OnInit {
     return moment(new Date(date)).format('lll');
   }
 
-  OpenBookingEditor(): void {
-    this.matDialog.open(BookingEditorComponent, {
+  OpenBookingEditor(eventId: string): void {
+    const dialogInstance = this.matDialog.open(BookingEditorComponent, {
       height: '100vh',
       width: '100vw'
+    });
+    dialogInstance.componentInstance.eventId = eventId;
+    dialogInstance.afterClosed().subscribe((response) => {
+      if (response) {
+        this.GetEvents();
+      }
     });
   }
 
@@ -145,5 +159,8 @@ export class MainComponent implements OnInit {
     });
   }
 
+  CheckIfAlreadyBooked(event: Event): boolean {
+    return event.participantIds.includes(this.userService.user.id);
+  }
 
 }

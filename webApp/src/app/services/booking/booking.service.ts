@@ -14,7 +14,7 @@ export class BookingService {
   CreateBooking(booking: Booking): Promise<any> {
     return new Promise((resolve, reject) => {
       this.httpService.Post(this.baseUrl + '/create', booking).subscribe((response: any) => {
-        if (response.success === 201) {
+        if (response.success === 200) {
           resolve(response.result);
         } else {
           reject(response.message);

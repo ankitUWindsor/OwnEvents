@@ -17,7 +17,7 @@
   </div>
   <div class="container">
     <ng-container *ngFor="let item of events;let i=index">
-      <div class="image-block" [class.disabled]="item.capacity===item.participantIds.length && userType===UserType.Audience"
+      <div class="image-block" [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
         *ngIf="CheckIfSearchTextExists(item.eventName) && (!showMyInterests || CheckIfInterestMatches(item.interests))">
         <div class="user-block">
           <div class="user-details">
@@ -54,11 +54,14 @@
           <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} -
             {{GetMomentDate(item.endDateAndTime)}}</div>
           <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div>
-          <div class="footer-item book-btn" *ngIf="userType === UserType.Audience"><button
-              (click)="OpenBookingEditor()">Book Now</button></div>
-          <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer"><button
+          <div class="footer-item book-btn" *ngIf="userType === UserType.Audience">
+            <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
+              (click)="OpenBookingEditor(item.id)">Book Now</button></div>
+          <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer">
+            <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
               (click)="OpenEventEditor(item,i)">Edit</button></div>
-          <div class="footer-item cancel-btn" *ngIf="userType === UserType.Organizer"><button
+          <div class="footer-item cancel-btn" *ngIf="userType === UserType.Organizer">
+            <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
             (click)="CancelEvent(item)">Delete Event</button></div>
         </div>
       </div>
