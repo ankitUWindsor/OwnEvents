@@ -114,9 +114,9 @@ export class BookingsComponent implements OnInit {
     dialogReference.componentInstance.eventId = booking.eventId;
     dialogReference.componentInstance.booking = JSON.parse(JSON.stringify(booking));
 
-    dialogReference.afterClosed().subscribe((event: Booking) => {
-      if (event) {
-        this.bookings[index] = event;
+    dialogReference.afterClosed().subscribe((booking: Booking) => {
+      if (booking) {
+        this.bookings[index] = booking;
       }
     });
   }

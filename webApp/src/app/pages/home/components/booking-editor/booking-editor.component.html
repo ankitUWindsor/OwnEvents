@@ -26,7 +26,7 @@
         <span>{{booking.seatCount}}</span>
         <img src="../../../../../assets/images/plus.png" (click)="ChangeSeatCount(1)">
       </div>
-      <span style="font-size: 10px;">Note: Number of seats left are: {{event.capacity - event.participantIds.length}}</span>
+      <span style="font-size: 10px;">Note: Number of seats left are: {{event.capacity - event.participantIds.length - booking.seatCount}}</span>
     </div>
   </div>
 

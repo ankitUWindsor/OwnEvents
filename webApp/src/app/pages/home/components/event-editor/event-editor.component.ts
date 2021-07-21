@@ -50,8 +50,8 @@ export class EventEditorComponent implements OnInit {
     }
   }
 
-  CloseDialog(isSaved = false): void {
-    this.dialogRef.close(this.event);
+  CloseDialog(event = null): void {
+    this.dialogRef.close(event);
   }
 
   getScreenWidth(): number {
@@ -101,14 +101,14 @@ export class EventEditorComponent implements OnInit {
       this.isLoading = true;
       if (!this.isEditMode) {
         this.eventService.CreateEvent(this.event).then((response) => {
-          this.CloseDialog(true);
+          this.CloseDialog(response);
           this.isLoading = false;
         }, (err) => {
           this.isLoading = false;
         });
       } else {
         this.eventService.UpdateEvent(this.event).then((response) => {
-          this.CloseDialog(true);
+          this.CloseDialog(response);
           this.isLoading = false;
         }, (err) => {
           this.isLoading = false;
