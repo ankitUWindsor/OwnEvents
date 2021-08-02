@@ -182,7 +182,8 @@ async function GetCompleteBookingInfo(booking) {
             eventImages: event.images,
             eventStartDateAndTime: event.startDateAndTime,
             eventEndDateAndTime: event.endDateAndTime,
-            interests: event.interests
+            interests: event.interests,
+            location: event.location
         },
         organizer: {
             name: user.name,

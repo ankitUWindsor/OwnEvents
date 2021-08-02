@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <div class="heading">Create Event</div>
+    <div class="heading"><span *ngIf="!isEditMode">Create</span><span *ngIf="isEditMode">Edit</span> Event</div>
     <div (click)="CloseDialog()" class="close-icon">
       <img src="../../../../../assets/images/close.svg">
     </div>
@@ -26,6 +26,12 @@
           <img (click)="ChangeCapacity(-1)" src="../../../../../assets/images/minus.png">
           <span>{{event.capacity}}</span>
           <img (click)="ChangeCapacity(1)" src="../../../../../assets/images/plus.png">
+        </div>
+      </div>
+      <div class="input-field">
+        <span>Location</span>
+        <div class="map">
+          <app-map [location]="event.location" (LocationChanged)="SetLocation($event)"></app-map>
         </div>
       </div>
       <div class="input-field">

@@ -20,7 +20,7 @@ export class Event {
   eventName: string;
   description: string;
   status: EventStatus;
-  location: string;
+  location: Location;
   organizerId: string;
   startDateAndTime: Date;
   endDateAndTime: Date;
@@ -56,10 +56,17 @@ export class Booking {
     eventStartDateAndTime?: Date;
     eventEndDateAndTime?: Date;
     interests?: Array<InterestsCategory>;
+    location?: Location;
   };
   organizer: {
     name?: string;
     email?: string;
   };
 
+}
+
+export class Location {
+  latitude: number;
+  longitude: number;
+  address: string;
 }

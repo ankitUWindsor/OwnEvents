@@ -18,7 +18,18 @@ const eventSchema = new mongoose.Schema({
         default: 1
     },
     location: {
-        type: String,
+        type: {
+            latitude: {
+                type: Number
+            },
+            longitude: {
+                type: Number
+            },
+            address: {
+                type: String
+            }
+        },
+        default: []
     },
     organizerId: {
         type: String,

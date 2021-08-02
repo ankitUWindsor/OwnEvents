@@ -4,7 +4,7 @@ import { EventTypes, MIN_CAPACITY } from './../../../../../assets/constants';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Event } from 'src/assets/models';
+import { Event, Location } from 'src/assets/models';
 import { InterestsCategory } from 'src/assets/enums';
 
 @Component({
@@ -53,7 +53,7 @@ export class EventEditorComponent implements OnInit {
   CloseDialog(isChanged = false): void {
     if (isChanged) {
       this.dialogRef.close(this.event);
-    }else{
+    } else {
       this.dialogRef.close();
     }
   }
@@ -137,6 +137,10 @@ export class EventEditorComponent implements OnInit {
       this.errorMessage = 'Event Images Missing';
     }
     return this.errorMessage.length === 0;
+  }
+
+  SetLocation(location: Location): void {
+    this.event.location = location;
   }
 
 

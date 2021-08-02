@@ -14,10 +14,12 @@ import { EventEditorComponent } from './components/event-editor/event-editor.com
 import { BookingEditorComponent } from './components/booking-editor/booking-editor.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { BookingsComponent } from './components/bookings/bookings.component';
-
+import { AgmCoreModule } from '@agm/core';
+import { MapComponent } from './components/map/map.component';
 @NgModule({
   declarations: [
-    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent, BookingEditorComponent, LoaderComponent, BookingsComponent
+    HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent,
+    BookingEditorComponent, LoaderComponent, BookingsComponent, MapComponent
   ],
   imports: [
     HomeRoutingModule,
@@ -26,7 +28,11 @@ import { BookingsComponent } from './components/bookings/bookings.component';
     CommonModule,
     ReactiveFormsModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBrQ58BketAhDCkqZX9JY1YDlzYon4HCd4',
+      libraries: ['places']
+    })
   ],
   entryComponents: [InterestsComponent, EventEditorComponent, BookingEditorComponent]
 })
