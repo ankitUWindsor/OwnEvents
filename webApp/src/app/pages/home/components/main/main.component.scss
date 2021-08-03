@@ -204,6 +204,7 @@
           }
           .disabled {
             background-color: #596d5a;
+            pointer-events: none;
           }
         }
 
@@ -223,13 +224,16 @@
             height: 30px;
             width: 95%;
           }
+          .disabled {
+            background-color: #795d5d;
+            pointer-events: none;
+          }
         }
 
       }
     }
 
     .disabled {
-      pointer-events: none;
     }
   }
 }
