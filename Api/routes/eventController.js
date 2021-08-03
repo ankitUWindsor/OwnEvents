@@ -3,6 +3,9 @@ const verifytoken = require('../middleware/verifytoken');
 const Event = require('../models/event');
 const User = require('../models/user');
 const Booking = require('../models/booking')
+const schedule = require('node-schedule');
+const mailer = require('./../services/mailerService');
+const scheduleService = require('./../services/scheduleService');
 
 router.post('/create', verifytoken, async (req, res) => {
   try {
@@ -20,6 +23,8 @@ router.post('/create', verifytoken, async (req, res) => {
       participantIds: []
     })
     await newEvent.save()
+
+    scheduleService.ScheduleReminderEmail(newEvent._id, newEvent.startDateAndTime);
 
     res.status(201).send({
       success: 201,
@@ -94,6 +99,11 @@ router.post('/update', verifytoken, async (req, res) => {
       message: 'Event not defined'
     });
   }
+
+  if (new Date(req.body.startDateAndTime).getTime() !== new Date(event.startDateAndTime).getTime()) {
+    scheduleService.ScheduleReminderEmail(event._id, req.body.startDateAndTime);
+  }
+
   const updatedEvent = {
     interests: req.body.interests,
     eventName: req.body.eventName,

@@ -61,6 +61,10 @@ const eventSchema = new mongoose.Schema({
     isDelete: {
         type: Boolean,
         default: false
+    },
+    isReminderSent: {
+        type: Boolean,
+        default: false
     }
 });
 

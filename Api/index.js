@@ -6,6 +6,7 @@ const userRouter = require('./routes/userController');
 const eventRouter = require('./routes/eventController');
 const imageRouter = require('./routes/imageController');
 const bookingRouter = require('./routes/bookingController');
+const scheduleService = require('./services/scheduleService');
 
 const cors = require('cors')
 
@@ -16,6 +17,8 @@ var corsOptions = {
 };
 
 require('./config/mongodb');
+
+scheduleService.RunScriptForEvents();
 
 app.use(cors(corsOptions))
 
