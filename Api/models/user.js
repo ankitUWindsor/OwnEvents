@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     userType: {
         type: Number,
         enum: [1, 2],

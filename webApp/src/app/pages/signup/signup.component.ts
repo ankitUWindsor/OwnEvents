@@ -42,15 +42,15 @@ export class SignupComponent implements OnInit {
         user.password = this.signupForm.get('password').value;
         user.userType = this.signupForm.get('userType').value;
         this.authenticationService.RegisterUser(user).then((response: any) => {
-          this.router.navigate(['home']);
+          this.router.navigate(['login'], { queryParams: { s: '1' } });
         }, (err) => {
-        this.errorMessage = err.error.message;
+          this.errorMessage = err.error.message;
         });
       }
     } else {
       if (!this.signupForm.get('email').valid) {
         this.errorMessage = 'Enter a Valid Email';
-      }else if (!this.signupForm.get('userType').valid) {
+      } else if (!this.signupForm.get('userType').valid) {
         this.errorMessage = 'Please select your User Type';
       } else {
         this.errorMessage = 'Enter all mandatory fields';

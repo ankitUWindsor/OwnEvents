@@ -2,7 +2,7 @@ import { UserType } from './../../../assets/enums';
 import { User } from 'src/assets/models';
 import { emailRegex } from './../../../assets/constants';
 import { AuthenticationService } from './../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -15,12 +15,22 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string;
   UserType = UserType;
+  cameFromSignup = false;
   constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((response) => {
+      if (response && response.s && response.s === '1') {
+        this.cameFromSignup = true;
+        setTimeout(() => {
+          this.cameFromSignup = false;
+        }, 5000);
+      }
+    });
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(emailRegex)]],
       password: ['', Validators.required],

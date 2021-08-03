@@ -29,7 +29,7 @@ export class AuthenticationService {
     return new Promise((resolve, reject) => {
       user.password = window.btoa(user.password);
       this.httpService.Post(this.baseUrl + '/register', user).subscribe((response: any) => {
-        localStorage.setItem(this.httpService.AUTHORIZATION_KEY, response.authToken);
+        // localStorage.setItem(this.httpService.AUTHORIZATION_KEY, response.authToken);
         resolve(response);
       }, (err) => {
         reject(err);

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const atob = require('atob');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
+const mailer = require('./../services/mailerService');
 
 router.post('/register', async (req, res) => {
     try {
@@ -32,13 +33,21 @@ router.post('/register', async (req, res) => {
         const token = jwt.sign({
             _id: savedUser._id
         }, process.env.TOKEN_SECRET, {
-            expiresIn: '4h'
+            expiresIn: '1w'
         })
+
+        const url = process.env.BASE_URL + 'api/user/confirmation/' + token;
+        mailer.sendMail({
+            to: user.email,
+            subject: 'Email Verification',
+            body: `<h1>Hi there, Welcome to Own Events</h1><br>
+            <p>Please click <a href="${url}">HERE</a> to verify your email</p>`
+        });
 
         res.header('auth-token', token).send({
             success: 200,
             message: 'User Registered Successfully',
-            authToken: token
+            // authToken: token
         });
     } catch (err) {
         res.status(400).send(err);
@@ -58,6 +67,11 @@ router.post('/login', async (req, res) => {
             message: 'Incorrect Username or Password'
         });
 
+        if (!user.isVerified) return res.status(400).send({
+            success: 0,
+            message: 'Please verify your email'
+        });
+
         const validPassword = await bcrypt.compare(userInfo[1], user.password);
         if (!validPassword) return res.status(400).send({
             success: 0,
@@ -67,7 +81,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({
             _id: user._id
         }, process.env.TOKEN_SECRET, {
-            expiresIn: '4h'
+            expiresIn: '1w'
         })
 
         res.header('auth-token', token).send({
@@ -80,5 +94,17 @@ router.post('/login', async (req, res) => {
         res.status(400).send(err);
     }
 });
+
+router.get('/confirmation/:token', async (req, res) => {
+    try {
+        const verified = jwt.verify(req.params.token, process.env.TOKEN_SECRET);
+        await User.findByIdAndUpdate(verified._id, {
+            isVerified: true
+        })
+        res.redirect('https://owneventswebapp.z13.web.core.windows.net/login');
+    } catch (err) {
+        res.send(err);
+    }
+})
 
 module.exports = router;

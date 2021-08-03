@@ -1,6 +1,9 @@
 <main class="container">
   <div class="login-box">
       <h1 class="head-text">OwnEvents</h1>
+      <div *ngIf="cameFromSignup" class="signup">
+        <span>Verification email sent!!</span>
+      </div>
 
       <div class="error" *ngIf="errorMessage">
           <span>{{errorMessage}}</span>
