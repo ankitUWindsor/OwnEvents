@@ -34,7 +34,6 @@ export class EventEditorComponent implements OnInit {
     window.onclick = (event) => {
       if (!event.target.matches('.dropbtn')) {
         const dropdowns = document.getElementsByClassName('dropdown-content');
-        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < dropdowns.length; i++) {
           const openDropdown = dropdowns[i];
           if (openDropdown.classList.contains('show')) {
@@ -130,7 +129,7 @@ export class EventEditorComponent implements OnInit {
     this.errorMessage = '';
     if (!this.event.eventName.trim().length || !this.event.description.trim().length ||
       !this.event.endDateAndTime || !this.event.startDateAndTime) {
-      this.errorMessage = 'fill all fields';
+      this.errorMessage = 'Please fill all the fields';
     } else if (!this.event.interests.length) {
       this.errorMessage = 'Event Categories Missing';
     } else if (!this.event.images.length) {

@@ -77,10 +77,12 @@ export class BookingEditorComponent implements OnInit {
   }
 
   CheckFormValidation(): boolean {
-    if (!this.isInitialLoading) {
+
+    if (!this.isInitialLoading)
+     {
       this.errorMessage = '';
       if (!this.booking.name.trim().length || !this.booking.email.trim().length) {
-        this.errorMessage = 'fill all fields';
+        this.errorMessage = 'Please fill all the fields';
       }
       return this.errorMessage.length === 0;
     } else {
