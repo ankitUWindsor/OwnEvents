@@ -68,10 +68,4 @@ const eventSchema = new mongoose.Schema({
     }
 });
 
-const status = {
-    Active: 1,
-    Cancelled: 2,
-    Completed: 3
-};
-
 module.exports = mongoose.model("Event", eventSchema);
