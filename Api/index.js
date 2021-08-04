@@ -18,13 +18,6 @@ var corsOptions = {
     optionsSuccessStatus: 200
 };
 
-const models = path.join(__dirname, 'models');
-fs.readdirSync(models).forEach(file => require(path.join(models, file)));
-
-const models = path.join(__dirname, 'models');
-fs.readdirSync(models).forEach(file => require(path.join(models, file)));
-
-
 require('./config/mongodb');
 
 scheduleService.RunScriptForEvents();
