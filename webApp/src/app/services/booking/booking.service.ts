@@ -43,6 +43,14 @@ export class BookingService {
     });
   }
 
+  GetBookingsByEventId(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.httpService.Get(this.baseUrl + '/listByEventId/' + id).subscribe((response: any) => {
+        resolve(response.result);
+      }, err => reject(err.message));
+    });
+  }
+
   CancelBooking(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.httpService.Delete(this.baseUrl + '/cancel?id=' + id).subscribe((response: any) => {

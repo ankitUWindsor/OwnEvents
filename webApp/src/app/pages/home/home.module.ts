@@ -16,10 +16,11 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { BookingsComponent } from './components/bookings/bookings.component';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './components/map/map.component';
+import { EventBookingsComponent } from './components/event-bookings/event-bookings.component';
 @NgModule({
   declarations: [
     HomeComponent, InterestsComponent, ProfileComponent, MainComponent, EventEditorComponent,
-    BookingEditorComponent, LoaderComponent, BookingsComponent, MapComponent
+    BookingEditorComponent, LoaderComponent, BookingsComponent, MapComponent, EventBookingsComponent
   ],
   imports: [
     HomeRoutingModule,
@@ -34,6 +35,6 @@ import { MapComponent } from './components/map/map.component';
       libraries: ['places']
     })
   ],
-  entryComponents: [InterestsComponent, EventEditorComponent, BookingEditorComponent]
+  entryComponents: [InterestsComponent, EventEditorComponent, BookingEditorComponent, EventBookingsComponent]
 })
 export class HomeModule { }

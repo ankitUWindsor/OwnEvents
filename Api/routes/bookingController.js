@@ -126,6 +126,27 @@ router.get('/list', verifytoken, async (req, res) => {
 
 });
 
+router.get('/listByEventId/:eventId', verifytoken, async (req, res) => {
+    try {
+        const bookings = await Booking.find({
+            eventId: req.params.eventId
+        });
+
+        toReturnBookings = [];
+        for (let i = 0; i < bookings.length; i++) {
+            toReturnBookings.push(GetBasicBookingInfo(bookings[i]));
+            toReturnBookings[i].organizer
+        }
+
+        res.status(200).send({
+            result: toReturnBookings
+        });
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+})
+
 router.delete('/cancel', verifytoken, async (req, res) => {
     try {
         const booking = await Booking.findOne({
@@ -163,7 +184,28 @@ async function GetCompleteBookingInfo(booking) {
         _id: booking.organizerId
     });
 
-    let toReturnBooking = {
+    let toReturnBooking = GetBasicBookingInfo(booking);
+    toReturnBooking.event = {
+        startDateAndTime: event.startDateAndTime,
+        endDateAndTime: event.endDateAndTime,
+        capacity: event.capacity,
+        eventName: event.eventName,
+        eventImages: event.images,
+        eventStartDateAndTime: event.startDateAndTime,
+        eventEndDateAndTime: event.endDateAndTime,
+        interests: event.interests,
+        location: event.location
+    }
+    toReturnBooking.organizer = {
+        name: user.name,
+        email: user.email
+    }
+
+    return toReturnBooking;
+}
+
+function GetBasicBookingInfo(booking) {
+    return {
         id: booking._id,
         name: booking.name,
         email: booking.email,
@@ -174,23 +216,9 @@ async function GetCompleteBookingInfo(booking) {
         participantId: booking.participantId,
         isCanceled: booking.isCanceled,
         createdDate: booking.createdDate,
-        event: {
-            startDateAndTime: event.startDateAndTime,
-            endDateAndTime: event.endDateAndTime,
-            capacity: event.capacity,
-            eventName: event.eventName,
-            eventImages: event.images,
-            eventStartDateAndTime: event.startDateAndTime,
-            eventEndDateAndTime: event.endDateAndTime,
-            interests: event.interests,
-            location: event.location
-        },
-        organizer: {
-            name: user.name,
-            email: user.email
-        }
+        event: {},
+        organizer: {}
     };
-    return toReturnBooking;
 }
 
 

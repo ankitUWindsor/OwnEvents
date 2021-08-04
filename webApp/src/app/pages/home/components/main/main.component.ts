@@ -1,3 +1,4 @@
+import { EventBookingsComponent } from './../event-bookings/event-bookings.component';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/app/services/asset.service';
 import { EmitterTask, InterestsCategory } from './../../../../../assets/enums';
@@ -161,6 +162,14 @@ export class MainComponent implements OnInit, OnDestroy {
 
   CheckIfAlreadyBooked(event: Event): boolean {
     return event.participantIds.includes(this.userService.user.id);
+  }
+
+  ShowBookings(item): void {
+    const dialogInstance = this.matDialog.open(EventBookingsComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    dialogInstance.componentInstance.event = item;
   }
 
 }

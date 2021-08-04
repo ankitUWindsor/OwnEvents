@@ -208,9 +208,9 @@
           }
         }
 
-        .cancel-btn {
+        .more-btn {
           width: 100%;
-          justify-content: center;
+          justify-content: space-around;
           align-items: center;
           display: flex;
 
@@ -222,7 +222,7 @@
             background-color: #751c1c;
             font-size: inherit;
             height: 30px;
-            width: 95%;
+            width: 46%;
           }
           .disabled {
             background-color: #795d5d;
