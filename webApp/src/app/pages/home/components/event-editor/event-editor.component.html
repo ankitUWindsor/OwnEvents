@@ -6,12 +6,12 @@
     </div>
   </div>
 
-
   <app-loader *ngIf="isUploading || isLoading" style="height: 100vh;width:100vw;"></app-loader>
 
   <div>
 
     <div class="content">
+
       <div class="input-field">
         <span>Event name</span>
         <input class="input" [(ngModel)]="event.eventName" type="text" placeholder="Enter Event Name...">

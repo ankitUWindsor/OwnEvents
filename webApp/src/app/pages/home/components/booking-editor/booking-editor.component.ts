@@ -30,6 +30,7 @@ export class BookingEditorComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.isInitialLoading = true;
+
     this.eventService.GetEventById(this.eventId).then((response) => {
       this.event = response;
       if (!this.isEditMode) {

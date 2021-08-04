@@ -1,4 +1,5 @@
 <div class="container">
+
   <div class="header">
     <div class="heading"><span *ngIf="!isEditMode">Create</span><span *ngIf="isEditMode">Edit</span> Booking</div>
     <div (click)="CloseDialog()" class="close-icon">
@@ -7,9 +8,8 @@
   </div>
 
   <app-loader *ngIf="isLoading" style="height: 100vh;width:100vw;"></app-loader>
-
-
   <div *ngIf="!isInitialLoading" class="content">
+
     <div class="input-field">
       <span>Name</span>
       <input class="input" [(ngModel)]="booking.name" type="text" placeholder="Enter Booking Name...">
@@ -36,6 +36,7 @@
   </div>
 
   <div class="footer">
+
     <div *ngIf="!CheckFormValidation() && isTryingToSubmit" class="error-message">{{errorMessage}}</div>
 
     <div class="btn-container">
