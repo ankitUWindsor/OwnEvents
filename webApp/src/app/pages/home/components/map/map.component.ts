@@ -84,7 +84,7 @@ export class MapComponent implements OnInit {
           this.zoom = 12;
           this.location.address = results[0].formatted_address;
         } else {
-          window.alert('No results found');
+          window.alert('No result found');
         }
         this.saveLocation();
       } else {
