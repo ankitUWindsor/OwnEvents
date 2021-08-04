@@ -24,8 +24,8 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(emailRegex)]],
       name: ['', Validators.required],
-      password: ['', [Validators.required, Validators.maxLength(25)]],
-      reEnterPassword: ['', [Validators.required, Validators.maxLength(25)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+      reEnterPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       userType: ['', [Validators.required]]
     });
   }
@@ -52,6 +52,8 @@ export class SignupComponent implements OnInit {
         this.errorMessage = 'Enter a Valid Email';
       } else if (!this.signupForm.get('userType').valid) {
         this.errorMessage = 'Please select your User Type';
+      } else if (!this.signupForm.get('password').valid || !this.signupForm.get('reEnterPassword').valid) {
+        this.errorMessage = 'Enter a Password between 8-25 characters';
       } else {
         this.errorMessage = 'Enter all mandatory fields';
       }

@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string;
   UserType = UserType;
-  cameFromSignup = false;
+  cameFromOtherPages = false;
+  successMessage = '';
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -24,10 +25,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((response) => {
-      if (response && response.s && response.s === '1') {
-        this.cameFromSignup = true;
+      if (response && response.s) {
+        if (response.s === '1') {
+          this.successMessage = 'Verification email sent!!';
+        } else if (response.s === '2') {
+          this.successMessage = 'Password Changed Successfully';
+        }
         setTimeout(() => {
-          this.cameFromSignup = false;
+          this.successMessage = '';
         }, 5000);
       }
     });

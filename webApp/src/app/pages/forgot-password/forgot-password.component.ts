@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotForm: FormGroup;
   errorMessage: string;
   UserType = UserType;
+  successMessage = '';
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -32,17 +33,19 @@ export class ForgotPasswordComponent implements OnInit {
   noti(): void {
     this.errorMessage = '';
     if (this.forgotForm.valid) {
-      const user = new User();
-      user.email = this.formValues.email.value.trim();
-      this.authenticationService.AuthenticateUser(user).then((response) => {
-        this.router.navigate(['login']);
+      const email = this.formValues.email.value.trim();
+      this.authenticationService.ForgotPassword(email).then((response) => {
+        this.successMessage = response.message;
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 5000);
       }, (err) => {
         this.errorMessage = err.error.message;
       });
     } else {
       if (!this.forgotForm.get('email').valid) {
         this.errorMessage = 'Enter a Valid Email';
-      } 
+      }
     }
   }
 

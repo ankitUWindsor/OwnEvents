@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { emailRegex } from 'src/assets/constants';
 import { UserType } from 'src/assets/enums';
@@ -15,17 +15,24 @@ export class ResetPasswordComponent implements OnInit {
   resetForm: FormGroup;
   errorMessage: string;
   UserType = UserType;
+  token = '';
   constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService) { }
 
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((response) => {
+      if (response && response.t) {
+        this.token = response.t;
+      }
+    });
     this.resetForm = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', Validators.required],
-      rePassword: ['', Validators.required],
+      // oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+      rePassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
     });
   }
   get formValues(): any { return this.resetForm.controls; }
@@ -33,30 +40,26 @@ export class ResetPasswordComponent implements OnInit {
   reset(): void {
     this.errorMessage = '';
     if (this.resetForm.valid) {
-      const user = new User();
-    // Below code properties are needed in user file.
-      // user.oldPassword = this.formValues.oldPassword.value;
-      // user.newPassword = this.formValues.newPassword.value;
-      // user.rePassword = this.formValues.rePassword.value;
-      this.authenticationService.AuthenticateUser(user).then((response) => {
-        this.router.navigate(['home']);
-      }, (err) => {
-        this.errorMessage = err.error.message;
-      });
+      if (this.resetForm.get('newPassword').value !== this.resetForm.get('rePassword').value) {
+        this.errorMessage = 'Password does not match...';
+      } else {
+        this.authenticationService.ResetPassword(this.token, this.formValues.newPassword.value).then((response) => {
+          this.router.navigate(['login'], { queryParams: { s: '2' } });
+        }, (err) => {
+          this.errorMessage = err.error.message;
+        });
+      }
     } else {
-      if (!this.resetForm.get('oldPassword').valid) {
-        this.errorMessage = 'Enter a Password';
-      } else if (!this.resetForm.get('newPassword').valid) {
-        this.errorMessage = 'Please enter new Password';
+      if (!this.resetForm.get('newPassword').valid) {
+        this.errorMessage = 'Please enter valid new Password';
       } else if (!this.resetForm.get('rePassword').valid) {
         this.errorMessage = 'Please re-enter new Password';
-      }
-       else {
+      } else {
         this.errorMessage = 'Enter all mandatory fields';
       }
     }
   }
 
-  
+
 
 }

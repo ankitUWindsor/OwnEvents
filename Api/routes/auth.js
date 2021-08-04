@@ -101,10 +101,80 @@ router.get('/confirmation/:token', async (req, res) => {
         await User.findByIdAndUpdate(verified._id, {
             isVerified: true
         })
-        res.redirect('https://owneventswebapp.z13.web.core.windows.net/login');
+        res.redirect(process.env.FRONTEND_BASE_URL + '/login');
     } catch (err) {
         res.send(err);
     }
+})
+
+router.post('/forgot-password', async (req, res) => {
+    try {
+        const user = await User.findOne({
+            email: req.body.email,
+            isVerified: true
+        });
+        if (!user) return res.status(400).send({
+            message: 'User does not exist!'
+        });
+
+        const token = jwt.sign({
+            _id: user._id
+        }, process.env.TOKEN_SECRET_RESET_PASSWORD, {
+            expiresIn: '4h'
+        })
+
+        const url = process.env.FRONTEND_BASE_URL + '/reset-password?t=' + token;
+
+        user.resetLink = token;
+        await user.save();
+
+        mailer.sendMail({
+            to: user.email,
+            subject: 'Reset Password',
+            body: `<h1>Hi there, Reset your password here</h1><br>
+            <p>Please click <a href="${url}">HERE</a> to Reset Your password</p>`
+        });
+        res.status(200).send({
+            success: 1,
+            message: 'Reset Link Sent to mail'
+        });
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+router.post('/reset-password', async (req, res) => {
+    jwt.verify(req.body.token, process.env.TOKEN_SECRET_RESET_PASSWORD, async (err, data) => {
+        if (err) {
+            return res.status(401).send({
+                message: 'Token Expired!'
+            });
+        } else {
+            try {
+                const user = await User.findOne({
+                    resetLink: req.body.token
+                });
+
+                if (!user) return res.status(401).send({
+                    message: 'Something went wrong'
+                })
+
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(atob(req.body.password), salt);
+
+                user.password = hashedPassword;
+                user.resetLink = '';
+                await user.save();
+                res.status(200).send({
+                    message: 'Password changed Successfully'
+                })
+            } catch (err) {
+                res.status(400).send(err);
+            }
+        }
+    });
+
 })
 
 module.exports = router;

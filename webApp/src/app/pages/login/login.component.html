@@ -1,8 +1,8 @@
 <main class="container">
   <div class="login-box">
       <h1 class="head-text">OwnEvents</h1>
-      <div *ngIf="cameFromSignup" class="signup">
-        <span>Verification email sent!!</span>
+      <div *ngIf="successMessage.length" class="signup">
+        <span>{{successMessage}}</span>
       </div>
 
       <div class="error" *ngIf="errorMessage">
@@ -33,10 +33,10 @@
                   <u><b class="link" [routerLink]="['/signup']">SignUp</b></u>
               </span>
 
-              <!-- <span class="footer-text" style="text-align: center;" >
+              <span class="footer-text" style="text-align: center;" >
               <u><b class="link" [routerLink]="['/forgot-password']">Forgot Password</b></u>
               </span>
-              <span class="footer-text" style="text-align: center;"  >
+              <!-- <span class="footer-text" style="text-align: center;"  >
                 <u><b class="link" [routerLink]="['/reset']">Reset Password</b></u>
                 </span> -->
 
