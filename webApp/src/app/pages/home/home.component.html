@@ -1,0 +1,21 @@
+  <div *ngIf="isloading"></div>
+  <div *ngIf="!isloading">
+    <nav>
+      <input [(ngModel)]="sideNavCheckBox" (ngModelChange)="SideNavChange($event)" type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <label class="logo">OwnEvents</label>
+      <ul>
+        <li (click)="CloseNavBar()" [routerLink]="['updates']"><a [class.active]="CheckActiveLink('updates')">Home</a></li>
+        <!-- <li (click)="CloseNavBar()"><a>Events</a></li> -->
+        <li *ngIf="userType===UserType.Audience" (click)="CloseNavBar()" [routerLink]="['bookings']"><a [class.active]="CheckActiveLink('bookings')">Bookings</a></li>
+        <li *ngIf="userType===UserType.Organizer" (click)="CreateNewEvent();CloseNavBar()"><a>Create Event</a></li>
+        <li (click)="CloseNavBar()" [routerLink]="['profile']"><a [class.active]="CheckActiveLink('profile')">Profile</a></li>
+        <li (click)="Logout();CloseNavBar()"><a>Logout</a></li>
+      </ul>
+    </nav>
+    <section>
+      <router-outlet></router-outlet>
+    </section>
+  </div>

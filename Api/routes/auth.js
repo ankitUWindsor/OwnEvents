@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs');
 const atob = require('atob');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
-const mailService = require('../service/mailer');
+
+const mailer = require('./../services/mailerService');
+
 
 router.post('/register', async (req, res) => {
     try {
@@ -33,13 +35,21 @@ router.post('/register', async (req, res) => {
         const token = jwt.sign({
             _id: savedUser._id
         }, process.env.TOKEN_SECRET, {
-            expiresIn: '4h'
+            expiresIn: '1w'
         })
+
+        const url = process.env.BASE_URL + 'api/user/confirmation/' + token;
+        mailer.sendMail({
+            to: user.email,
+            subject: 'Email Verification',
+            body: `<h1>Hi there, Welcome to Own Events</h1><br>
+            <p>Please click <a href="${url}">HERE</a> to verify your email</p>`
+        });
 
         res.header('auth-token', token).send({
             success: 200,
             message: 'User Registered Successfully',
-            authToken: token
+            // authToken: token
         });
     } catch (err) {
         console.log('err', err);
@@ -60,6 +70,11 @@ router.post('/login', async (req, res) => {
             message: 'Incorrect Username or Password'
         });
 
+        if (!user.isVerified) return res.status(400).send({
+            success: 0,
+            message: 'Please verify your email'
+        });
+
         const validPassword = await bcrypt.compare(userInfo[1], user.password);
         if (!validPassword) return res.status(400).send({
             success: 0,
@@ -69,7 +84,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({
             _id: user._id
         }, process.env.TOKEN_SECRET, {
-            expiresIn: '4h'
+            expiresIn: '1w'
         })
 
         res.header('auth-token', token).send({
@@ -84,93 +99,89 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.post('/forget-password', async (req, res) => {
+router.get('/confirmation/:token', async (req, res) => {
     try {
+        const verified = jwt.verify(req.params.token, process.env.TOKEN_SECRET);
+        await User.findByIdAndUpdate(verified._id, {
+            isVerified: true
+        })
+        res.redirect(process.env.FRONTEND_BASE_URL + '/login');
+    } catch (err) {
+        res.send(err);
+    }
+})
 
-        // check request have expected data or not
-        if (!req.body.email || !req.body.userType)
-            return res.status(400).send({
-                success: 0,
-                message: 'Missing some input data.'
-            });
-
-        const userType = req.body.userType
+router.post('/forgot-password', async (req, res) => {
+    try {
         const user = await User.findOne({
             email: req.body.email,
-            userType
+            isVerified: true
         });
-        if (!user && user.email) return res.status(404).send({
-            success: 0,
-            message: 'User not found'
+        if (!user) return res.status(400).send({
+            message: 'User does not exist!'
         });
 
-        const forgetPasswordToken = jwt.sign({
-            _id: user._id,
-            isForgetPassword: true,
-            createdAt: Date.now()
-        }, process.env.TOKEN_SECRET, {
+        const token = jwt.sign({
+            _id: user._id
+        }, process.env.TOKEN_SECRET_RESET_PASSWORD, {
             expiresIn: '4h'
         })
 
-        const link = `${process.env.FRONT_URL}reset-password/${forgetPasswordToken}`
+        const url = process.env.FRONTEND_BASE_URL + '/reset-password?t=' + token;
 
-        try {
-            await mailService.sendMail({to: user.email, subject: 'Forget Password', text: link})
+        user.resetLink = token;
+        await user.save();
 
-            res.send({
-                success: 1,
-                message: 'Mail is sent on your email account for the reset password.',
-            });
+        mailer.sendMail({
+            to: user.email,
+            subject: 'Reset Password',
+            body: `<h1>Hi there, Reset your password here</h1><br>
+            <p>Please click <a href="${url}">HERE</a> to Reset Your password</p>`
+        });
+        res.status(200).send({
+            success: 1,
+            message: 'Reset Link Sent to mail'
+        });
 
-        } catch (e) {
-            res.statusCode(500).send({
-                success: 1,
-                message: 'Error in mail send',
-            });
-        }
+
     } catch (err) {
         res.status(400).send(err);
     }
 });
 
 router.post('/reset-password', async (req, res) => {
-    try {
-        // check request have expected data or not
-        if (!req.headers['reset-token'] || !req.body.password)
-            return res.status(400).send({
-                success: 0,
-                message: 'Missing some input data.'
+
+    jwt.verify(req.body.token, process.env.TOKEN_SECRET_RESET_PASSWORD, async (err, data) => {
+        if (err) {
+            return res.status(401).send({
+                message: 'Token Expired!'
             });
+        } else {
+            try {
+                const user = await User.findOne({
+                    resetLink: req.body.token
+                });
 
-        try {
-            const decodedData = jwt.verify(req.headers['reset-token'], process.env.TOKEN_SECRET);
-            const user = await User.findOne({
-                _id: decodedData._id,
-            });
-            if (!user) return res.status(404).send({
-                success: 0,
-                message: 'User not found'
-            });
+                if (!user) return res.status(401).send({
+                    message: 'Something went wrong'
+                })
 
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(atob(req.body.password), salt);
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(atob(req.body.password), salt);
 
-            user.password = hashedPassword;
-
-            await user.save();
-
-            res.send({
-                success: 1,
-                message: 'Password set successfully',
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(400).send('Invalid Token');
+                user.password = hashedPassword;
+                user.resetLink = '';
+                await user.save();
+                res.status(200).send({
+                    message: 'Password changed Successfully'
+                })
+            } catch (err) {
+                res.status(400).send(err);
+            }
         }
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
+    });
+
+})
 
 
 module.exports = router;

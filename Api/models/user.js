@@ -13,15 +13,25 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-    },  
-    userType:{
+
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    userType: {
         type: Number,
         enum: [1, 2],
-        default: 1,
+        default: 1
     },
-    interestsCategories: {
-        type: Number,
-        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    interests: {
+        type: [Number],
+        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+    },
+    resetLink: {
+        type: String,
+        default: ''
+
     }
 });
 const interestsCategories = {Online_Streaming: 1, 
@@ -43,4 +53,6 @@ const UserType = {
     Audience: 2
 }
 
-module.exports = mongoose.model('User', userSchema);
+
+module.exports = mongoose.model('user', userSchema);
+

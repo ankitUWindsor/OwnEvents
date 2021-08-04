@@ -1,0 +1,46 @@
+<main class="container">
+  <div class="login-box">
+      <h1 class="head-text">OwnEvents</h1>
+      <div *ngIf="successMessage.length" class="signup">
+        <span>{{successMessage}}</span>
+      </div>
+
+      <div class="error" *ngIf="errorMessage">
+          <span>{{errorMessage}}</span>
+      </div>
+
+      <form class="form" #submitForm="ngForm" (ngSubmit)="Login()" novalidate>
+          <div [formGroup]="loginForm" class="input-field">
+              <input class="input" [class.error-input]="submitForm.submitted && !loginForm.get('email').valid"
+               formControlName="email" type="email" placeholder="Enter Email...">
+          </div>
+          <div [formGroup]="loginForm" class="input-field">
+              <input class="input" [class.error-input]="submitForm.submitted && !loginForm.get('password').valid"
+               formControlName="password" type="password" placeholder="Enter Password...">
+          </div>
+          <div [formGroup]="loginForm" class="input-field radio-buttons">
+            <input [class.error-input]="submitForm.submitted && !loginForm.get('userType').valid"
+             id="organizer" type="radio" name="userType" formControlName="userType" [value]="UserType.Organizer" />
+              <label class="radio-label org-fix"> Organizer</label>
+            <input [class.error-input]="submitForm.submitted && !loginForm.get('userType').valid"
+             id="audience" type="radio" name="userType" formControlName="userType" [value]="UserType.Audience" />
+              <label class="radio-label aud-fix">Audience</label>
+        </div>
+          <div class="footer">
+              <button class="login-button">Login</button>
+              <span class="footer-text">
+                  <span class="account-text">Do not have an Account? </span>
+                  <u><b class="link" [routerLink]="['/signup']">SignUp</b></u>
+              </span>
+
+              <span class="footer-text" style="text-align: center;" >
+              <u><b class="link" [routerLink]="['/forgot-password']">Forgot Password</b></u>
+              </span>
+              <!-- <span class="footer-text" style="text-align: center;"  >
+                <u><b class="link" [routerLink]="['/reset']">Reset Password</b></u>
+                </span> -->
+
+          </div>
+      </form>
+  </div>
+</main>
