@@ -7,7 +7,8 @@ const Booking = require('../models/booking');
 const eventController = require('./eventController');
 
 router.post('/create', verifytoken, async (req, res) => {
-    try {
+    try 
+    {
         const event = await Event.findOne({
             _id: req.body.eventId
         });
@@ -17,10 +18,11 @@ router.post('/create', verifytoken, async (req, res) => {
         if (foundAt !== -1) {
             res.status(200).send({
                 success: 409,
-                message: 'Booking Already Exists'
+                message: 'Booking already Exists'
             });
         } else {
-            for (let i = 0; i < req.body.seatCount; i++) {
+            for (let i = 0; i < req.body.seatCount; i++) 
+            {
                 event.participantIds.push(req.user._id);
             }
             await event.save();
@@ -40,7 +42,7 @@ router.post('/create', verifytoken, async (req, res) => {
             res.status(200).send({
                 success: 200,
                 result: await GetCompleteBookingInfo(booking),
-                message: 'Booking Complete'
+                message: 'Booking is Completed'
             });
         }
 
@@ -167,7 +169,7 @@ router.delete('/cancel', verifytoken, async (req, res) => {
 
         res.status(200).send({
             success: 200,
-            message: 'Booking Cancelled',
+            message: 'Booking is Cancelled',
             result: await GetCompleteBookingInfo(booking)
         });
 
