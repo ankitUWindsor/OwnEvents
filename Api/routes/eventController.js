@@ -151,6 +151,8 @@ router.delete('/delete', verifytoken, async (req, res) => {
     const event = await Event.findOne({
       _id: req.query.id
     });
+    const toSendToUsers = await GetToSendToParticipants(event.participantIds);
+
     event.isDelete = true;
     event.participantIds = [];
     await event.save();
@@ -162,6 +164,22 @@ router.delete('/delete', verifytoken, async (req, res) => {
       bookings[i].isCanceled = true;
       await bookings[i].save();
     }
+
+    if (toSendToUsers && toSendToUsers.length) {
+      const organizer = await User.findOne({
+        _id: event.organizerId
+      });
+      let mailOptions = {
+        to: toSendToUsers,
+        subject: 'Event Cancelled: ' + event.eventName,
+        body: `
+      <h1>Sorry to let you know that the event:<b>"${event.eventName}"</b> has been cancelled by the organizer</h1>
+      <p>The event was being organized by <b>${organizer.name}</b>, Contact Email: <b>${organizer.email}</b></p>
+      `
+      }
+      mailer.sendMail(mailOptions);
+    }
+
     res.status(200).send({
       success: 200,
       message: 'Event Deleted'
@@ -185,6 +203,24 @@ async function getCompleteEventsInfo(event) {
   toReturnEvent.id = toReturnEvent._id;
   delete toReturnEvent._id;
   return toReturnEvent;
+}
+
+async function GetToSendToParticipants(participantIds) {
+  const unique = (value, index, self) => {
+    return self.indexOf(value) === index
+  }
+  let toSendTo = '';
+  const uniqueParticipantIds = participantIds.filter(unique);
+  for (let i = 0; i < uniqueParticipantIds.length; i++) {
+    const user = await User.findOne({
+      _id: uniqueParticipantIds[i]
+    });
+    toSendTo += user.email;
+    if (i !== uniqueParticipantIds.length - 1) {
+      toSendTo += ',';
+    }
+  }
+  return toSendTo;
 }
 
 module.exports = router;

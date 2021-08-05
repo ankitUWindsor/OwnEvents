@@ -5,10 +5,10 @@ const Event = require('../models/event');
 const User = require('../models/user');
 const Booking = require('../models/booking');
 const eventController = require('./eventController');
+const mailer = require('./../services/mailerService');
 
 router.post('/create', verifytoken, async (req, res) => {
-    try 
-    {
+    try {
         const event = await Event.findOne({
             _id: req.body.eventId
         });
@@ -21,8 +21,7 @@ router.post('/create', verifytoken, async (req, res) => {
                 message: 'Booking already Exists'
             });
         } else {
-            for (let i = 0; i < req.body.seatCount; i++) 
-            {
+            for (let i = 0; i < req.body.seatCount; i++) {
                 event.participantIds.push(req.user._id);
             }
             await event.save();
@@ -38,6 +37,24 @@ router.post('/create', verifytoken, async (req, res) => {
             });
 
             await booking.save();
+
+            const organizer = await User.findOne({
+                _id: event.organizerId
+            });
+            let mailOptions = {
+                to: booking.email,
+                subject: 'Booking Confirmation:' + booking._id,
+                body: `
+                <h1>Your Booking has been confirmed for EVENT <b>"${event.eventName}"</b></h1>
+                <p><b>Number of Seats:</b> ${booking.seatCount}</p>
+                <p>The event has been organized by <b>${organizer.name}</b>, Contact Email: <b>${organizer.email}</b></p>
+                `
+            }
+            if (event.location && event.location.address) {
+                mailOptions.body += `<p><b>Location:</b> ${event.location.address}</p>`;
+            }
+
+            mailer.sendMail(mailOptions);
 
             res.status(200).send({
                 success: 200,
