@@ -33,6 +33,7 @@ export class ResetPasswordComponent implements OnInit {
       // oldPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
       rePassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+
     });
   }
   get formValues(): any { return this.resetForm.controls; }
@@ -48,7 +49,7 @@ export class ResetPasswordComponent implements OnInit {
         }, (err) => {
           this.errorMessage = err.error.message;
         });
-      }
+        }
     } else {
       if (!this.resetForm.get('newPassword').valid) {
         this.errorMessage = 'Please enter valid new Password';
@@ -59,7 +60,4 @@ export class ResetPasswordComponent implements OnInit {
       }
     }
   }
-
-
-
 }
