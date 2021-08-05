@@ -4,12 +4,13 @@
           placeholder="Search the Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
           #search>
   </div>
-
   <span class="address">{{location.address}}</span>
 
   <agm-map [latitude]="location.latitude" [longitude]="location.longitude" [zoom]="zoom">
       <agm-marker [latitude]="location.latitude" [longitude]="location.longitude" [markerDraggable]="isEditingAllowed"
           (dragEnd)="markerDragEnd($event)"></agm-marker>
+
   </agm-map>
 
+  
 </div>

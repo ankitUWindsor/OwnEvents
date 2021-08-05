@@ -10,6 +10,7 @@ import { MapsAPILoader } from '@agm/core';
 export class MapComponent implements OnInit {
   @Input() location: Location = { latitude: undefined, longitude: undefined, address: undefined };
   @Output() LocationChanged = new EventEmitter<Location>();
+  
   zoom = 12;
   geoCoder: google.maps.Geocoder;
   isLoading: boolean;
