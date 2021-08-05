@@ -7,6 +7,8 @@ const schedule = require('node-schedule');
 const mailer = require('./../services/mailerService');
 const scheduleService = require('./../services/scheduleService');
 
+
+
 router.post('/create', verifytoken, async (req, res) => {
   try {
     const newEvent = new Event({
@@ -40,6 +42,8 @@ router.post('/create', verifytoken, async (req, res) => {
   }
 });
 
+
+
 router.get('/list', verifytoken, async (req, res) => {
   try {
     const event = await Event.find({
@@ -62,6 +66,8 @@ router.get('/list', verifytoken, async (req, res) => {
     });
   }
 });
+
+
 
 
 router.get('/eventbyid', verifytoken, async (req, res) => {
@@ -90,6 +96,8 @@ router.get('/eventbyid', verifytoken, async (req, res) => {
   }
 });
 
+
+
 router.post('/update', verifytoken, async (req, res) => {
   const event = await Event.findOne({
     _id: req.body.id
@@ -104,7 +112,6 @@ router.post('/update', verifytoken, async (req, res) => {
   if (new Date(req.body.startDateAndTime).getTime() !== new Date(event.startDateAndTime).getTime()) {
     scheduleService.ScheduleReminderEmail(event._id, req.body.startDateAndTime);
   }
-
   const updatedEvent = {
     interests: req.body.interests,
     eventName: req.body.eventName,
@@ -127,6 +134,8 @@ router.post('/update', verifytoken, async (req, res) => {
   })
 });
 
+
+
 router.put('/updateStatus', verifytoken, async (req, res) => {
   let status = req.body.status
   try {
@@ -145,6 +154,8 @@ router.put('/updateStatus', verifytoken, async (req, res) => {
     });
   }
 })
+
+
 
 router.delete('/delete', verifytoken, async (req, res) => {
   try {
@@ -191,7 +202,6 @@ router.delete('/delete', verifytoken, async (req, res) => {
     });
   }
 })
-
 async function getCompleteEventsInfo(event) {
   const toReturnEvent = {
     ...JSON.parse(JSON.stringify(event))
@@ -222,5 +232,4 @@ async function GetToSendToParticipants(participantIds) {
   }
   return toSendTo;
 }
-
 module.exports = router;
