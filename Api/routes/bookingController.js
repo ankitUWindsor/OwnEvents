@@ -144,6 +144,8 @@ router.get('/list', verifytoken, async (req, res) => {
     }
 
 });
+    
+
 
 router.get('/listByEventId/:eventId', verifytoken, async (req, res) => {
     try {
@@ -165,6 +167,8 @@ router.get('/listByEventId/:eventId', verifytoken, async (req, res) => {
         res.status(400).send(err);
     }
 })
+
+
 
 router.delete('/cancel', verifytoken, async (req, res) => {
     try {
@@ -223,6 +227,8 @@ async function GetCompleteBookingInfo(booking) {
 
     return toReturnBooking;
 }
+
+
 
 function GetBasicBookingInfo(booking) {
     return {
