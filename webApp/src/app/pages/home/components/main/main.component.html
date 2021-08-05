@@ -65,7 +65,7 @@
           <div class="footer-item more-btn" *ngIf="userType === UserType.Organizer">
             <button (click)="ShowBookings(item)">Show Bookings</button>
             <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
-            (click)="CancelEvent(item)">Delete Event</button></div>
+            (click)="CancelEvent(item,i)">Delete Event</button></div>
         </div>
       </div>
     </ng-container>
