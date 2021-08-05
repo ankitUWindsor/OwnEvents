@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const verifyToken = require('../middleware/verifytoken');
 const User = require('../models/user')
-
 router.get('/', verifyToken, async (req, res) => {
     try {
         const user = await User.findOne({
@@ -27,6 +26,9 @@ router.get('/', verifyToken, async (req, res) => {
         res.status(400).send(err);
     }
 });
+
+
+
 
 router.post('/update', verifyToken, async (req, res) => {
     try {
@@ -65,5 +67,4 @@ router.post('/update', verifyToken, async (req, res) => {
         res.status(400).send(error);
     }
 });
-
 module.exports = router;
