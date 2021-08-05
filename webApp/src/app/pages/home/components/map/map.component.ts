@@ -56,8 +56,6 @@ export class MapComponent implements OnInit {
       });
     }
   }
-
-
   private setCurrentLocation(): void {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -69,7 +67,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-
+  
   markerDragEnd($event: any): void {
     this.location.latitude = $event.coords.lat;
     this.location.longitude = $event.coords.lng;
@@ -93,6 +91,7 @@ export class MapComponent implements OnInit {
       }
     });
   }
+
 
   saveLocation(): void {
     this.LocationChanged.emit(this.location);
