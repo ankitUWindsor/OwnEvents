@@ -20,6 +20,7 @@ router.post('/create', verifytoken, async (req, res) => {
       endDateAndTime: req.body.endDateAndTime,
       capacity: req.body.capacity,
       images: req.body.images,
+      arModel: req.body.arModel,
       participantIds: []
     })
     await newEvent.save()
@@ -114,7 +115,8 @@ router.post('/update', verifytoken, async (req, res) => {
     endDateAndTime: req.body.endDateAndTime,
     capacity: req.body.capacity,
     participantIds: req.body.participantIds,
-    images: req.body.images
+    images: req.body.images,
+    arModel: req.body.arModel
   }
 
   Event.findByIdAndUpdate(req.body.id, updatedEvent).then((result) => {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -8,12 +8,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ArViewerComponent implements OnInit {
   isloading: boolean;
-  // urlForSrc ='https://owneventspublicstorage.blob.core.windows.net/imagecontainer/74da599e-33f1-46cd-91f5-cc8201e68b16.3dObject.glb';
-  urlForSrc ='https://owneventspublicstorage.blob.core.windows.net/imagecontainer/5ae05a23-6938-4314-877f-03f79f3e2a57.skateboard.glb';
-  urlForIosSrc ='';
+  @Input() urlForSrc: string;
+
   constructor(private dialogRef: MatDialogRef<ArViewerComponent>) { }
 
   ngOnInit(): void {
+    if(!this.urlForSrc || !this.urlForSrc.length){
+      this.dialogRef.close();
+    }
   }
 
   CloseDialog(): void {

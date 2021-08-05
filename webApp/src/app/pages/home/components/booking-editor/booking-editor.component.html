@@ -30,7 +30,7 @@
       <span style="font-size: 10px;">Note: Number of seats left are: {{event.capacity - event.participantIds.length - booking.seatCount}}</span>
     </div>
 
-    <div *ngIf="event.location" class="input-field map">
+    <div *ngIf="event.location?.address && event.location.address.length" class="input-field map">
       <span>location</span>
       <app-map [location]="event.location" [isEditingAllowed]="false"></app-map>
     </div>

@@ -38,6 +38,9 @@ const eventSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    arModel: {
+        type: String
+    },
     startDateAndTime: {
         type: Date
     },

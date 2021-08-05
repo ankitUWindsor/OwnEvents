@@ -149,6 +149,25 @@
         .footer-item {
           padding-bottom: 5px;
         }
+        .ar-view{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bolder;
+          span{
+            color: #ffffff;
+            padding-left: 12px;
+            padding-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5DADE2;
+            height: 20px;
+            padding: 5px;
+            width: inherit;
+            border-radius: 5px;
+          }
+        }
 
         .chip {
           display: inline-flex;

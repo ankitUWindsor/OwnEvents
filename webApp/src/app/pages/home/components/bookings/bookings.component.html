@@ -39,6 +39,7 @@
           </div>
         </div>
         <div class=footer>
+          <div class="footer-item ar-view" *ngIf="item.event?.arModel && item.event.arModel.length"><span (click)="OpenLiveView(item.event.arModel)">View Live Model</span></div>
           <div class="footer-item desc">
             <div class="heading">Booking</div>
             <div class="items">
@@ -63,7 +64,7 @@
           </div>
           <div class="footer-item time">{{GetMomentDate(item.event.eventStartDateAndTime)}} -
             {{GetMomentDate(item.event.eventEndDateAndTime)}}</div>
-          <!-- <div class="footer-item capacity">Capacity- {{item.participantIds.length}}/{{item.capacity}}</div> -->
+          <div class="footer-item capacity" *ngIf="item.event.location?.address && item.event.location?.address.length"><span style="font-weight: bolder;">Location-</span>{{item.event.location?.address}}</div>
           <div class="footer-item book-btn">
             <button (click)="OpenBookingEditor(item,i)">Edit</button></div>
           <div class="footer-item cancel-btn">

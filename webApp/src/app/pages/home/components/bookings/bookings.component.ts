@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user/user.service';
 import { EventTypes } from 'src/assets/constants';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
+import { ArViewerComponent } from '../ar-viewer/ar-viewer.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bookings',
@@ -119,6 +121,14 @@ export class BookingsComponent implements OnInit {
         this.bookings[index] = booking;
       }
     });
+  }
+
+  OpenLiveView(name: string) {
+    const reference = this.matDialog.open(ArViewerComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    reference.componentInstance.urlForSrc = environment.publicStorage + name;
   }
 
 }

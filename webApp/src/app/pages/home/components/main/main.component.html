@@ -43,6 +43,7 @@
           </div>
         </div>
         <div class=footer>
+          <div class="footer-item ar-view" *ngIf="item.arModel && item.arModel.length"><span (click)="OpenLiveView(item.arModel)">View Live Model</span></div>
           <div class="footer-item desc">{{item.description}}</div>
           <div class="footer-item category">
             <ng-container  *ngFor="let interest of item.interests">

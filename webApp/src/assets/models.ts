@@ -26,6 +26,7 @@ export class Event {
   endDateAndTime: Date;
   capacity: number;
   images: Array<string>;
+  arModel: string;
   participantIds: Array<string>;
   createdDate: Date;
 
@@ -57,6 +58,7 @@ export class Booking {
     eventEndDateAndTime?: Date;
     interests?: Array<InterestsCategory>;
     location?: Location;
+    arModel?: string;
   };
   organizer: {
     name?: string;

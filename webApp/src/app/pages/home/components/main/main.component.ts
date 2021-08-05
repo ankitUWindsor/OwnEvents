@@ -14,6 +14,8 @@ import { EventEditorComponent } from '../event-editor/event-editor.component';
 import { EventTypes } from 'src/assets/constants';
 import { GlobalEmitterService } from 'src/app/services/global-emitter/global-emitter.service';
 import { Subscription } from 'rxjs';
+import { ArViewerComponent } from '../ar-viewer/ar-viewer.component';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -170,6 +172,14 @@ export class MainComponent implements OnInit, OnDestroy {
       width: '100vw'
     });
     dialogInstance.componentInstance.event = item;
+  }
+
+  OpenLiveView(name: string){
+    const reference = this.matDialog.open(ArViewerComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    reference.componentInstance.urlForSrc = environment.publicStorage + name;
   }
 
 }
