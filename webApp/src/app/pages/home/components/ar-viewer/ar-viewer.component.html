@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <div class="heading"> AR View</div>
+    <div (click)="CloseDialog()" class="close-icon">
+      <img src="../../../../../assets/images/close.svg">
+    </div>
+  </div>
+
+
+  <div *ngIf="!isloading" class="content">
+
+    <model-viewer [src]="urlForSrc" [ios-src]="urlForSrc"
+      alt="AR model" ar ar-modes="webxr scene-viewer quick-look" environment-image="neutral"
+      auto-rotate camera-controls>
+      <!-- <button slot="ar-button" id="ar-button">
+        View in your space
+      </button> -->
+    </model-viewer>
+
+  </div>
+
+
+</div>
