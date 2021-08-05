@@ -1,5 +1,5 @@
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
-import { AssetService } from './../../../../services/asset.service';
+import { AssetService } from './../../../../services/asset/asset.service';
 import { BookingService } from './../../../../services/booking/booking.service';
 import { Component, OnInit } from '@angular/core';
 import { Booking } from 'src/assets/models';

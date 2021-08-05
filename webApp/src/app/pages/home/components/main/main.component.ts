@@ -1,6 +1,6 @@
 import { EventBookingsComponent } from './../event-bookings/event-bookings.component';
 import { Router } from '@angular/router';
-import { AssetService } from 'src/app/services/asset.service';
+import { AssetService } from 'src/app/services/asset/asset.service';
 import { EmitterTask, InterestsCategory } from './../../../../../assets/enums';
 import { UserType } from 'src/assets/enums';
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';

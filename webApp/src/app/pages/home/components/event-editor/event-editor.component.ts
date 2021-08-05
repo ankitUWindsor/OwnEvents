@@ -1,7 +1,7 @@
 import { environment } from './../../../../../environments/environment.prod';
 import { ArViewerComponent } from './../ar-viewer/ar-viewer.component';
 import { EventService } from './../../../../services/event/event.service';
-import { AssetService } from './../../../../services/asset.service';
+import { AssetService } from './../../../../services/asset/asset.service';
 import { EventTypes, MIN_CAPACITY } from './../../../../../assets/constants';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
