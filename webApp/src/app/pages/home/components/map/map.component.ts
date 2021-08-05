@@ -91,8 +91,6 @@ export class MapComponent implements OnInit {
       }
     });
   }
-
-
   saveLocation(): void {
     this.LocationChanged.emit(this.location);
   }
