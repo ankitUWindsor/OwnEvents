@@ -1,3 +1,4 @@
+import { ConfirmationBoxComponent } from './components/confirmation-box/confirmation-box.component';
 import { EmitterTask } from './../../../assets/enums';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';
@@ -94,4 +95,16 @@ export class HomeComponent implements OnInit {
     this.SideNavChange(this.sideNavCheckBox);
   }
 
+  OpenConfirmationBox() {
+    let height = '25vh';
+    let width = '60vw';
+    if(screen.width<=800){
+      height = '25vh';
+      width = '90vw';
+    }
+    this.matDialog.open(ConfirmationBoxComponent,{
+      height,
+      width
+    })
+  }
 }
