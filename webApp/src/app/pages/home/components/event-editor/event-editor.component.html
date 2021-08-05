@@ -59,7 +59,7 @@
       <div class="input-field">
         <span>Categories</span>
         <div class="dropdown">
-          <img (click)="ToggleDropdown()" class="dropbtn" src="../../../../../assets/images/plus.png">
+          <img (click)="ToggleDropdown()" style="cursor: pointer;" class="dropbtn" src="../../../../../assets/images/plus.png">
           <div id="myDropdown" class="dropdown-content">
             <div *ngFor="let item of categories"><a (click)="AddCategoryToEvent(item.enumValue)" *ngIf="!CheckIfTypeExistsInEvent(item)">{{item.text}}</a></div>
           </div>
@@ -86,7 +86,7 @@
         </div>
         <div>
           <div *ngIf="event.arModel && event.arModel.length" class="chip" style="background-color:#f1f1f1">
-            <div class="chip-content" style="color:black" (click)="ViewModel()">View</div>
+            <div class="chip-content" style="color:black;cursor: pointer;" (click)="ViewModel()">View</div>
             <div class="chip-close">
               <svg (click)="RemoveModel()" class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path

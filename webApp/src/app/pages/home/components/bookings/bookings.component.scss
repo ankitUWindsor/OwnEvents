@@ -68,7 +68,7 @@
       flex-direction: column;
       align-items: center;
       height: inherit;
-  
+
 
       .user-block {
         width: 95%;
@@ -150,12 +150,15 @@
         .footer-item {
           padding-bottom: 5px;
         }
-        .ar-view{
+
+        .ar-view {
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: bolder;
-          span{
+
+          span {
+            cursor: pointer;
             color: #ffffff;
             padding-left: 12px;
             padding-right: 12px;
@@ -183,7 +186,8 @@
 
           .items {
             width: 95%;
-            .values{
+
+            .values {
               width: 100%;
               display: flex;
               align-items: center;

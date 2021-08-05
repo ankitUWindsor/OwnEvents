@@ -150,6 +150,7 @@
         }
 
         img {
+          cursor: pointer;
           width: inherit;
           height: 25px;
         }
@@ -240,6 +241,7 @@
 
       .image-upload {
         .add-button {
+          cursor: pointer;
           padding-left: 10px;
           height: 25px;
           width: inherit;
