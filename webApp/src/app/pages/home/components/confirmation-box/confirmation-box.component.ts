@@ -8,10 +8,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ConfirmationBoxComponent implements OnInit {
   isloading: boolean;
-  @Input() message = 'Are you sure you want to continue!!';
+  @Input() message = 'Are you sure you want to continue!';
   @Input() header = 'Confirmation';
   @Input() confirmButton = 'Confirm';
-  @Input() cancelButton = 'cancel';
+  @Input() cancelButton = 'Cancel';
 
   constructor(private dialogRef: MatDialogRef<ConfirmationBoxComponent>) { }
 
