@@ -8,20 +8,37 @@
 
   .profile {
     height: inherit;
-    min-height: 60vh;
+    min-height: 45vh;
     border-radius: 5px;
-    padding: 2rem 2rem;
+    padding: 1rem 1rem;
     width: 600px;
     background-color: white;
 
-    .edit{
+    .edit {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       cursor: pointer;
-      img{
-        height: 20px;
-        width: 20px;
+      margin-bottom: 12px;
+
+      .edit-interests {
+        padding: 8px 8px;
+        width: 130px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(236, 17, 17, 0.63);
+        cursor: pointer;
+
+        span {
+          padding-right: 5px;
+        }
+
+        img {
+          height: 20px;
+          width: 20px;
+        }
       }
     }
 
@@ -46,7 +63,7 @@
         font-size: 1.4rem;
       }
 
-      .settings{
+      .settings {
         border-radius: 5px;
         padding: 0.5rem 0.5rem;
         color: white;
@@ -54,15 +71,17 @@
         font-size: 1.4rem;
         width: 220px;
         height: inherit;
-        transform: translate(30px,70px);
+        transform: translate(30px, 70px);
         position: absolute;
         background-color: rgba(0, 0, 0, 0.938);
-        ul{
+
+        ul {
           display: flex;
           flex-direction: column;
           text-align: center;
           list-style-type: none;
-          li{
+
+          li {
             cursor: pointer;
             padding-bottom: 2px;
           }

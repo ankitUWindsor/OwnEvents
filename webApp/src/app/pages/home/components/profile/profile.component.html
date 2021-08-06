@@ -1,14 +1,17 @@
 <div class="container">
   <div class="profile">
-      <div class="edit">
-          <img (click)="OpenInterests()" src="../../../../../assets/images/edit.svg">
+      <div *ngIf="userService.user.userType===UserType.Audience" class="edit">
+        <div (click)="OpenInterests()" class="edit-interests">
+          <span>Edit Interests</span>
+          <img src="../../../../../assets/images/edit.svg">
+        </div>
       </div>
       <div class="user-details">
           <img src="../../../../../assets/images/user.png">
           <ul class="list">
             <li class="item"><b>Name:</b> {{userService.user.name}}</li>
             <li class="item"><b>Email:</b> {{userService.user.email}}</li>
-            <li class="item"><b>Interests:</b> {{GetInterestsList()}}</li>
+            <li *ngIf="userService.user.userType===UserType.Audience" class="item"><b>Interests:</b> {{GetInterestsList()}}</li>
           </ul>
       </div>
       <div class="content">

@@ -1,3 +1,4 @@
+import { UserType } from './../../../../../assets/enums';
 import { InterestsCategory } from 'src/assets/enums';
 import { UserService } from './../../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ import { InterestsComponent } from '../interests/interests.component';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  UserType = UserType;
   constructor(public userService: UserService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
       }
     });
     if (str.length > 20) {
-      str = str.slice(0, 17) + '...';
+      str = str.slice(0, 20) + '...';
     }
     return str;
   }
