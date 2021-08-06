@@ -11,12 +11,12 @@ export class AuthenticationService {
   baseUrl = '/user';
   constructor(private httpService: HttpService, private router: Router) { }
 
-  public AuthenticateUser(user: User) {
+  public AuthenticateUser(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       const header = {
         'user-token': window.btoa(user.email + ':@#' + user.password),
       };
-      this.httpService.Post(this.baseUrl + '/login', {userType: user.userType}, header).subscribe((response: any) => {
+      this.httpService.Post(this.baseUrl + '/login', { userType: user.userType }, header).subscribe((response: any) => {
         localStorage.setItem(this.httpService.AUTHORIZATION_KEY, response.authToken);
         resolve(response);
       }, (err) => {
@@ -25,11 +25,11 @@ export class AuthenticationService {
     });
   }
 
-  public RegisterUser(user: User) {
+  public RegisterUser(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       user.password = window.btoa(user.password);
       this.httpService.Post(this.baseUrl + '/register', user).subscribe((response: any) => {
-        localStorage.setItem(this.httpService.AUTHORIZATION_KEY, response.authToken);
+        // localStorage.setItem(this.httpService.AUTHORIZATION_KEY, response.authToken);
         resolve(response);
       }, (err) => {
         reject(err);
@@ -37,7 +37,28 @@ export class AuthenticationService {
     });
   }
 
-  public logout() {
+  public ForgotPassword(email: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.httpService.Post(this.baseUrl + '/forgot-password', { email }).subscribe((response) => {
+        resolve(response);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+
+  public ResetPassword(token: string, password: string): Promise<any> {
+    password = window.btoa(password);
+    return new Promise((resolve, reject) => {
+      this.httpService.Post(this.baseUrl + '/reset-password', { token, password }).subscribe((response) => {
+        resolve(response);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+
+  public logout(): void {
     localStorage.clear();
     this.router.navigate(['login']);
   }

@@ -26,6 +26,20 @@
       padding-bottom: 1.7rem;
     }
 
+    .signup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #0e8518;
+      border-radius: 5px;
+      border-width: 2px;
+      border-color: #0e8518;
+      border-style: solid;
+      padding: 5px 5px;
+      margin-bottom: 10px;
+    }
+
     .error {
       color: #C70039;
       font-size: 1.2rem;
@@ -44,7 +58,7 @@
       padding-right: 10%;
       padding-left: 3%;
     }
-    
+
     .aud-fix {
       padding-left: 3%;
     }

@@ -1,0 +1,282 @@
+.container {
+  height: 95%;
+  font-family: 'lobster', cursive;
+  font-size: 20px;
+  text-align: center;
+
+  .header {
+    background-color: rgba(236, 17, 17, 0.63);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 10vh;
+    max-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+
+    .heading {
+      font-family: 'lobster', cursive;
+      font-size: 2.2rem;
+      text-align: center;
+    }
+
+    .close-icon {
+      height: 60%;
+      width: 3.2rem;
+      cursor: pointer;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+
+  .footer {
+    background-color: #F2F3F4;
+    height: 10vh;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .btn-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 90%;
+      width: 100%;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60%;
+      padding-right: 15px;
+
+      button {
+        border-style: solid;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        padding: 4px;
+        height: 100%;
+        font-size: 16px;
+      }
+
+      .save {
+        background-color: #2e7534;
+        border-color: #2e7534;
+        color: #ffffff;
+      }
+    }
+
+    .error-message{
+      height: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+      font-size: 16px;
+      color:#BD1C14 ;
+    }
+
+  }
+
+  .content {
+    margin-top: 10vh;
+    padding-bottom: 10vh;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .input-field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 2px 0px;
+
+      span {
+        font-size: 20px;
+        // font-family: serif;
+        // font-weight: bolder;
+      }
+
+      .input {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-style: solid;
+        border-width: 1px;
+        height: 30px;
+        width: 95%;
+      }
+
+      .date-input-container {
+        display: flex;
+        width: 95%;
+        justify-content: space-between;
+        align-items: center;
+
+        .input {
+          width: 94%;
+        }
+      }
+
+      .capacity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        margin: 10px;
+
+        span {
+          padding: 0px 10px;
+        }
+
+        img {
+          width: inherit;
+          height: 25px;
+        }
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+
+        img {
+          margin-top: 10px;
+          height: 25px;
+        }
+      }
+
+      .dropdown-content {
+        bottom: 0;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        max-height: 300px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown a:hover {
+        background-color: #ddd;
+      }
+
+      .show {
+        display: block;
+      }
+
+      .chip {
+        display: inline-flex;
+        flex-direction: row;
+        background-color: #ffebe5;
+        border: none;
+        cursor: default;
+        height: 36px;
+        outline: none;
+        padding: 0;
+        font-size: 14px;
+        color: #9b2406;
+        font-family: "Open Sans", sans-serif;
+        white-space: nowrap;
+        align-items: center;
+        border-radius: 16px;
+        vertical-align: middle;
+        text-decoration: none;
+        justify-content: center;
+        margin: 2px;
+      }
+
+      .chip-content {
+        cursor: inherit;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        white-space: nowrap;
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .chip-svg {
+        color: #9b2406;
+        cursor: pointer;
+        height: auto;
+        margin: 4px 4px 0 -8px;
+        fill: currentColor;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        font-size: 24px;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        user-select: none;
+        flex-shrink: 0;
+      }
+
+      .image-upload {
+        .add-button {
+          padding-left: 10px;
+          height: 25px;
+          width: inherit;
+          margin-top: 10px;
+        }
+      }
+
+      .items {
+        height: 25px;
+        width: 25px;
+      }
+
+      .map {
+        height: 350px;
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        app-map {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+}
+
+
+@media (min-width: 600px) {
+  .container {
+    display: flex;
+    justify-content: center;
+
+    .content {
+      width: 600px;
+    }
+  }
+}

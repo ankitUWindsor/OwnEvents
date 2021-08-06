@@ -18,11 +18,25 @@ export class HttpService {
     return this.httpClient.post(environment.api + url, body, { headers: this.GetHttpHeaders(header) });
   }
 
+  Put(url: string, body: any, header = {}) {
+    return this.httpClient.put(environment.api + url, body, { headers: this.GetHttpHeaders(header) });
+  }
+
+
+  Delete(url: string, header = {}) {
+    return this.httpClient.delete(environment.api + url, { headers: this.GetHttpHeaders(header) });
+  }
+
   private GetHttpHeaders(header = {}): HttpHeaders {
-    header['Content-Type'] = 'application/json';
+    if (!header['Content-Type']) {
+      header['Content-Type'] = 'application/json';
+    }
     header['Access-Control-Allow-Origin'] = '*';
     if (localStorage.getItem(this.AUTHORIZATION_KEY)) {
       header['auth-token'] = localStorage.getItem(this.AUTHORIZATION_KEY);
+    }
+    if (!header['Content-Type'].trim().length) {
+      delete header['Content-Type'];
     }
     const headers = new HttpHeaders({ ...header });
 

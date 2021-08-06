@@ -1,0 +1,57 @@
+<div class="container">
+
+  <div class="header">
+    <div class="heading"><span *ngIf="!isEditMode">Create</span><span *ngIf="isEditMode">Edit</span> Booking</div>
+    <div (click)="CloseDialog()" class="close-icon">
+      <img src="../../../../../assets/images/close.svg">
+    </div>
+  </div>
+
+  <app-loader *ngIf="isLoading" style="height: 100vh;width:100vw;"></app-loader>
+  <div *ngIf="!isInitialLoading" class="content">
+
+    <div class="input-field">
+      <span>Name</span>
+      <input class="input" [(ngModel)]="booking.name" type="text" placeholder="Enter Booking Name...">
+    </div>
+    <div class="input-field">
+      <span>Email</span>
+      <input [(ngModel)]="booking.email" class="input" type="text"
+        placeholder="Enter Booking Email...">
+
+    </div>
+    <div class="input-field">
+      <span>Number of Seats</span>
+      <div class="capacity">
+        <img src="../../../../../assets/images/minus.png" (click)="ChangeSeatCount(-1)">
+        <span>{{booking.seatCount}}</span>
+        <img src="../../../../../assets/images/plus.png" (click)="ChangeSeatCount(1)">
+      </div>
+      <span style="font-size: 10px;">Note: Number of seats left are: {{event.capacity - event.participantIds.length - booking.seatCount}}</span>
+    </div>
+
+    <div *ngIf="event.location" class="input-field map">
+      <span>location</span>
+      <app-map [location]="event.location" [isEditingAllowed]="false"></app-map>
+    </div>
+  </div>
+
+  <div class="footer">
+
+    <div *ngIf="!CheckFormValidation() && isTryingToSubmit" class="error-message">{{errorMessage}}</div>
+
+    <div class="btn-container">
+      <div class="btn">
+        <button (click)="CreateUpdateBooking()" class="save">
+          <span *ngIf="!isEditMode">Book</span>
+          <span *ngIf="isEditMode">Save</span>
+        </button>
+      </div>
+      <div class="btn">
+        <button (click)="CloseDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

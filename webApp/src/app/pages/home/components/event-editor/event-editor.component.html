@@ -1,0 +1,152 @@
+<div class="container">
+  <div class="header">
+    <div class="heading"><span *ngIf="!isEditMode">Create</span><span *ngIf="isEditMode">Edit</span> Event</div>
+    <div (click)="CloseDialog()" class="close-icon">
+      <img src="../../../../../assets/images/close.svg">
+    </div>
+  </div>
+
+  <app-loader *ngIf="isUploading || isLoading" style="height: 100vh;width:100vw;"></app-loader>
+
+  <div>
+
+    <div class="content">
+
+      <div class="input-field">
+        <span>Event name</span>
+        <input class="input" [(ngModel)]="event.eventName" type="text" placeholder="Enter Event Name...">
+      </div>
+      <div class="input-field">
+        <span>Description</span>
+        <textarea [(ngModel)]="event.description" style="height: 100px;" class="input" type="text" placeholder="Enter Description..."></textarea>
+      </div>
+      <div class="input-field">
+        <span>Capacity</span>
+        <div class="capacity">
+          <img (click)="ChangeCapacity(-1)" src="../../../../../assets/images/minus.png">
+          <span>{{event.capacity}}</span>
+          <img (click)="ChangeCapacity(1)" src="../../../../../assets/images/plus.png">
+        </div>
+      </div>
+      <div class="input-field">
+        <span>Location</span>
+        <div class="map">
+          <app-map [location]="event.location" (LocationChanged)="SetLocation($event)"></app-map>
+        </div>
+      </div>
+      <div class="input-field">
+        <span>Start Date and Time</span>
+        <div class="date-input-container">
+          <input [(ngModel)]="event.startDateAndTime" [min]="minimumDate" class="input" placeholder="Select Start Date and Time..." [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+          <span class="trigger" [owlDateTimeTrigger]="dt">
+            <i class="fas fa-calendar-alt"></i>
+          </span>
+        </div>
+        <owl-date-time #dt></owl-date-time>
+      </div>
+
+      <div class="input-field">
+        <span>End Date and Time</span>
+        <div class="date-input-container">
+          <input  [(ngModel)]="event.endDateAndTime" [min]="minimumDate" class="input" placeholder="Select End Date and Time..." [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
+          <span class="trigger" [owlDateTimeTrigger]="dt2">
+            <i class="fas fa-calendar-alt"></i>
+          </span>
+        </div>
+        <owl-date-time #dt2></owl-date-time>
+      </div>
+
+      <div class="input-field">
+        <span>Categories</span>
+        <div class="dropdown">
+          <img (click)="ToggleDropdown()" class="dropbtn" src="../../../../../assets/images/plus.png">
+          <div id="myDropdown" class="dropdown-content">
+            <div *ngFor="let item of categories"><a (click)="AddCategoryToEvent(item.enumValue)" *ngIf="!CheckIfTypeExistsInEvent(item)">{{item.text}}</a></div>
+            <!-- <a>About</a>
+            <a>Contact</a>
+            <a>Home</a>
+            <a>About</a>
+            <a>Contact</a>
+            <a>Home</a>
+            <a>About</a>
+            <a>Contact</a> -->
+          </div>
+        </div>
+        <div *ngIf="event.interests.length">
+          <div class="chip" *ngFor="let item of event.interests;let i=index">
+            <div class="chip-content">{{GetCategoryName(item)}}</div>
+            <div class="chip-close">
+              <svg (click)="RemoveCategoryFromEvent(i)" class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <!-- <div class="chip">
+            <div class="chip-content">Random Category</div>
+            <div class="chip-close">
+              <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
+                </path>
+              </svg>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="input-field">
+        <span>Images</span>
+        <div class="image-upload">
+          <img class="add-button" (click)="imageUploader.click()" src="../../../../../assets/images/plus.png">
+          <input [style.display]="'none'" (change)="UploadImage($event)" #imageUploader type="file" accept="image/*">
+        </div>
+        <div>
+          <div *ngFor="let item of event.images; let i=index" class="chip">
+            <div class="chip-content">
+              <img class="items" [src]="assetService.GetImageUrl(item)">
+            </div>
+            <div class="chip-close">
+              <svg (click)="RemoveImage(i)" class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <!-- <div class="chip">
+            <div class="chip-content">
+              <img class="items" src="../../../../../assets/images/background-wallpaper.jpg">
+            </div>
+            <div class="chip-close">
+              <svg class="chip-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
+                </path>
+              </svg>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <div *ngIf="!CheckFormValidation() && isTryingToSubmit" class="error-message">{{errorMessage}}</div>
+
+      <div class="btn-container">
+        <div class="btn">
+          <button (click)="CreateUpdateEvent()" class="save">
+            <span *ngIf="!isEditMode">Create</span>
+            <span *ngIf="isEditMode">Save</span>
+          </button>
+        </div>
+        <div class="btn">
+          <button (click)="CloseDialog()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
