@@ -44,7 +44,7 @@ export class ForgotPasswordComponent implements OnInit {
       });
     } else {
       if (!this.forgotForm.get('email').valid) {
-        this.errorMessage = 'Enter a Valid Email';
+        this.errorMessage = 'Please Enter a Valid Email';
       }
     }
   }
