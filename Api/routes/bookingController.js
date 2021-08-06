@@ -218,7 +218,8 @@ async function GetCompleteBookingInfo(booking) {
         eventEndDateAndTime: event.endDateAndTime,
         interests: event.interests,
         location: event.location,
-        arModel: event.arModel
+        arModel: event.arModel,
+        ticketPrice: event.ticketPrice,
     }
     toReturnBooking.organizer = {
         name: user.name,

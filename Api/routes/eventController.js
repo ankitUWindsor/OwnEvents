@@ -23,6 +23,7 @@ router.post('/create', verifytoken, async (req, res) => {
       capacity: req.body.capacity,
       images: req.body.images,
       arModel: req.body.arModel,
+      ticketPrice: req.body.ticketPrice,
       participantIds: []
     })
     await newEvent.save()
@@ -123,6 +124,7 @@ router.post('/update', verifytoken, async (req, res) => {
     capacity: req.body.capacity,
     participantIds: req.body.participantIds,
     images: req.body.images,
+    ticketPrice: req.body.ticketPrice,
     arModel: req.body.arModel
   }
 

@@ -68,6 +68,10 @@ const eventSchema = new mongoose.Schema({
     isReminderSent: {
         type: Boolean,
         default: false
+    },
+    ticketPrice: {
+        type: Number,
+        default: 0
     }
 });
 
