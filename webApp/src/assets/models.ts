@@ -26,8 +26,10 @@ export class Event {
   endDateAndTime: Date;
   capacity: number;
   images: Array<string>;
+  arModel: string;
   participantIds: Array<string>;
   createdDate: Date;
+  ticketPrice: number;
 
   constructor() {
     this.interests = [];
@@ -57,6 +59,8 @@ export class Booking {
     eventEndDateAndTime?: Date;
     interests?: Array<InterestsCategory>;
     location?: Location;
+    arModel?: string;
+    ticketPrice?: number;
   };
   organizer: {
     name?: string;

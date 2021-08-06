@@ -27,10 +27,11 @@
         <span>{{booking.seatCount}}</span>
         <img src="../../../../../assets/images/plus.png" (click)="ChangeSeatCount(1)">
       </div>
-      <span style="font-size: 10px;">Note: Number of seats left are: {{event.capacity - event.participantIds.length - booking.seatCount}}</span>
+      <span style="font-size: 12px;">Note: Number of seats left are: {{event.capacity - event.participantIds.length - booking.seatCount}}</span>
+      <span style="font-size: 12px;">Total Cost:CA$ {{RoundNumber(booking.seatCount*event.ticketPrice)}}</span>
     </div>
 
-    <div *ngIf="event.location" class="input-field map">
+    <div *ngIf="event.location?.address && event.location.address.length" class="input-field map">
       <span>location</span>
       <app-map [location]="event.location" [isEditingAllowed]="false"></app-map>
     </div>

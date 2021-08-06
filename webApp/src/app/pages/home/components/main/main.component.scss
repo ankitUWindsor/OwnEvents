@@ -150,6 +150,28 @@
           padding-bottom: 5px;
         }
 
+        .ar-view {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bolder;
+
+          span {
+            cursor: pointer;
+            color: #ffffff;
+            padding-left: 12px;
+            padding-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5DADE2;
+            height: 20px;
+            padding: 5px;
+            width: inherit;
+            border-radius: 5px;
+          }
+        }
+
         .chip {
           display: inline-flex;
           flex-direction: row;
@@ -202,6 +224,7 @@
             height: 30px;
             width: 95%;
           }
+
           .disabled {
             background-color: #596d5a;
             pointer-events: none;
@@ -224,6 +247,7 @@
             height: 30px;
             width: 46%;
           }
+
           .disabled {
             background-color: #795d5d;
             pointer-events: none;
@@ -233,8 +257,7 @@
       }
     }
 
-    .disabled {
-    }
+    .disabled {}
   }
 }
 

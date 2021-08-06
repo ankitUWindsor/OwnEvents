@@ -43,6 +43,7 @@
           </div>
         </div>
         <div class=footer>
+          <div class="footer-item ar-view" *ngIf="item.arModel && item.arModel.length"><span (click)="OpenLiveView(item.arModel)">View Live Model</span></div>
           <div class="footer-item desc">{{item.description}}</div>
           <div class="footer-item category">
             <ng-container  *ngFor="let interest of item.interests">
@@ -54,6 +55,7 @@
           <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} -
             {{GetMomentDate(item.endDateAndTime)}}</div>
           <div class="footer-item capacity"><span style="font-weight: bolder;">Capacity</span>- {{item.participantIds.length}}/{{item.capacity}}</div>
+          <div class="footer-item capacity"><span style="font-weight: bolder;">Ticket Price</span>- CA${{item.ticketPrice}}</div>
           <div class="footer-item capacity" *ngIf="item.location?.address"><span style="font-weight: bolder;">Address</span>- {{item.location.address}}</div>
           <div class="footer-item book-btn" *ngIf="userType === UserType.Audience">
             <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
@@ -64,7 +66,7 @@
           <div class="footer-item more-btn" *ngIf="userType === UserType.Organizer">
             <button (click)="ShowBookings(item)">Show Bookings</button>
             <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
-            (click)="CancelEvent(item)">Delete Event</button></div>
+            (click)="CancelEvent(item,i)">Delete Event</button></div>
         </div>
       </div>
     </ng-container>

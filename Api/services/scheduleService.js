@@ -50,8 +50,8 @@ async function SendEmailReminder(eventId) {
         subject: 'Event Reminder',
         body: `
       <h2>Hi there, this is Event reminder for "${event.eventName}"</h2>
-      <p>The event is scheduled in 30 minutes</p>
-      <p>The event has been organized by ${organizer.name}, Contact Email: ${organizer.email}</p>
+      <p>The event is scheduled in <b>30 minutes</b></p>
+      <p>The event has been organized by <b>${organizer.name}</b>, Contact Email: <b>${organizer.email}</b></p>
       `
     }
 

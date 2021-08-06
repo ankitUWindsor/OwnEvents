@@ -10,6 +10,7 @@ import { MapsAPILoader } from '@agm/core';
 export class MapComponent implements OnInit {
   @Input() location: Location = { latitude: undefined, longitude: undefined, address: undefined };
   @Output() LocationChanged = new EventEmitter<Location>();
+  
   zoom = 12;
   geoCoder: google.maps.Geocoder;
   isLoading: boolean;
@@ -55,8 +56,6 @@ export class MapComponent implements OnInit {
       });
     }
   }
-
-
   private setCurrentLocation(): void {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -68,7 +67,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-
+  
   markerDragEnd($event: any): void {
     this.location.latitude = $event.coords.lat;
     this.location.longitude = $event.coords.lng;
@@ -92,7 +91,6 @@ export class MapComponent implements OnInit {
       }
     });
   }
-
   saveLocation(): void {
     this.LocationChanged.emit(this.location);
   }

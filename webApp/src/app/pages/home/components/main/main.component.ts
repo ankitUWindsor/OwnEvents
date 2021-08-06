@@ -1,6 +1,6 @@
 import { EventBookingsComponent } from './../event-bookings/event-bookings.component';
 import { Router } from '@angular/router';
-import { AssetService } from 'src/app/services/asset.service';
+import { AssetService } from 'src/app/services/asset/asset.service';
 import { EmitterTask, InterestsCategory } from './../../../../../assets/enums';
 import { UserType } from 'src/assets/enums';
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
@@ -14,6 +14,9 @@ import { EventEditorComponent } from '../event-editor/event-editor.component';
 import { EventTypes } from 'src/assets/constants';
 import { GlobalEmitterService } from 'src/app/services/global-emitter/global-emitter.service';
 import { Subscription } from 'rxjs';
+import { ArViewerComponent } from '../ar-viewer/ar-viewer.component';
+import { environment } from 'src/environments/environment';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -151,12 +154,28 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   CancelEvent(event: Event, index: number): void {
-    this.isLoading = true;
-    this.eventService.DeleteEvent(event.id).then(() => {
-      this.events.splice(index, 1);
-      this.imageIndexes.splice(index, 1);
-    }).finally(() => {
-      this.isLoading = false;
+    let height = '30vh';
+    let width = '60vw';
+    if (screen.width <= 800) {
+      height = '30vh';
+      width = '90vw';
+    }
+    const confirmationBoxRef = this.matDialog.open(ConfirmationBoxComponent, {
+      height,
+      width
+    });
+    confirmationBoxRef.componentInstance.header = `Delete`
+    confirmationBoxRef.componentInstance.message = `Are you sure you want to delete "${event.eventName}" event ?`
+    confirmationBoxRef.afterClosed().subscribe((isConfirmed) => {
+      if (isConfirmed) {
+        this.isLoading = true;
+        this.eventService.DeleteEvent(event.id).then(() => {
+          this.events.splice(index, 1);
+          this.imageIndexes.splice(index, 1);
+        }).finally(() => {
+          this.isLoading = false;
+        });
+      }
     });
   }
 
@@ -170,6 +189,14 @@ export class MainComponent implements OnInit, OnDestroy {
       width: '100vw'
     });
     dialogInstance.componentInstance.event = item;
+  }
+
+  OpenLiveView(name: string) {
+    const reference = this.matDialog.open(ArViewerComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    reference.componentInstance.urlForSrc = environment.publicStorage + name;
   }
 
 }

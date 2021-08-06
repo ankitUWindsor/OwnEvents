@@ -7,6 +7,8 @@ const schedule = require('node-schedule');
 const mailer = require('./../services/mailerService');
 const scheduleService = require('./../services/scheduleService');
 
+
+
 router.post('/create', verifytoken, async (req, res) => {
   try {
     const newEvent = new Event({
@@ -20,6 +22,8 @@ router.post('/create', verifytoken, async (req, res) => {
       endDateAndTime: req.body.endDateAndTime,
       capacity: req.body.capacity,
       images: req.body.images,
+      arModel: req.body.arModel,
+      ticketPrice: req.body.ticketPrice,
       participantIds: []
     })
     await newEvent.save()
@@ -38,6 +42,8 @@ router.post('/create', verifytoken, async (req, res) => {
     });
   }
 });
+
+
 
 router.get('/list', verifytoken, async (req, res) => {
   try {
@@ -61,6 +67,8 @@ router.get('/list', verifytoken, async (req, res) => {
     });
   }
 });
+
+
 
 
 router.get('/eventbyid', verifytoken, async (req, res) => {
@@ -89,6 +97,8 @@ router.get('/eventbyid', verifytoken, async (req, res) => {
   }
 });
 
+
+
 router.post('/update', verifytoken, async (req, res) => {
   const event = await Event.findOne({
     _id: req.body.id
@@ -103,7 +113,6 @@ router.post('/update', verifytoken, async (req, res) => {
   if (new Date(req.body.startDateAndTime).getTime() !== new Date(event.startDateAndTime).getTime()) {
     scheduleService.ScheduleReminderEmail(event._id, req.body.startDateAndTime);
   }
-
   const updatedEvent = {
     interests: req.body.interests,
     eventName: req.body.eventName,
@@ -114,7 +123,9 @@ router.post('/update', verifytoken, async (req, res) => {
     endDateAndTime: req.body.endDateAndTime,
     capacity: req.body.capacity,
     participantIds: req.body.participantIds,
-    images: req.body.images
+    images: req.body.images,
+    ticketPrice: req.body.ticketPrice,
+    arModel: req.body.arModel
   }
 
   Event.findByIdAndUpdate(req.body.id, updatedEvent).then((result) => {
@@ -124,6 +135,8 @@ router.post('/update', verifytoken, async (req, res) => {
     });
   })
 });
+
+
 
 router.put('/updateStatus', verifytoken, async (req, res) => {
   let status = req.body.status
@@ -144,11 +157,15 @@ router.put('/updateStatus', verifytoken, async (req, res) => {
   }
 })
 
+
+
 router.delete('/delete', verifytoken, async (req, res) => {
   try {
     const event = await Event.findOne({
       _id: req.query.id
     });
+    const toSendToUsers = await GetToSendToParticipants(event.participantIds);
+
     event.isDelete = true;
     event.participantIds = [];
     await event.save();
@@ -160,6 +177,22 @@ router.delete('/delete', verifytoken, async (req, res) => {
       bookings[i].isCanceled = true;
       await bookings[i].save();
     }
+
+    if (toSendToUsers && toSendToUsers.length) {
+      const organizer = await User.findOne({
+        _id: event.organizerId
+      });
+      let mailOptions = {
+        to: toSendToUsers,
+        subject: 'Event Cancelled: ' + event.eventName,
+        body: `
+      <h1>Sorry to let you know that the event:<b>"${event.eventName}"</b> has been cancelled by the organizer</h1>
+      <p>The event was being organized by <b>${organizer.name}</b>, Contact Email: <b>${organizer.email}</b></p>
+      `
+      }
+      mailer.sendMail(mailOptions);
+    }
+
     res.status(200).send({
       success: 200,
       message: 'Event Deleted'
@@ -171,7 +204,6 @@ router.delete('/delete', verifytoken, async (req, res) => {
     });
   }
 })
-
 async function getCompleteEventsInfo(event) {
   const toReturnEvent = {
     ...JSON.parse(JSON.stringify(event))
@@ -185,4 +217,21 @@ async function getCompleteEventsInfo(event) {
   return toReturnEvent;
 }
 
+async function GetToSendToParticipants(participantIds) {
+  const unique = (value, index, self) => {
+    return self.indexOf(value) === index
+  }
+  let toSendTo = '';
+  const uniqueParticipantIds = participantIds.filter(unique);
+  for (let i = 0; i < uniqueParticipantIds.length; i++) {
+    const user = await User.findOne({
+      _id: uniqueParticipantIds[i]
+    });
+    toSendTo += user.email;
+    if (i !== uniqueParticipantIds.length - 1) {
+      toSendTo += ',';
+    }
+  }
+  return toSendTo;
+}
 module.exports = router;

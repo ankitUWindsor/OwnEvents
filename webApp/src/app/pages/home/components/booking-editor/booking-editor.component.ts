@@ -91,5 +91,7 @@ export class BookingEditorComponent implements OnInit {
     }
   }
 
-
+  RoundNumber(num: number){
+    return num.toFixed(2);
+  }
 }

@@ -1,3 +1,4 @@
+import { ConfirmationBoxComponent } from './components/confirmation-box/confirmation-box.component';
 import { EmitterTask } from './../../../assets/enums';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { EventEditorComponent } from './components/event-editor/event-editor.component';

@@ -1,9 +1,11 @@
+import { environment } from './../../../../../environments/environment.prod';
+import { ArViewerComponent } from './../ar-viewer/ar-viewer.component';
 import { EventService } from './../../../../services/event/event.service';
-import { AssetService } from './../../../../services/asset.service';
+import { AssetService } from './../../../../services/asset/asset.service';
 import { EventTypes, MIN_CAPACITY } from './../../../../../assets/constants';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Event, Location } from 'src/assets/models';
 import { InterestsCategory } from 'src/assets/enums';
 
@@ -26,6 +28,7 @@ export class EventEditorComponent implements OnInit {
   minimumDate = new Date();
 
   constructor(
+    private matDialog: MatDialog,
     private dialogRef: MatDialogRef<EventEditorComponent>,
     public assetService: AssetService,
     private eventService: EventService) { }
@@ -46,6 +49,7 @@ export class EventEditorComponent implements OnInit {
       this.event = new Event();
       this.event.eventName = '';
       this.event.description = '';
+      this.event.ticketPrice = 0;
     }
   }
 
@@ -97,7 +101,28 @@ export class EventEditorComponent implements OnInit {
     }, err => this.isUploading = false);
   }
 
+  UploadARModel(event): void {
+    this.isUploading = true;
+    this.assetService.UploadImage(event.target.files[0]).then((response) => {
+      this.event.arModel = response;
+      this.isUploading = false;
+    }, err => this.isUploading = false);
+  }
+
+  RemoveModel() {
+    this.event.arModel = '';
+  }
+
+  ViewModel() {
+    const reference = this.matDialog.open(ArViewerComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    reference.componentInstance.urlForSrc = environment.publicStorage + this.event.arModel;
+  }
+
   CreateUpdateEvent(): void {
+    this.OnTicketPriceChange();
     this.isTryingToSubmit = true;
 
     if (this.CheckFormValidation()) {
@@ -128,7 +153,8 @@ export class EventEditorComponent implements OnInit {
   CheckFormValidation(): boolean {
     this.errorMessage = '';
     if (!this.event.eventName.trim().length || !this.event.description.trim().length ||
-      !this.event.endDateAndTime || !this.event.startDateAndTime) {
+      !this.event.endDateAndTime || !this.event.startDateAndTime ||
+      (!this.event.ticketPrice && this.event.ticketPrice < 0)) {
       this.errorMessage = 'Please fill all the fields';
     } else if (!this.event.interests.length) {
       this.errorMessage = 'Event Categories Missing';
@@ -140,6 +166,14 @@ export class EventEditorComponent implements OnInit {
 
   SetLocation(location: Location): void {
     this.event.location = location;
+  }
+
+  OnTicketPriceChange() {
+    if (this.event.ticketPrice !== null) {
+      this.event.ticketPrice = Number(this.event.ticketPrice.toString().replace('-', ''));
+    } else {
+      this.event.ticketPrice = 0;
+    }
   }
 
 

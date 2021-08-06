@@ -1,5 +1,5 @@
 import { BookingEditorComponent } from './../booking-editor/booking-editor.component';
-import { AssetService } from './../../../../services/asset.service';
+import { AssetService } from './../../../../services/asset/asset.service';
 import { BookingService } from './../../../../services/booking/booking.service';
 import { Component, OnInit } from '@angular/core';
 import { Booking } from 'src/assets/models';
@@ -8,6 +8,9 @@ import { UserService } from 'src/app/services/user/user.service';
 import { EventTypes } from 'src/assets/constants';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
+import { ArViewerComponent } from '../ar-viewer/ar-viewer.component';
+import { environment } from 'src/environments/environment';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 @Component({
   selector: 'app-bookings',
@@ -92,12 +95,29 @@ export class BookingsComponent implements OnInit {
   }
 
   CancelBooking(item: Booking, index: number): void {
-    this.isLoading = true;
-    this.bookingService.CancelBooking(item.id).then((response) => {
-      this.bookings.splice(index, 1);
-      this.imageIndexes.splice(index, 1);
-    }).finally(() => {
-      this.isLoading = false;
+    let height = '30vh';
+    let width = '60vw';
+    if (screen.width <= 800) {
+      height = '30vh';
+      width = '90vw';
+    }
+    const confirmationBoxRef = this.matDialog.open(ConfirmationBoxComponent, {
+      height,
+      width
+    });
+    confirmationBoxRef.componentInstance.header = `Cancel`
+    confirmationBoxRef.componentInstance.message = `Are you sure you want to Cancel your booking for "${item.event.eventName}" event ?`
+
+    confirmationBoxRef.afterClosed().subscribe((isConfirmed) => {
+      if (isConfirmed) {
+        this.isLoading = true;
+        this.bookingService.CancelBooking(item.id).then((response) => {
+          this.bookings.splice(index, 1);
+          this.imageIndexes.splice(index, 1);
+        }).finally(() => {
+          this.isLoading = false;
+        });
+      }
     });
   }
 
@@ -119,6 +139,18 @@ export class BookingsComponent implements OnInit {
         this.bookings[index] = booking;
       }
     });
+  }
+
+  OpenLiveView(name: string) {
+    const reference = this.matDialog.open(ArViewerComponent, {
+      height: '100vh',
+      width: '100vw'
+    });
+    reference.componentInstance.urlForSrc = environment.publicStorage + name;
+  }
+
+  RoundNumber(num: number) {
+    return num.toFixed(2);
   }
 
 }

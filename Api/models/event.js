@@ -38,6 +38,9 @@ const eventSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    arModel: {
+        type: String
+    },
     startDateAndTime: {
         type: Date
     },
@@ -65,13 +68,11 @@ const eventSchema = new mongoose.Schema({
     isReminderSent: {
         type: Boolean,
         default: false
+    },
+    ticketPrice: {
+        type: Number,
+        default: 0
     }
 });
-
-const status = {
-    Active: 1,
-    Cancelled: 2,
-    Completed: 3
-};
 
 module.exports = mongoose.model("Event", eventSchema);

@@ -10,14 +10,14 @@
     padding: 0px 10px;
 
     .interests-btn {
+      background-color: #4c63ca;
+      color: #ffffff;
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
       border-color: black;
       height: 100%;
       padding: 0px 10px;
-      background-color: #4c63ca;
-      color: #ffffff;
     }
 
     .search-bar {
@@ -63,11 +63,12 @@
       border-radius: 5px;
       background-color: white;
       display: flex;
+      width: 400px;
+      margin-bottom: 20px;
       flex-direction: column;
       align-items: center;
       height: inherit;
-      width: 400px;
-      margin-bottom: 20px;
+
 
       .user-block {
         width: 95%;
@@ -150,6 +151,28 @@
           padding-bottom: 5px;
         }
 
+        .ar-view {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bolder;
+
+          span {
+            cursor: pointer;
+            color: #ffffff;
+            padding-left: 12px;
+            padding-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5DADE2;
+            height: 20px;
+            padding: 5px;
+            width: inherit;
+            border-radius: 5px;
+          }
+        }
+
         .desc {
           width: 100%;
           display: flex;
@@ -163,7 +186,8 @@
 
           .items {
             width: 95%;
-            .values{
+
+            .values {
               width: 100%;
               display: flex;
               align-items: center;
