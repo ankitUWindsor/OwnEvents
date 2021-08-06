@@ -40,9 +40,10 @@
         </div>
       </div>
       <div class="input-field">
-        <span>Start Date and Time</span>
+        <span>Date and Time</span>
         <div class="date-input-container">
-          <input [(ngModel)]="event.startDateAndTime" [min]="minimumDate" class="input" placeholder="Select Start Date and Time..." [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+          <input [(ngModel)]="selectedMoments" (ngModelChange)="OnDateTimeChange($event)" [min]="minimumDate" class="input" placeholder="Select Start Date and Time..."
+          [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [selectMode]="'range'">
           <span class="trigger" [owlDateTimeTrigger]="dt">
             <i style="cursor: pointer;" class="fas fa-calendar-alt"></i>
           </span>
@@ -50,16 +51,17 @@
         <owl-date-time #dt></owl-date-time>
       </div>
 
-      <div class="input-field">
+      <!-- <div class="input-field">
         <span>End Date and Time</span>
         <div class="date-input-container">
-          <input  [(ngModel)]="event.endDateAndTime" [min]="minimumDate" class="input" placeholder="Select End Date and Time..." [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
+          <input  [(ngModel)]="selectedMoments" [min]="minimumDate" class="input" placeholder="Select End Date and Time..."
+          [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [selectMode]="'rangeTo'">
           <span class="trigger" [owlDateTimeTrigger]="dt2">
             <i style="cursor: pointer;" class="fas fa-calendar-alt"></i>
           </span>
         </div>
         <owl-date-time #dt2></owl-date-time>
-      </div>
+      </div> -->
 
       <div class="input-field">
         <span>Categories</span>

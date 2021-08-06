@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Event, Location } from 'src/assets/models';
 import { InterestsCategory } from 'src/assets/enums';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-event-editor',
@@ -25,7 +26,8 @@ export class EventEditorComponent implements OnInit {
   errorMessage: any;
   isUploading: boolean;
   isTryingToSubmit: boolean;
-  minimumDate = new Date();
+  minimumDate: Date;
+  selectedMoments = [];
 
   constructor(
     private matDialog: MatDialog,
@@ -34,6 +36,8 @@ export class EventEditorComponent implements OnInit {
     private eventService: EventService) { }
 
   ngOnInit(): void {
+    this.minimumDate = moment(new Date()).add(1, 'days').toDate();
+
     window.onclick = (event) => {
       if (!event.target.matches('.dropbtn')) {
         const dropdowns = document.getElementsByClassName('dropdown-content');
@@ -50,6 +54,9 @@ export class EventEditorComponent implements OnInit {
       this.event.eventName = '';
       this.event.description = '';
       this.event.ticketPrice = 0;
+    } else {
+      this.minimumDate = new Date(this.event.startDateAndTime);
+      this.selectedMoments = [new Date(this.event.startDateAndTime), new Date(this.event.endDateAndTime)];
     }
   }
 
@@ -148,6 +155,11 @@ export class EventEditorComponent implements OnInit {
 
   RemoveImage(index: number): void {
     this.event.images.splice(index, 1);
+  }
+
+  OnDateTimeChange(dates) {
+    this.event.startDateAndTime = dates[0];
+    this.event.endDateAndTime = dates[1];
   }
 
   CheckFormValidation(): boolean {

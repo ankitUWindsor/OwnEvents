@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { HttpService } from '../http/http.service';
 
@@ -24,4 +25,12 @@ export class AssetService {
   GetImageUrl(name: string): string {
     return environment.publicStorage + name;
   }
+
+  CheckForDateAllowed(date: Date) {
+    const toCheckDate = moment(new Date(date));
+    const currentDate = moment(new Date());
+    const hourDiff = toCheckDate.diff(currentDate, 'hours');
+    return hourDiff >= 1;
+  }
+
 }
