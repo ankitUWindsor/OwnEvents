@@ -20,6 +20,11 @@
         <span>Description</span>
         <textarea [(ngModel)]="event.description" style="height: 100px;" class="input" type="text" placeholder="Enter Description..."></textarea>
       </div>
+
+      <div class="input-field">
+        <span>Ticket Price (IN CAD)</span>
+        <input class="input" [(ngModel)]="event.ticketPrice" (change)="OnTicketPriceChange()" type="number" placeholder="Enter Ticket Price...">
+      </div>
       <div class="input-field">
         <span>Capacity</span>
         <div class="capacity">

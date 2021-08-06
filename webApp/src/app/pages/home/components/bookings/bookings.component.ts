@@ -149,4 +149,8 @@ export class BookingsComponent implements OnInit {
     reference.componentInstance.urlForSrc = environment.publicStorage + name;
   }
 
+  RoundNumber(num: number) {
+    return num.toFixed(2);
+  }
+
 }

@@ -64,6 +64,8 @@
           </div>
           <div class="footer-item time">{{GetMomentDate(item.event.eventStartDateAndTime)}} -
             {{GetMomentDate(item.event.eventEndDateAndTime)}}</div>
+
+          <div class="footer-item time"><b>Total Cost-</b> CA$ {{RoundNumber(item.seatCount*item.event.ticketPrice)}}</div>
           <div class="footer-item capacity" *ngIf="item.event.location?.address && item.event.location?.address.length"><span style="font-weight: bolder;">Location-</span>{{item.event.location?.address}}</div>
           <div class="footer-item book-btn">
             <button (click)="OpenBookingEditor(item,i)">Edit</button></div>

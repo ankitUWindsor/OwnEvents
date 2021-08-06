@@ -49,6 +49,7 @@ export class EventEditorComponent implements OnInit {
       this.event = new Event();
       this.event.eventName = '';
       this.event.description = '';
+      this.event.ticketPrice = 0;
     }
   }
 
@@ -121,6 +122,7 @@ export class EventEditorComponent implements OnInit {
   }
 
   CreateUpdateEvent(): void {
+    this.OnTicketPriceChange();
     this.isTryingToSubmit = true;
 
     if (this.CheckFormValidation()) {
@@ -151,7 +153,8 @@ export class EventEditorComponent implements OnInit {
   CheckFormValidation(): boolean {
     this.errorMessage = '';
     if (!this.event.eventName.trim().length || !this.event.description.trim().length ||
-      !this.event.endDateAndTime || !this.event.startDateAndTime) {
+      !this.event.endDateAndTime || !this.event.startDateAndTime ||
+      (!this.event.ticketPrice && this.event.ticketPrice < 0)) {
       this.errorMessage = 'Please fill all the fields';
     } else if (!this.event.interests.length) {
       this.errorMessage = 'Event Categories Missing';
@@ -163,6 +166,14 @@ export class EventEditorComponent implements OnInit {
 
   SetLocation(location: Location): void {
     this.event.location = location;
+  }
+
+  OnTicketPriceChange() {
+    if (this.event.ticketPrice !== null) {
+      this.event.ticketPrice = Number(this.event.ticketPrice.toString().replace('-', ''));
+    } else {
+      this.event.ticketPrice = 0;
+    }
   }
 
 

@@ -55,6 +55,7 @@
           <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} -
             {{GetMomentDate(item.endDateAndTime)}}</div>
           <div class="footer-item capacity"><span style="font-weight: bolder;">Capacity</span>- {{item.participantIds.length}}/{{item.capacity}}</div>
+          <div class="footer-item capacity"><span style="font-weight: bolder;">Ticket Price</span>- CA${{item.ticketPrice}}</div>
           <div class="footer-item capacity" *ngIf="item.location?.address"><span style="font-weight: bolder;">Address</span>- {{item.location.address}}</div>
           <div class="footer-item book-btn" *ngIf="userType === UserType.Audience">
             <button [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
