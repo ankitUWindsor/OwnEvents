@@ -5,19 +5,62 @@
     height: 22px;
     top: 85px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 0px 10px;
 
-    .interests-btn {
-      border-style: solid;
-      border-radius: 5px;
-      border-width: 1px;
-      border-color: black;
-      height: 100%;
-      padding: 0px 10px;
-      background-color: #4c63ca;
-      color: #ffffff;
+    .filter-container {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      .interests-btn {
+        border-style: solid;
+        border-radius: 5px;
+        border-width: 1px;
+        border-color: black;
+        height: 100%;
+        padding: 0px 10px;
+        background-color: #4c63ca;
+        color: #ffffff;
+      }
+
+      .date-filter {
+        display: flex;
+
+        .filter-button {
+          border-style: solid;
+          border-radius: 5px;
+          border-width: 1px;
+          border-color: black;
+          height: 100%;
+          padding: 3px 3px;
+          background-color: #4c63ca;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .clear-button {
+          border-style: solid;
+          border-radius: 5px;
+          border-width: 1px;
+          border-color: black;
+          height: 100%;
+          margin-left: 2px;
+          padding: 3px 3px;
+          background-color: #ca654c;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .disabled{
+          pointer-events: none;
+          background-color: #c98b7b;
+        }
+      }
     }
 
     .search-bar {
@@ -57,7 +100,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8rem 0rem;
+    padding: 10rem 0rem;
 
     .image-block {
       border-radius: 5px;
@@ -263,6 +306,13 @@
 
 @media screen and (max-width:450px) {
   .main-container {
+    .header{
+        .search-bar{
+          input{
+            width: 86vw;
+          }
+        }
+    }
     .container {
       .image-block {
         width: 90%;

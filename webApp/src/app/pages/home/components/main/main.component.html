@@ -2,7 +2,33 @@
 
   <app-loader *ngIf="isLoading"></app-loader>
 
-  <div class="header" [style.justify-content]="userType === UserType.Audience ? 'space-between' : 'center'"
+  <div class="header" [style.display]="isNavBarOpen ? 'none' : 'flex'">
+  <div class="search-bar">
+    <input class="input" type="text" [(ngModel)]="searchText" placeholder="Search...">
+    <div class="header-image">
+      <img src="../../../../../assets/images/search-icon.png">
+    </div>
+  </div>
+  <div class="filter-container">
+    <button *ngIf="userType === UserType.Audience" (click)="showMyInterests = !showMyInterests" class="interests-btn">
+      <span *ngIf="showMyInterests">My Interests</span>
+      <span *ngIf="!showMyInterests">All Events</span>
+    </button>
+    <div class="date-filter">
+      <div class="filter-button trigger" [owlDateTimeTrigger]="dt">
+        <i style="cursor: pointer;" class="fas fa-calendar-alt"></i>
+      </div>
+      <button class="clear-button" [class.disabled]="!CheckIfDateSelected()" (click)="ClearDateFilter()">Clear</button>
+    </div>
+    <div style="display: none;">
+      <input [(ngModel)]="selectedDateFilter" (ngModelChange)="OnDateTimeChange($event)"
+        class="input" [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+        [selectMode]="'range'">
+      <owl-date-time #dt></owl-date-time>
+    </div>
+  </div>
+</div>
+  <!-- <div class="header" [style.justify-content]="userType === UserType.Audience ? 'space-between' : 'center'"
     [style.display]="isNavBarOpen ? 'none' : 'flex'">
     <button *ngIf="userType === UserType.Audience" (click)="showMyInterests = !showMyInterests" class="interests-btn">
       <span *ngIf="showMyInterests">My Interests</span>
@@ -14,11 +40,24 @@
         <img src="../../../../../assets/images/search-icon.png">
       </div>
     </div>
-  </div>
+    <div class="date-filter">
+      <div class="filter-button trigger" [owlDateTimeTrigger]="dt">
+        <i style="cursor: pointer;" class="fas fa-calendar-alt"></i>
+      </div>
+      <button class="clear-button">Clear</button>
+    </div>
+    <div style="display: none;">
+      <input [(ngModel)]="selectedDateFilter" (ngModelChange)="OnDateTimeChange($event)"
+        class="input" [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+        [selectMode]="'range'">
+      <owl-date-time #dt></owl-date-time>
+    </div>
+  </div> -->
   <div class="container">
     <ng-container *ngFor="let item of events;let i=index">
-      <div class="image-block" [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
-        *ngIf="CheckIfSearchTextExists(item.eventName) && (!showMyInterests || CheckIfInterestMatches(item.interests))">
+      <div class="image-block"
+        [class.disabled]="(item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
+        *ngIf="CheckIfSearchTextExistsAndDateMatches(item) && (!showMyInterests || CheckIfInterestMatches(item.interests))">
         <div class="user-block">
           <div class="user-details">
             <!-- <img src="../../../../../assets/user.png"> -->
@@ -43,22 +82,27 @@
           </div>
         </div>
         <div class=footer>
-          <div class="footer-item ar-view" *ngIf="item.arModel && item.arModel.length"><span (click)="OpenLiveView(item.arModel)">View Live Model</span></div>
+          <div class="footer-item ar-view" *ngIf="item.arModel && item.arModel.length"><span
+              (click)="OpenLiveView(item.arModel)">View Live Model</span></div>
           <div class="footer-item desc">{{item.description}}</div>
           <div class="footer-item category">
-            <ng-container  *ngFor="let interest of item.interests">
-              <div class="chip"  [class.chip-red]="!CheckIfInterestMatches([interest]) && userType===UserType.Audience">
+            <ng-container *ngFor="let interest of item.interests">
+              <div class="chip" [class.chip-red]="!CheckIfInterestMatches([interest]) && userType===UserType.Audience">
                 <div class="chip-content">{{GetInterestName(interest)}}</div>
               </div>
             </ng-container>
           </div>
           <div class="footer-item time">{{GetMomentDate(item.startDateAndTime)}} -
             {{GetMomentDate(item.endDateAndTime)}}</div>
-          <div class="footer-item capacity"><span style="font-weight: bolder;">Capacity</span>- {{item.participantIds.length}}/{{item.capacity}}</div>
-          <div class="footer-item capacity"><span style="font-weight: bolder;">Ticket Price</span>- CA${{item.ticketPrice}}</div>
-          <div class="footer-item capacity" *ngIf="item.location?.address"><span style="font-weight: bolder;">Address</span>- {{item.location.address}}</div>
+          <div class="footer-item capacity"><span style="font-weight: bolder;">Capacity</span>-
+            {{item.participantIds.length}}/{{item.capacity}}</div>
+          <div class="footer-item capacity"><span style="font-weight: bolder;">Ticket Price</span>-
+            CA${{item.ticketPrice}}</div>
+          <div class="footer-item capacity" *ngIf="item.location?.address"><span
+              style="font-weight: bolder;">Address</span>- {{item.location.address}}</div>
           <div class="footer-item book-btn" *ngIf="userType === UserType.Audience">
-            <button [class.disabled]="!assetService.CheckForDateAllowed(item.startDateAndTime) || (item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
+            <button
+              [class.disabled]="!assetService.CheckForDateAllowed(item.startDateAndTime) || (item.capacity===item.participantIds.length || CheckIfAlreadyBooked(item)) && userType===UserType.Audience"
               (click)="OpenBookingEditor(item.id)">Book Now</button></div>
           <div class="footer-item book-btn" *ngIf="userType === UserType.Organizer">
             <button [class.disabled]="!assetService.CheckForDateAllowed(item.startDateAndTime)"
@@ -66,7 +110,7 @@
           <div class="footer-item more-btn" *ngIf="userType === UserType.Organizer">
             <button (click)="ShowBookings(item)">Show Bookings</button>
             <button [class.disabled]="!assetService.CheckForDateAllowed(item.startDateAndTime)"
-            (click)="CancelEvent(item,i)">Delete Event</button></div>
+              (click)="CancelEvent(item,i)">Delete Event</button></div>
         </div>
       </div>
     </ng-container>

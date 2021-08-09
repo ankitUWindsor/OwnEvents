@@ -38,6 +38,8 @@ export class MainComponent implements OnInit, OnDestroy {
   searchText = '';
   imageIndexes: Array<number> = [];
   CatcherObservable: Subscription;
+  selectedDateFilter: Array<Date> = [];
+  currentDate = new Date();
 
   constructor(
     private eventService: EventService,
@@ -127,8 +129,18 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
-  CheckIfSearchTextExists(name: string): boolean {
-    return name.toLowerCase().includes(this.searchText.trim().toLowerCase());
+  CheckIfSearchTextExistsAndDateMatches(event: Event): boolean {
+    const isDateFilterApplied = this.CheckIfDateSelected();
+    if (isDateFilterApplied) {
+      const eventStartDate = moment(new Date(event.startDateAndTime));
+      const startDate = moment(new Date(this.selectedDateFilter[0]));
+      const endDate = moment(new Date(this.selectedDateFilter[1]));
+      return ( eventStartDate.isSameOrBefore(endDate) &&
+        eventStartDate.isSameOrAfter(startDate))
+        && event.eventName.toLowerCase().includes(this.searchText.trim().toLowerCase());
+    } else {
+      return event.eventName.toLowerCase().includes(this.searchText.trim().toLowerCase());
+    }
   }
 
   CheckIfInterestMatches(interests: Array<InterestsCategory>): boolean {
@@ -191,12 +203,33 @@ export class MainComponent implements OnInit, OnDestroy {
     dialogInstance.componentInstance.event = item;
   }
 
-  OpenLiveView(name: string) {
+  OpenLiveView(name: string): void {
     const reference = this.matDialog.open(ArViewerComponent, {
       height: '100vh',
       width: '100vw'
     });
     reference.componentInstance.urlForSrc = environment.publicStorage + name;
+  }
+
+  OnDateTimeChange($event): void {
+  }
+
+  ClearDateFilter(): void {
+    this.selectedDateFilter = [];
+  }
+
+  CheckIfDateSelected(): boolean {
+    if (this.selectedDateFilter.length) {
+      let hasNull = false;
+      this.selectedDateFilter.forEach(element => {
+        if (element === null) {
+          hasNull = true;
+        }
+      });
+      return !hasNull;
+    } else {
+      return false;
+    }
   }
 
 }
