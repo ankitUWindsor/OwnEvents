@@ -1,6 +1,6 @@
 # OwnEvents
 
-# Table of Contents
+## Table of Contents
 
 1. [Description](#Description)
 2. [Getting Started](#Getting-Started)
@@ -15,6 +15,7 @@
 5. [Contact/Support](#contact)
 
 <a id="Description"></a>
+
 ## Description
 Own Events is an application for managing/scheduling activities wherein people can discover and take part in diverse form of activities (workshops, festivals, conferences, concerts, sports, games, conventions etc) conducted by different occasion planners. It can be helpful to collect information about the events around the country in no time, this application will be simple, and meaningful. This project was developed to meet the demands in modern times. Through this project an attempt was made to make everything work easy and quick.
 
@@ -26,6 +27,7 @@ Own Events is an application for managing/scheduling activities wherein people c
 Show all the technologies and packages used and how to run the whole project locally step by step.
 
 <a id="Technologies-and-Frameworks-Used"></a>
+
 ### Technologies and Frameworks Used
 * Angular Framework
 * NodeJS
@@ -36,12 +38,14 @@ Show all the technologies and packages used and how to run the whole project loc
 * XML (Extensible Markup Language) for layout designs
 
 <a id="Prerequisites"></a>
+
 ### Prerequisites
 **Node:** 14.17.0 or higher
 
 **Angular CLI:** 11.2 or higher
 
 <a id="Installation"></a>
+
 ### Installation
 1. Clone the repository to your local System using following command
 ```
@@ -56,6 +60,7 @@ Run the above command in both the folders of **WebApp** and **Api**
 
 
 <a id="How-to-Run"></a>
+
 ### How to Run
 
 1. To run the **Api app**, you need to setup a **.env** file in Api folder which should contain all the secrets/keys.
@@ -94,6 +99,7 @@ Now that all the Apps are running you can open the project on the above link.
 
 
 <a id="File-System-for-Angular-WebApp"></a>
+
 ### File System for Angular WebApp
 
 This is the file structure made for the the frontend App.
@@ -106,6 +112,7 @@ This home module contains all the components required for the application like a
 
 
 <a id="File-System-for-NodeJS-APIs"></a>
+
 ### File System for NodeJS APIs
 
 This is the file structure made for the the Backend app using nodeJS, ExpressJS and MongoDB.
@@ -119,6 +126,7 @@ In **Routes** folder, all the controllers are made such as `auth.js`, `bookingCo
 In case of **Model**, there are three schema's which are ``booking.js``, `event` and `user` for mongoDB.
 
 <a id="contact"></a>
+
 ### Contact/Support
 
 **Ankit:** Ankit@uwindsor.ca
