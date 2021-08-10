@@ -110,6 +110,22 @@ In the above app we have created an app with `app.module.js` which serves as the
 
 This home module contains all the components required for the application like ar-viewer, bookings, booking-editor, event-editor, confirmation-box, interests, main, map, profile etc out of which some of them are opened in using MatDialog.
 
+Other than this, there are multiple services i.e- `authentication.service.ts`,`booking.service.ts` and `event.service.ts` which interact with the API's from the server using `http.service.ts` which contains all the generic methods such as **POST**, **GET**, **PUT**, **DELETE**. 
+
+There is `global-emitter.service.ts` service for emitting eventTasks such as **EventCreated** and **BookingCreated**  
+```
+emitter: Subject<EmitterTask>;
+catcher: any;
+
+  constructor() {
+    this.emitter = new Subject();
+    this.catcher = this.emitter.asObservable();
+  }
+
+Emit(value: EmitterTask): void {
+    this.emitter.next(value);
+}
+```
 
 <a id="File-System-for-NodeJS-APIs"></a>
 
