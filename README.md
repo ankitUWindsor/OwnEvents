@@ -32,6 +32,7 @@ Show all the technologies and packages used and how to run the whole project loc
 * Angular Framework
 * NodeJS
 * ExpressJS
+* JAVA
 * MongoDB
 * Google APIs
 * Microsoft Azure App Services and Storage Account
