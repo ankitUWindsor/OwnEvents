@@ -45,6 +45,8 @@ Show all the technologies and packages used and how to run the whole project loc
 
 **Angular CLI:** 11.2 or higher
 
+**Android Studio** 4.2 or higher
+
 <a id="Installation"></a>
 
 ### Installation
@@ -58,6 +60,10 @@ git clone https://github.com/ankitUWindsor/OwnEvents.git
 npm install
 ```
 Run the above command in both the folders of **WebApp** and **Api**
+
+3. Android studio is needed for installing the **Android application**
+   
+From Android Studio, select Import Project, then select the root folder of the cloned repository. Click Make Project to build the app and download all the required dependencies. Click Run app to install the app on your device or emulator. To generate apk, go to build and click generate ``apk``.
 
 
 <a id="How-to-Run"></a>
