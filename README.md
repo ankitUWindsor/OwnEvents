@@ -126,6 +126,23 @@ Emit(value: EmitterTask): void {
     this.emitter.next(value);
 }
 ```
+Below is `home.component.ts` for organiser and audience where they will see the feature to book and create events. GetUser() function from where user will get from api.
+```
+selector: 'app-home',
+
+  constructor(
+    private matDialog: MatDialog,
+    private userService: UserService,
+    private router: Router,
+    private globalEmitterService: GlobalEmitterService,
+    private authenticationService: AuthenticationService) { }
+
+ngOnInit(): void {
+   this.userService.GetUser().then((response: User) => {
+   }
+}
+
+```
 
 <a id="File-System-for-NodeJS-APIs"></a>
 
@@ -140,6 +157,50 @@ In the above file system the main file that is to be run is `index.js` which con
 In **Routes** folder, all the controllers are made such as `auth.js`, `bookingController.js`, `imageController.js` etc which are called in index.js file to be runned. Other than that there are 2 **services** i.e- `mailerService.js` and `scheduleService.js` which contains the functions according to their names.
 
 In case of **Model**, there are three schema's which are ``booking.js``, `event` and `user` for mongoDB.
+Below is `index.js` where all the api routes are stored for application.  
+```
+app.use('/api/user', authRouter);
+
+app.use('/api/userInfo', userRouter);
+
+app.use('/api/event', eventRouter);
+
+app.use('/api/booking', bookingRouter);
+
+app.use('/api/images', imageRouter);
+
+app.listen(process.env.PORT, () => console.log('server up and running'));
+```
+Below is `auth.js` controller is used for authentication of application when user will sign in and register into the application.  
+```
+router.post('/register', async (req, res) => {
+ try {
+        const userAlreadyExists = await User.findOne({
+            email: req.body.email
+        });
+        if (userAlreadyExists) {
+            return res.status(400).send({
+                success: 0,
+                message: 'Email Already Exists.'
+            })
+        }
+    }
+        
+        router.post('/login', async (req, res) => {
+    try {
+        const userInfo = atob(req.header('user-token')).split(':@#');
+        const userType = req.body.userType
+        const user = await User.findOne({
+            email: userInfo[0],
+            userType
+        });
+        if (!user) return res.status(400).send({
+            success: 0,
+            message: 'Incorrect Username or Password'
+        });
+        }
+     }
+```
 
 <a id="contact"></a>
 
